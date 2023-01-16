@@ -1,0 +1,195 @@
+{
+  "project_info": {
+    "project_number": "152014926712",
+    "firebase_url": "https://freemorsel-2ea41-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "freemorsel-2ea41",
+    "storage_bucket": "freemorsel-2ea41.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152014926712:android:cabf77df5f72f58ed28e8d",
+        "android_client_info": {
+          "package_name": "com.example.freemorsel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152014926712-516r06ttdl6sr285ok0hot66v9814hav.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.freemorsel",
+            "certificate_hash": "c2cc7ed6edfed1911aee7852d1d902308fe34698"
+          }
+        },
+        {
+          "client_id": "152014926712-g1hful75hq0f3f5uc7vd36817jq5kc1v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.freemorsel",
+            "certificate_hash": "8cf7d14b463f3fb37c4ba6c908f65c3ed8d422d6"
+          }
+        },
+        {
+          "client_id": "152014926712-lpdti4vrm9kjrrr49q2re26jhahd75kn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.freemorsel",
+            "certificate_hash": "bb2ab7bab66a19d3b4839e5feb8d633fd307cf10"
+          }
+        },
+        {
+          "client_id": "152014926712-u3td89h12ivcd1epcf0i5rdk217dsi6o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.freemorsel",
+            "certificate_hash": "d5c08b43d63f031559b9be0726349d21c0faddc0"
+          }
+        },
+        {
+          "client_id": "152014926712-nqcgi3m9epuooedq07e3tnjinm7620i2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMbd330IzDI03cuY6JddtsthH_lCuEXlk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152014926712-nqcgi3m9epuooedq07e3tnjinm7620i2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "152014926712-8l07c915uk019e2gfra8vs9i72r620qp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.freemorsel"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152014926712:android:dfe3d597e7b8281cd28e8d",
+        "android_client_info": {
+          "package_name": "com.example.riderapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152014926712-nqcgi3m9epuooedq07e3tnjinm7620i2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMbd330IzDI03cuY6JddtsthH_lCuEXlk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152014926712-nqcgi3m9epuooedq07e3tnjinm7620i2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "152014926712-8l07c915uk019e2gfra8vs9i72r620qp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.freemorsel"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152014926712:android:d8926e811c10786fd28e8d",
+        "android_client_info": {
+          "package_name": "com.freemorsel.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152014926712-kjmbor4q1jceo0ud12sik3e0ijdgdvp3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.freemorsel.app",
+            "certificate_hash": "527a6281a397c126ae3a077eb316501763c44d49"
+          }
+        },
+        {
+          "client_id": "152014926712-nqcgi3m9epuooedq07e3tnjinm7620i2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMbd330IzDI03cuY6JddtsthH_lCuEXlk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152014926712-nqcgi3m9epuooedq07e3tnjinm7620i2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "152014926712-8l07c915uk019e2gfra8vs9i72r620qp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.freemorsel"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152014926712:android:4badfe01cad7c68fd28e8d",
+        "android_client_info": {
+          "package_name": "com.freemorsel.app.freemorsel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152014926712-nqcgi3m9epuooedq07e3tnjinm7620i2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMbd330IzDI03cuY6JddtsthH_lCuEXlk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152014926712-nqcgi3m9epuooedq07e3tnjinm7620i2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "152014926712-8l07c915uk019e2gfra8vs9i72r620qp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.freemorsel"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

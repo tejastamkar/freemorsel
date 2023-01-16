@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>152014926712-maqk54u01c6h592v44h1bl2ts9843abg.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.152014926712-maqk54u01c6h592v44h1bl2ts9843abg</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>152014926712-516r06ttdl6sr285ok0hot66v9814hav.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC4d3nu_PwDmNnpv_mlNtVrpDr59BJHWso</string>
+	<key>GCM_SENDER_ID</key>
+	<string>152014926712</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.freemorsel.app.freemorsel</string>
+	<key>PROJECT_ID</key>
+	<string>freemorsel-2ea41</string>
+	<key>STORAGE_BUCKET</key>
+	<string>freemorsel-2ea41.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:152014926712:ios:adf3d5734195051dd28e8d</string>
+	<key>DATABASE_URL</key>
+	<string>https://freemorsel-2ea41-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+</dict>
+</plist>
