@@ -6,6 +6,7 @@ import 'package:freemorsel/api/getdonation.dart';
 import 'package:freemorsel/data/userdata.dart';
 import 'package:freemorsel/theme/deftheme.dart';
 import 'package:freemorsel/widgets/cards/cardgrid.dart';
+import 'package:freemorsel/widgets/cards/donationgridview.dart';
 
 class DonationScreen extends StatefulWidget {
   final String foodname, username, id;
@@ -195,10 +196,8 @@ class _DonationScreenState extends State<DonationScreen> {
                     ),
                   ),
                   loader
-                      ? SkeletonCardGridView(
-                          width: width,
-                          itemCount: width < 441 ? 6 : 4,
-                        )
+                      ? donationcardskelton(
+                          width: width, length: width < 441 ? 6 : 4)
                       : CardGridView(
                           width: width,
                           itemCount: width < 441 ? 6 : 4,

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:freemorsel/screens/navbarscreens/donation.dart';
+import 'package:freemorsel/skeleton/skeleton_container.dart';
 import 'package:freemorsel/widgets/cards/cardgrid.dart';
-import 'package:freemorsel/widgets/skeleton.dart';
 
 class FoodDonationCardGrid extends StatefulWidget {
   const FoodDonationCardGrid({Key? key}) : super(key: key);
@@ -47,13 +47,11 @@ class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
     double width = MediaQuery.of(context).size.width;
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: loader
-              ? Skeleton(
-                  width: width - 40,
-                )
-              : Row(
+        loader
+            ? headingskeleton()
+            : Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
@@ -87,12 +85,9 @@ class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
                     ),
                   ],
                 ),
-        ),
+              ),
         loader
-            ? SkeletonCardGridView(
-                width: width,
-                itemCount: width < 441 ? 6 : 4,
-              )
+            ? donationcardskelton(width: width, length: width < 441 ? 6 : 4)
             : CardGridView(
                 width: width,
                 itemCount: width < 441 ? 6 : 4,
@@ -103,6 +98,60 @@ class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
     );
   }
 }
+
+Widget headingskeleton() => Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: const [
+              SkeletonContainer(radius: 0, width: 98, height: 18),
+              Spacer(),
+              SkeletonContainer(radius: 0, width: 54, height: 19)
+            ],
+          )
+        ],
+      ),
+    );
+
+Widget donationcardskelton({required double width, required int length}) =>
+    GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+          crossAxisCount: width < 441 ? 3 : 2,
+        ),
+        itemBuilder: ((context, index) => Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.white),
+                height: 170,
+                width: 160,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.all(5.0),
+                          child: SkeletonContainer(
+                              radius: 7, width: 150, height: 100),
+                        ),
+                        SkeletonContainer(radius: 0, width: 80, height: 20),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        SkeletonContainer(radius: 0, width: 70, height: 12)
+                      ]),
+                ),
+              ),
+            )));
 
 class GoodsDonationCardGrid extends StatefulWidget {
   const GoodsDonationCardGrid({Key? key}) : super(key: key);
@@ -144,13 +193,11 @@ class _GoodsDonationCardGridState extends State<GoodsDonationCardGrid> {
     double width = MediaQuery.of(context).size.width;
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: loader
-              ? Skeleton(
-                  width: width - 40,
-                )
-              : Row(
+        loader
+            ? headingskeleton()
+            : Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
@@ -184,12 +231,9 @@ class _GoodsDonationCardGridState extends State<GoodsDonationCardGrid> {
                     ),
                   ],
                 ),
-        ),
+              ),
         loader
-            ? SkeletonCardGridView(
-                width: width,
-                itemCount: width < 441 ? 6 : 4,
-              )
+            ? donationcardskelton(width: width, length: width < 441 ? 6 : 4)
             : CardGridView(
                 width: width,
                 itemCount: width < 441 ? 6 : 4,

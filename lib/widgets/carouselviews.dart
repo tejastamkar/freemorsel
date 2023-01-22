@@ -2,8 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:freemorsel/Data/carddata.dart';
+import 'package:freemorsel/skeleton/skeleton_container.dart';
 import 'package:freemorsel/widgets/carouselcards.dart';
-import 'package:freemorsel/widgets/skeleton.dart';
 
 class TrendingCampaigns extends StatefulWidget {
   const TrendingCampaigns({Key? key}) : super(key: key);
@@ -36,9 +36,7 @@ class _TrendingCampaignsState extends State<TrendingCampaigns> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return loader
-        ? CarouselSkeletonView(
-            width: width,
-          )
+        ? trandingskeleton()
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -106,9 +104,7 @@ class _UpComingEventsState extends State<UpComingEvents> {
     if (loader == true) getData();
     double width = MediaQuery.of(context).size.width;
     return loader
-        ? CarouselSkeletonView(
-            width: width,
-          )
+        ? trandingskeleton()
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -142,45 +138,59 @@ class _UpComingEventsState extends State<UpComingEvents> {
   }
 }
 
-class CarouselSkeletonView extends StatelessWidget {
-  const CarouselSkeletonView({Key? key, required this.width}) : super(key: key);
-  final double width;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 20),
-          child: Skeleton(
-            width: 180,
+Widget trandingskeleton() => Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: const [
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 25),
+          child: SkeletonContainer(
+            width: 150,
             height: 20,
+            radius: 0,
           ),
         ),
-        Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Skeleton(
-                      height: 160,
-                      width: width - 60,
-                    )),
-                Container(
-                    padding: const EdgeInsets.only(top: 5),
-                    width: width - 60,
-                    height: 20,
-                    child: const Skeleton()),
-              ],
-            ),
-          ),
-        ),
+        SkeletonContainer(radius: 15, width: 400, height: 200)
       ],
     );
-  }
-}
+// class CarouselSkeletonView extends StatelessWidget {
+//   const CarouselSkeletonView({Key? key, required this.width}) : super(key: key);
+//   final double width;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         const Padding(
+//           padding: EdgeInsets.symmetric(vertical: 20),
+//           child: Skeleton(
+//             width: 180,
+//             height: 20,
+//           ),
+//         ),
+//         Card(
+//           shape:
+//               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+//           child: Padding(
+//             padding: const EdgeInsets.all(10.0),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 ClipRRect(
+//                     borderRadius: BorderRadius.circular(15),
+//                     child: Skeleton(
+//                       height: 160,
+//                       width: width - 60,
+//                     )),
+//                 Container(
+//                     padding: const EdgeInsets.only(top: 5),
+//                     width: width - 60,
+//                     height: 20,
+//                     child: const Skeleton()),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }

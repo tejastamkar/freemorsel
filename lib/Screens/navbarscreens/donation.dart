@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:freemorsel/widgets/cards/cardgrid.dart';
+import 'package:freemorsel/widgets/cards/donationgridview.dart';
 
 class Donation extends StatefulWidget {
   const Donation({Key? key}) : super(key: key);
@@ -66,10 +67,7 @@ class _DonationState extends State<Donation> {
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(10),
           child: loader
-              ? SkeletonCardGridView(
-                  width: width,
-                  itemCount: 10,
-                )
+              ? donationcardskelton(width: width, length: 6)
               : CardGridView(
                   width: width,
                   itemCount: foodDonationList.length,
