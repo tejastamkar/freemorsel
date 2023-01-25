@@ -35,40 +35,45 @@ class _TrendingCampaignsState extends State<TrendingCampaigns> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return loader
-        ? trandingskeleton()
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 20),
-                child: Text(
-                  "Trending Campaigns",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-                ),
-              ),
-              CarouselSlider(
-                options: CarouselOptions(
-                  // height: width/1.85,
-                  // aspectRatio: 16 / 9,
-                  viewportFraction: 1,
-                  initialPage: 0,
-                  autoPlay: false,
-                  autoPlayInterval: const Duration(seconds: 8),
-                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enlargeCenterPage: true,
-                  scrollDirection: Axis.horizontal,
-                ),
-                items: trendingData
-                    .map((data) => CarouselCards(
-                        width: width,
-                        image: data["image"],
-                        title: data["title"]))
-                    .toList(),
-              ),
-            ],
-          );
+    if (loader) {
+      return trandingskeleton(width: width);
+    } else {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 20),
+            child: Text(
+              "Trending Campaigns",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+            ),
+          ),
+          CarouselSlider(
+            options: CarouselOptions(
+              height: 278,
+              // height: width / 1.85,
+              // aspectRatio: 16 / 9,
+              viewportFraction: 1,
+              initialPage: 0,
+              autoPlay: false,
+              autoPlayInterval: const Duration(seconds: 8),
+              autoPlayAnimationDuration: const Duration(milliseconds: 800),
+              autoPlayCurve: Curves.fastOutSlowIn,
+              enlargeCenterPage: true,
+              scrollDirection: Axis.horizontal,
+            ),
+            items: trendingData
+                .map((data) => CarouselCards(
+                      width: width,
+                      image: data["image"],
+                      title: data["title"],
+                      id: data["id"],
+                    ))
+                .toList(),
+          ),
+        ],
+      );
+    }
   }
 }
 
@@ -104,7 +109,7 @@ class _UpComingEventsState extends State<UpComingEvents> {
     if (loader == true) getData();
     double width = MediaQuery.of(context).size.width;
     return loader
-        ? trandingskeleton()
+        ? trandingskeleton(width: width)
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -117,6 +122,7 @@ class _UpComingEventsState extends State<UpComingEvents> {
               ),
               CarouselSlider(
                 options: CarouselOptions(
+                  height: 278,
                   viewportFraction: 1,
                   initialPage: 0,
                   autoPlay: false,
@@ -128,9 +134,11 @@ class _UpComingEventsState extends State<UpComingEvents> {
                 ),
                 items: carouselCardUpcomingEventsData
                     .map((data) => CarouselCards(
-                        width: width,
-                        image: data["image"],
-                        title: data["title"]))
+                          width: width,
+                          image: data["image"],
+                          title: data["title"],
+                          id: data["id"].toString(),
+                        ))
                     .toList(),
               ),
             ],
@@ -138,18 +146,38 @@ class _UpComingEventsState extends State<UpComingEvents> {
   }
 }
 
-Widget trandingskeleton() => Column(
+Widget trandingskeleton({required double width}) => Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: const [
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 25),
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 20),
           child: SkeletonContainer(
             width: 150,
             height: 20,
             radius: 0,
           ),
         ),
-        SkeletonContainer(radius: 15, width: 400, height: 200)
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12), color: Colors.white),
+          height: 275,
+          width: 350,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SkeletonContainer(radius: 15, width: width - 60, height: 185),
+                const SizedBox(
+                  height: 10,
+                ),
+                const SkeletonContainer(radius: 0, width: 328, height: 30)
+              ],
+            ),
+          ),
+        ),
+
+        // SkeletonContainer(radius: 15, width: 400, height: 278)
       ],
     );
 // class CarouselSkeletonView extends StatelessWidget {
