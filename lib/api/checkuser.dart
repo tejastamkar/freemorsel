@@ -33,5 +33,8 @@ newUserLogin() async {
     "Points": 0,
     "level": 0,
     "token": fcmToken,
+    "notifiacation": false,
+    "offernotification": false,
+    "drivecampnotification": false
   });
 }
