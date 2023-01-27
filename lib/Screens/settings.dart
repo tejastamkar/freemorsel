@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:freemorsel/theme/deftheme.dart';
+import 'package:freemorsel/widgets/deletepage.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -42,6 +43,69 @@ class _SettingsState extends State<SettingsScreen> {
   bool drivecamp = true;
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    Future bottomSheet() {
+      return showModalBottomSheet(
+        backgroundColor: primary3Color,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(24), topRight: Radius.circular(24))),
+        builder: (BuildContext context) => Container(
+          height: height / 3.5,
+          width: MediaQuery.of(context).size.width,
+          margin: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 20,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20),
+                  child: Text('Deleting Your Account',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      )),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 5, right: 5, bottom: 30),
+                  child: Text(
+                      'Your account will be deleted forever all the  data , bills , records will be deleted.',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                      )),
+                ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: primary2Color,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 10)),
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DeleteUserScreen())),
+                    child: const Center(
+                        child: Text(
+                      "Delete",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ))),
+              ],
+            ),
+          ),
+        ),
+        context: context,
+      );
+    }
+
     checkfun();
     return Scaffold(
       appBar: AppBar(
@@ -166,21 +230,26 @@ class _SettingsState extends State<SettingsScreen> {
               ],
             ),
           ),
-          Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            elevation: 5,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    "Delete my account",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                  ),
-                  Icon(Icons.arrow_forward_ios_rounded)
-                ],
+          InkWell(
+            onTap: () => bottomSheet(),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              elevation: 5,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 22, horizontal: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text(
+                      "Delete my account",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                    Icon(Icons.arrow_forward_ios_rounded)
+                  ],
+                ),
               ),
             ),
           ),
