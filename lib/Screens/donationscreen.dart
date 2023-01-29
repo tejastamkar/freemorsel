@@ -98,7 +98,7 @@ class _DonationScreenState extends State<DonationScreen> {
                         CarouselSlider(
                           options: CarouselOptions(
                               // height: height * 0.40,
-                              aspectRatio: 16 / 9,
+                              aspectRatio: 1 / 1,
                               viewportFraction: 1,
                               initialPage: 0,
                               autoPlay: true,
@@ -122,7 +122,7 @@ class _DonationScreenState extends State<DonationScreen> {
                                   i["Image"],
                                   // height: 160,
                                   width: width,
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.fitWidth,
                                 ),
                               ),
                             );

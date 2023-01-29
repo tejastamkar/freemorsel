@@ -28,10 +28,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         phoneNum = _phoneNo.text;
         email = _email.text;
       });
-      await newUserLogin();
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const Navbar()),
-          (route) => false);
+      await newUserLogin().then((value) => Navigator.of(context)
+          .pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => const Navbar()),
+              (route) => false));
     } else {
       Fluttertoast.showToast(
           msg: "Please Provide Proper Info",

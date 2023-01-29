@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:freemorsel/api/userdetails.dart';
+import 'package:freemorsel/models/trendingcamps_models.dart';
 
 class FirebaseHelper {
   static Future<TrendingCampaning?> getCampDetailModel(

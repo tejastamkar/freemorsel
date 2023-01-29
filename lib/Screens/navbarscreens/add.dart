@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freemorsel/api/adddonation.dart';
+import 'package:freemorsel/provider/imagecopper.dart';
 import 'package:freemorsel/screens/splashscreens/donatesplash.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -26,11 +27,12 @@ class _AddPageState extends State<AddPage> {
   final TextEditingController _name = TextEditingController(),
       _donationaddress = TextEditingController();
   Future<dynamic> takeImages() async {
-    final XFile? image =
-        await ImagePicker().pickImage(source: ImageSource.camera);
+    final XFile? image = await ImagePicker()
+        .pickImage(source: ImageSource.camera, imageQuality: 40);
     final File file = File(image!.path);
+    String cropFile = await cropImage(pickedFile: XFile(file.path));
     setState(() {
-      imageList.add(file.path);
+      imageList.add(cropFile);
     });
   }
 

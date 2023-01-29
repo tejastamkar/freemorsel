@@ -59,7 +59,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBMbd330IzDI03cuY6JddtsthH_lCuEXlk',
-    appId: '1:152014926712:android:4badfe01cad7c68fd28e8d',
+    appId: '1:152014926712:android:d8926e811c10786fd28e8d',
     messagingSenderId: '152014926712',
     projectId: 'freemorsel-2ea41',
     databaseURL: 'https://freemorsel-2ea41-default-rtdb.asia-southeast1.firebasedatabase.app',
@@ -68,13 +68,13 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyC4d3nu_PwDmNnpv_mlNtVrpDr59BJHWso',
-    appId: '1:152014926712:ios:adf3d5734195051dd28e8d',
+    appId: '1:152014926712:ios:022c07d6af2f3f27d28e8d',
     messagingSenderId: '152014926712',
     projectId: 'freemorsel-2ea41',
     databaseURL: 'https://freemorsel-2ea41-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'freemorsel-2ea41.appspot.com',
-    androidClientId: '152014926712-516r06ttdl6sr285ok0hot66v9814hav.apps.googleusercontent.com',
-    iosClientId: '152014926712-maqk54u01c6h592v44h1bl2ts9843abg.apps.googleusercontent.com',
-    iosBundleId: 'com.freemorsel.app.freemorsel',
+    androidClientId: '152014926712-3dfun6k7gtd5dj22g6sskt8nb5qn56dk.apps.googleusercontent.com',
+    iosClientId: '152014926712-nejhpg0gsjjcjp7v21e6hnor0ro0lifj.apps.googleusercontent.com',
+    iosBundleId: 'com.freemorsel.app',
   );
 }
