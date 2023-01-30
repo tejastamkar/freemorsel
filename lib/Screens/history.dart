@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:freemorsel/widgets/cards/foodcard.dart';
 
 class History extends StatefulWidget {
   const History({Key? key}) : super(key: key);
@@ -38,19 +39,16 @@ class _HistoryState extends State<History> {
             )),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            // GridView.builder(
-            //     shrinkWrap: true,
-            //     physics: NeverScrollableScrollPhysics(),
-            //     itemCount: 4,
-            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //       crossAxisCount: 2,
-            //     ),
-            //     itemBuilder: (context, index) => FoodCards(
-            //         title: foodDataList[index]['title'],
-            //         subtitle: foodDataList[index]['subtitle'],
-            //         image: foodDataList[index]['image'],
-            //         distance: foodDataList[index]['distance'])),
+          children: [
+            ListView.builder(
+                shrinkWrap: true,
+                physics: const ScrollPhysics(),
+                itemCount: 2,
+                itemBuilder: (context, index) => FoodCard(
+                    title: "Tiffin For 2",
+                    status: "Active",
+                    image: "",
+                    date: '20-01-2023')),
           ],
         ));
   }
