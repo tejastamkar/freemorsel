@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:freemorsel/provider/phoneauth.dart';
 import 'package:freemorsel/theme/deftheme.dart';
 import 'package:pinput/pinput.dart';
 
@@ -12,6 +13,8 @@ class DeleteUserScreen extends StatefulWidget {
 
 class _DeleteUserScreenState extends State<DeleteUserScreen> {
   final TextEditingController _phoneNo = TextEditingController();
+  bool loader = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,24 +82,39 @@ class _DeleteUserScreenState extends State<DeleteUserScreen> {
               const SizedBox(
                 height: 80,
               ),
-              ElevatedButton(
-                  onPressed: () => showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (BuildContext context) => const ReAuthPopup(),
-                      ),
-                  style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      backgroundColor: primary2Color,
-                      minimumSize: const Size(320, 50)),
-                  child: const Text(
-                    "Get Otp",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16),
-                  ))
+              loader
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : ElevatedButton(
+                      onPressed: () async {
+                        if (_phoneNo.text.length == 10) {
+                          setState(() {
+                            loader = true;
+                          });
+                          Future.delayed(const Duration(seconds: 30), () {
+                            if (mounted) {
+                              setState(() {
+                                loader = false;
+                              });
+                            }
+                          });
+                          loader = await PhoneAuth()
+                              .reAuth(phoneNo: _phoneNo.text, context: context);
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          backgroundColor: primary2Color,
+                          minimumSize: const Size(320, 50)),
+                      child: const Text(
+                        "Get Otp",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16),
+                      ))
             ],
           )),
     );
@@ -104,7 +122,8 @@ class _DeleteUserScreenState extends State<DeleteUserScreen> {
 }
 
 class ReAuthPopup extends StatefulWidget {
-  const ReAuthPopup({super.key});
+  final String verificationId;
+  const ReAuthPopup({super.key, required this.verificationId});
 
   @override
   State<ReAuthPopup> createState() => _ReAuthPopupState();
@@ -146,7 +165,10 @@ class _ReAuthPopupState extends State<ReAuthPopup> {
                 height: 40,
               ),
               ElevatedButton(
-                  onPressed: () async {},
+                  onPressed: () => PhoneAuth().reAuthSubmitOtp(
+                      verificationId: widget.verificationId,
+                      smsCode: _smscode.text,
+                      context: context),
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),

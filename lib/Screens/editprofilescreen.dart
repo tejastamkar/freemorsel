@@ -217,12 +217,15 @@ class _EditProfileState extends State<EditProfile> {
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
           ),
           onPressed: () async {
-            await UserDetails().updateUerDetails(
-                context: context,
-                profileSelector: profilePicSelector,
-                userName: _userName.text,
-                email: _email.text);
-            await UserDetails().getUserDetails(context: context);
+            await UserDetails()
+                .updateUerDetails(
+                    context: context,
+                    profileSelector: profilePicSelector,
+                    userName: _userName.text,
+                    email: _email.text)
+                .then((value) async {
+              await UserDetails().getUserDetails(context: context);
+            });
             widget.refresh();
           },
         ),

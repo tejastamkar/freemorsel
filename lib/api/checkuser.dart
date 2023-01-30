@@ -4,23 +4,29 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:freemorsel/data/userdata.dart';
 import 'package:freemorsel/provider/notifcationprovider.dart';
 
-checkLogin() async {
-  bool newUser = true;
-  String uid = FirebaseAuth.instance.currentUser!.uid;
-  await FirebaseFirestore.instance
-      .collection("Users")
-      .doc(uid)
-      .get()
-      .then((docSnapshot) async => {
-            if (docSnapshot.exists)
-              {getFCM(uid: uid), newUser = true}
-            else
-              {newUser = false}
-          });
-  return newUser;
+Future<bool> checkLogin() async {
+  try {
+    bool newUser = true;
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(uid)
+        .get()
+        .then((docSnapshot) async {
+      if (docSnapshot.exists) {
+        getFCM(uid: uid);
+        newUser = true;
+      } else {
+        newUser = false;
+      }
+    });
+    return newUser;
+  } catch (e) {
+    return false;
+  }
 }
 
-newUserLogin() async {
+Future newUserLogin() async {
   String uid = FirebaseAuth.instance.currentUser!.uid;
   fcmToken = (await FirebaseMessaging.instance.getToken())!;
   FirebaseFirestore.instance.collection("Users").doc(uid).set({

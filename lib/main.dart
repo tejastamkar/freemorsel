@@ -43,10 +43,10 @@ Future<void> main() async {
           ),
       theme: ThemeData(
           fontFamily: "Overpass",
-          primarySwatch: Colors.indigo,
-          backgroundColor: backgroundColors,
           primaryColor: primary3Color,
-          secondaryHeaderColor: primary2Color),
+          secondaryHeaderColor: primary2Color,
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo)
+              .copyWith(background: backgroundColors)),
       title: 'FreeMorsel',
       home: const Main()));
 }

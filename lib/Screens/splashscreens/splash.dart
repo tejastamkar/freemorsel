@@ -15,6 +15,7 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
