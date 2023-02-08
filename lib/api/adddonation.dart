@@ -32,9 +32,11 @@ Future createDonation(
     "name": username,
     "address": address,
     "Serves": serves,
+    "Status": "pending",
     "TypeOfDonation": type,
     "SizeOfGood": sizeOfGood,
-    "userid": FirebaseAuth.instance.currentUser!.uid
+    "Time": DateTime.now(),
+    "userId": FirebaseAuth.instance.currentUser!.uid
   });
   await FirebaseFirestore.instance
       .collection("PendingDonation")
@@ -47,7 +49,7 @@ Future createDonation(
       userId: FirebaseAuth.instance.currentUser!.uid) as List;
 
   await FirebaseFirestore.instance
-      .collection("PendingDonation/${donationId.id}")
+      .collection("PendingDonation")
       .doc(donationId.id)
       .update({
     "images": imageUrl,
@@ -68,40 +70,4 @@ Future uploadImages(
         "$userId/$donationId/image-$i.jpg", imageList[i]));
   }
   return imageUrl;
-}
-
-Future addtoDonation(
-    {required String foodName,
-    required int serves,
-    required String address}) async {
-  List imageUrl = [];
-
-  DocumentReference donationId =
-      await FirebaseFirestore.instance.collection("Donations").add({
-    "foodName": foodName,
-    "Level": level,
-    "name": username,
-    "address": address,
-    "Serves": 0,
-    "userid": FirebaseAuth.instance.currentUser!.uid
-  });
-  await FirebaseFirestore.instance
-      .collection("Donations")
-      .doc(donationId.id)
-      .update({
-    "donationId": donationId.id,
-  });
-  imageUrl = await uploadImages(
-      donationId: donationId.id,
-      userId: FirebaseAuth.instance.currentUser!.uid) as List;
-
-  for (int i = 0; i < imageUrl.length; i++) {
-    await FirebaseFirestore.instance
-        .collection("Donations/${donationId.id}/Images")
-        .add({
-      "Image": imageUrl[i],
-    });
-  }
-  // imageList.clear();
-  // imageUrl.clear();
 }

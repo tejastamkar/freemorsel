@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:freemorsel/theme/deftheme.dart';
+import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 
 class Volunteer extends StatefulWidget {
   const Volunteer({super.key});

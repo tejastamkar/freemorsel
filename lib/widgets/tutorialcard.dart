@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freemorsel/screens/tutorial.dart';
-import 'package:freemorsel/theme/deftheme.dart';
+import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 
 class TutorialCard extends StatelessWidget {
   const TutorialCard({

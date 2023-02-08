@@ -14,30 +14,37 @@ class PhoneAuth {
   Future sendOtp(
       {required String phoneNo,
       required BuildContext context,
-      bool resendOtp = false}) async {
+      resendToken}) async {
     try {
       await auth.verifyPhoneNumber(
         phoneNumber: "+91$phoneNo",
-        timeout: const Duration(seconds: 30),
-        verificationCompleted: (PhoneAuthCredential credential) {},
-        verificationFailed: (FirebaseAuthException e) {},
-        codeSent: (String verificationId, int? resendToken) {
-          if (resendOtp) {
-          } else {
-            showDialog(
-                context: context,
-                builder: (context) => OtpPopup(
-                      phoneNumber: phoneNo,
-                      verificationId: verificationId,
-                    ));
-          }
+        timeout: const Duration(seconds: 40),
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          // await auth
+          //     .signInWithCredential(credential)
+          //     .then((value) => userCredentialAuth(context: context));
         },
+        verificationFailed: (FirebaseAuthException e) {
+          if (kDebugMode) {
+            print(e.toString());
+          }
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("SomeThing Went Wrong")));
+        },
+        codeSent: (String verificationId, int? resendToken) {
+          showDialog(
+              context: context,
+              builder: (context) => OtpPopup(
+                    phoneNumber: phoneNo,
+                    verificationId: verificationId,
+                  ));
+        },
+        forceResendingToken: resendToken,
         codeAutoRetrievalTimeout: (String verificationId) {},
       );
+      return true;
     } catch (e) {
-      if (kDebugMode) {
-        print(e.toString());
-      }
+      return false;
     }
   }
 
@@ -94,19 +101,19 @@ class PhoneAuth {
     await auth.signInWithCredential(credential).whenComplete(() async {
       if (FirebaseAuth.instance.currentUser == null) {
         logOut(context: context);
-        return;
+      } else {
+        await checkLogin().then((newUser) {
+          if (newUser) {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const Navbar()),
+                (route) => false);
+          } else {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const RegisterScreen()),
+                (route) => false);
+          }
+        });
       }
-      await checkLogin().then((newUser) {
-        if (newUser) {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const Navbar()),
-              (route) => false);
-        } else {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const RegisterScreen()),
-              (route) => false);
-        }
-      });
     });
   }
 

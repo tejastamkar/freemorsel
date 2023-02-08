@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freemorsel/screens/navbarscreens/narbar.dart';
-import 'package:freemorsel/theme/deftheme.dart';
+import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 
 class TutorialPage extends StatefulWidget {
   const TutorialPage({Key? key}) : super(key: key);

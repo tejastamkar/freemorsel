@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freemorsel/data/userdata.dart';
-import 'package:freemorsel/theme/deftheme.dart';
+import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 
 class FriendsRank extends StatelessWidget {
   const FriendsRank({Key? key}) : super(key: key);

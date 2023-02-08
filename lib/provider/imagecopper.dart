@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:freemorsel/theme/deftheme.dart';
+import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 

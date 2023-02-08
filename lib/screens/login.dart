@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freemorsel/provider/phoneauth.dart';
 // import 'package:freemorsel/Screens/registration.dart';
@@ -15,10 +15,11 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   // String phoneNo = "";
   final TextEditingController _phoneNo = TextEditingController();
-
+  bool loader = false;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+
     // double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -50,11 +51,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(0, 30, 20, 40),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 30, 20, 40),
                         child: SizedBox(
-                          width: 200,
-                          child: Text(
+                          width: width,
+                          child: const Text(
                             'Please Enter 10 digit mobile number',
                             style: TextStyle(
                                 color: Colors.white,
@@ -63,33 +64,31 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        padding: const EdgeInsets.all(10),
-                        margin: const EdgeInsets.fromLTRB(10, 40, 10, 40),
-                        child: TextField(
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(10)
-                          ],
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: IntlPhoneField(
+                          dropdownTextStyle: const TextStyle(fontSize: 14),
+                          style: const TextStyle(fontSize: 14),
+                          initialCountryCode: "IN",
+                          showDropdownIcon: false,
+                          showCountryFlag: false,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(10)),
+                          ),
                           controller: _phoneNo,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Enter you phone no."),
+                          onCountryChanged: (country) {},
                         ),
                       ),
                       Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(20, 40, 20, 20),
-                              child: SizedBox(
-                                child: ElevatedButton(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
+                          child: loader
+                              ? const CircularProgressIndicator()
+                              : ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 100, vertical: 25),
@@ -102,19 +101,34 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: const Text(
                                     'Get OTP',
                                   ),
-                                  onPressed: () {
-                                    setState(() {
-                                      phoneNum = _phoneNo.text;
-                                    });
-                                    PhoneAuth().sendOtp(
+                                  onPressed: () async {
+                                    if (_phoneNo.text.length == 10) {
+                                      setState(() {
+                                        loader = true;
+                                        phoneNum = _phoneNo.text.toString();
+                                      });
+                                      Future.delayed(
+                                          const Duration(seconds: 30), () {
+                                        if (mounted) {
+                                          setState(() {
+                                            loader = false;
+                                          });
+                                        }
+                                      });
+                                      loader = await PhoneAuth().sendOtp(
                                         phoneNo: _phoneNo.text,
-                                        context: context);
+                                        context: context,
+                                      );
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  'Enter your number Properly')));
+                                    }
+
                                     // print(phoneNo.text);
                                   },
                                 ),
-                              ),
-                            ),
-                          ],
                         ),
                       ),
                     ],

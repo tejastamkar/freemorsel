@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freemorsel/models/trendingcamps_models.dart';
-import 'package:freemorsel/theme/deftheme.dart';
+import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 import 'package:freemorsel/widgets/volunteerpopup.dart';
 
 class NgoInfo extends StatefulWidget {

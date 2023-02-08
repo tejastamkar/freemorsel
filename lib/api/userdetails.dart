@@ -6,7 +6,7 @@ import 'package:freemorsel/api/checkuser.dart';
 import 'package:freemorsel/data/userdata.dart';
 import 'package:freemorsel/provider/notifcationprovider.dart';
 import 'package:freemorsel/provider/phoneauth.dart';
-import 'package:freemorsel/theme/deftheme.dart';
+import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 
 class UserDetails {
   String uid = FirebaseAuth.instance.currentUser!.uid;

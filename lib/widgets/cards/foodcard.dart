@@ -26,8 +26,8 @@ class FoodCard extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: image != ""
-                    ? Image.asset(
-                        "assets/images/defaultProfilePic.png",
+                    ? Image.network(
+                        image,
                         width: 90,
                         height: 90,
                         fit: BoxFit.fill,
@@ -47,12 +47,12 @@ class FoodCard extends StatelessWidget {
                       fontSize: 18, fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  "Status:$status",
+                  "Status: $status",
                   style: const TextStyle(
                       fontSize: 14, fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  "Date:$date",
+                  "Date: $date",
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w600),
                 )

@@ -44,6 +44,32 @@ class _AddPageState extends State<AddPage> {
     }
   }
 
+  Future submitPost() async {
+    if (imageList.isNotEmpty &&
+        _name.text != "" &&
+        _donationaddress.text != "") {
+      await createDonation(
+              foodName: _name.text,
+              serves: typeOfDonation == 0 ? servesCount : 0,
+              address: _donationaddress.text,
+              sizeOfGood: typeOfDonation == 0 ? 0 : sizeOfGood!.toInt(),
+              type: typeOfDonation == 0 ? 'Food' : "Good")
+          .then(
+        (value) => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const DonateSplash()),
+        ),
+      );
+    } else {
+      Fluttertoast.showToast(
+          msg: "Please Provide Proper Info",
+          toastLength: Toast.LENGTH_LONG,
+          fontSize: 20,
+          backgroundColor: Theme.of(context).primaryColor,
+          textColor: Colors.white);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -55,7 +81,8 @@ class _AddPageState extends State<AddPage> {
           children: [
             imageList.isEmpty
                 ? Container(
-                    height: height * 0.41,
+                    height: 390,
+                    width: 390,
                     margin: const EdgeInsets.symmetric(horizontal: 6),
                     decoration: BoxDecoration(
                         color: Colors.grey,
@@ -82,8 +109,7 @@ class _AddPageState extends State<AddPage> {
                                 current = index;
                               });
                             },
-                            height: height * 0.41,
-                            // aspectRatio: ,
+                            aspectRatio: 1 / 1,
                             scrollPhysics: imageList.length > 1
                                 ? const ScrollPhysics()
                                 : const NeverScrollableScrollPhysics(),
@@ -134,208 +160,222 @@ class _AddPageState extends State<AddPage> {
                     ),
                   )
                 : const SizedBox.shrink(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Item Type : ",
-                    style: TextStyle(
-                        color: Color(0x59000000),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.all(16),
-                    child: CupertinoSlidingSegmentedControl<int>(
-                        backgroundColor: CupertinoColors.white,
-                        thumbColor: Theme.of(context).secondaryHeaderColor,
-                        groupValue: typeOfDonation,
-                        padding: const EdgeInsets.all(4),
-                        children: {
-                          0: buildSegment(
-                              text: 'Food', fontWeight: FontWeight.w400),
-                          1: buildSegment(
-                              text: 'Goods', fontWeight: FontWeight.w400),
-                        },
-                        onValueChanged: (groupValue) =>
-                            setState(() => typeOfDonation = groupValue)),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-                child: typeOfDonation == 1
-                    ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Size of Goods:",
-                            style: TextStyle(
-                                color: Color(0x59000000),
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700),
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.all(10),
-                            child: CupertinoSlidingSegmentedControl<int>(
-                                backgroundColor: CupertinoColors.white,
-                                thumbColor:
-                                    Theme.of(context).secondaryHeaderColor,
-                                groupValue: sizeOfGood,
-                                padding: const EdgeInsets.all(4),
-                                children: {
-                                  0: buildSegment(
-                                      text: 'Small',
-                                      fontWeight: FontWeight.w400),
-                                  1: buildSegment(
-                                      text: 'Medium',
-                                      fontWeight: FontWeight.w400),
-                                  2: buildSegment(
-                                      text: 'Large',
-                                      fontWeight: FontWeight.w400),
-                                },
-                                onValueChanged: (int? newValue) {
-                                  setState(() {
-                                    sizeOfGood = newValue;
-                                  });
-                                }),
-                          ),
-                        ],
-                      )
-                    : Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: const [
-                              Text(
-                                "No of Serves:",
+            imageList.isNotEmpty
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Item Type : ",
+                          style: TextStyle(
+                              color: Color(0x59000000),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.all(16),
+                          child: CupertinoSlidingSegmentedControl<int>(
+                              backgroundColor: CupertinoColors.white,
+                              thumbColor:
+                                  Theme.of(context).secondaryHeaderColor,
+                              groupValue: typeOfDonation,
+                              padding: const EdgeInsets.all(4),
+                              children: {
+                                0: buildSegment(
+                                    text: 'Food', fontWeight: FontWeight.w400),
+                                1: buildSegment(
+                                    text: 'Goods', fontWeight: FontWeight.w400),
+                              },
+                              onValueChanged: (groupValue) =>
+                                  setState(() => typeOfDonation = groupValue)),
+                        ),
+                      ],
+                    ),
+                  )
+                : const SizedBox.shrink(),
+            imageList.isNotEmpty
+                ? Container(
+                    child: typeOfDonation == 1
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Size of Goods:",
                                 style: TextStyle(
                                     color: Color(0x59000000),
                                     fontSize: 18,
                                     fontWeight: FontWeight.w700),
                               ),
+                              Container(
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.all(10),
+                                child: CupertinoSlidingSegmentedControl<int>(
+                                    backgroundColor: CupertinoColors.white,
+                                    thumbColor:
+                                        Theme.of(context).secondaryHeaderColor,
+                                    groupValue: sizeOfGood,
+                                    padding: const EdgeInsets.all(4),
+                                    children: {
+                                      0: buildSegment(
+                                          text: 'Small',
+                                          fontWeight: FontWeight.w400),
+                                      1: buildSegment(
+                                          text: 'Medium',
+                                          fontWeight: FontWeight.w400),
+                                      2: buildSegment(
+                                          text: 'Large',
+                                          fontWeight: FontWeight.w400),
+                                    },
+                                    onValueChanged: (int? newValue) {
+                                      setState(() {
+                                        sizeOfGood = newValue;
+                                      });
+                                    }),
+                              ),
                             ],
-                          ),
-                          Center(
-                            child: Card(
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  IconButton(
-                                    icon: const Icon(Icons.add),
-                                    onPressed: () => setState(() {
-                                      if (servesCount < 7) servesCount++;
-                                    }),
-                                    iconSize: 32,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: Text(
-                                      "$servesCount",
-                                      style: const TextStyle(fontSize: 24),
-                                    ),
-                                  ),
-                                  IconButton(
-                                    style: ButtonStyle(
-                                      foregroundColor:
-                                          MaterialStateProperty.all(
-                                              Colors.white),
-                                      backgroundColor:
-                                          MaterialStateProperty.all(Colors.red),
-                                    ),
-                                    icon: const Icon(Icons.remove),
-                                    onPressed: () => setState(() {
-                                      if (servesCount > 0) servesCount--;
-                                    }),
-                                    iconSize: 32,
+                          )
+                        : Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: const [
+                                  Text(
+                                    "No of Serves:",
+                                    style: TextStyle(
+                                        color: Color(0x59000000),
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w700),
                                   ),
                                 ],
                               ),
-                            ),
-                          )
-                        ],
-                      )),
-            Padding(
-              padding: const EdgeInsets.only(top: 40, bottom: 20),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7.0),
-                ),
-                elevation: 4,
-                child: TextField(
-                  controller: _name,
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w400),
-                  decoration: InputDecoration(
-                      floatingLabelStyle: const TextStyle(fontSize: 0),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
+                              Center(
+                                child: Card(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      IconButton(
+                                        icon: const Icon(Icons.add),
+                                        onPressed: () => setState(() {
+                                          if (servesCount < 7) servesCount++;
+                                        }),
+                                        iconSize: 32,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Text(
+                                          "$servesCount",
+                                          style: const TextStyle(fontSize: 24),
+                                        ),
+                                      ),
+                                      IconButton(
+                                        style: ButtonStyle(
+                                          foregroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.white),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.red),
+                                        ),
+                                        icon: const Icon(Icons.remove),
+                                        onPressed: () => setState(() {
+                                          if (servesCount > 0) servesCount--;
+                                        }),
+                                        iconSize: 32,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ))
+                : const SizedBox.shrink(),
+            imageList.isNotEmpty
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 40, bottom: 20),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(7.0),
                       ),
-                      fillColor: Colors.white,
-                      filled: true,
-                      labelText: 'Item Name'),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: height * 0.125,
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7.0),
-                ),
-                elevation: 4,
-                child: TextField(
-                  controller: _donationaddress,
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w400),
-                  decoration: InputDecoration(
-                    floatingLabelStyle: const TextStyle(fontSize: 0),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(7.0),
+                      elevation: 4,
+                      child: TextField(
+                        controller: _name,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w400),
+                        decoration: InputDecoration(
+                            floatingLabelStyle: const TextStyle(fontSize: 0),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(7.0),
+                            ),
+                            fillColor: Colors.white,
+                            filled: true,
+                            labelText: 'Item Name'),
+                      ),
                     ),
-                    fillColor: Colors.white,
-                    filled: true,
-                    labelText: 'Address',
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                  )
+                : const SizedBox.shrink(),
+            imageList.isNotEmpty
+                ? SizedBox(
+                    height: height * 0.125,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(7.0),
+                      ),
+                      elevation: 4,
+                      child: TextField(
+                        controller: _donationaddress,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w400),
+                        decoration: InputDecoration(
+                          floatingLabelStyle: const TextStyle(fontSize: 0),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(7.0),
+                          ),
+                          fillColor: Colors.white,
+                          filled: true,
+                          labelText: 'Address',
+                        ),
+                      ),
                     ),
-                    backgroundColor: Colors.red.shade500,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: width / 2 - 100, vertical: 10),
-                  ),
-                  child: const Text(
-                    'Clear All',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
-                  ),
-                  onPressed: () async => setState(() => {
-                        imageList.clear(),
-                        _name.text = "",
-                        _donationaddress.text = "",
-                        typeOfDonation = 0,
-                        sizeOfGood = 0,
-                        servesCount = 0
-                      })),
-            ),
+                  )
+                : const SizedBox.shrink(),
+            imageList.isNotEmpty
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          backgroundColor: Colors.red.shade500,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: width / 2 - 100, vertical: 10),
+                        ),
+                        child: const Text(
+                          'Clear All',
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.w400),
+                        ),
+                        onPressed: () async => setState(() => {
+                              imageList.clear(),
+                              _name.text = "",
+                              _donationaddress.text = "",
+                              typeOfDonation = 0,
+                              sizeOfGood = 0,
+                              servesCount = 0
+                            })),
+                  )
+                : const SizedBox.shrink(),
           ],
         ),
       ),
@@ -350,36 +390,12 @@ class _AddPageState extends State<AddPage> {
               backgroundColor: Theme.of(context).secondaryHeaderColor,
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
             ),
-            child: const Text(
-              'Donate It',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
+            child: Text(
+              imageList.isEmpty ? "Add Donation" : 'Donate It',
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
             ),
-            onPressed: () async => {
-                  if (imageList.isNotEmpty &&
-                      _name.text != "" &&
-                      _donationaddress.text != "")
-                    await createDonation(
-                            foodName: _name.text,
-                            serves: typeOfDonation == 0 ? servesCount : 0,
-                            address: _donationaddress.text,
-                            sizeOfGood:
-                                typeOfDonation == 0 ? 0 : sizeOfGood!.toInt(),
-                            type: typeOfDonation == 0 ? 'Food' : "Good")
-                        .then(
-                      (value) => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const DonateSplash()),
-                      ),
-                    )
-                  else
-                    Fluttertoast.showToast(
-                        msg: "Please Provide Proper Info",
-                        toastLength: Toast.LENGTH_LONG,
-                        fontSize: 20,
-                        backgroundColor: Theme.of(context).primaryColor,
-                        textColor: Colors.white)
-                }),
+            onPressed: () async =>
+                imageList.isEmpty ? await takeImages() : await submitPost()),
       ),
     );
   }

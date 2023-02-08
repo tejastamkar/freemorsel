@@ -78,7 +78,7 @@ class _NavbarState extends State<Navbar> {
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
-      body: screens[_selectedIndex],
+      body: IndexedStack(index: _selectedIndex, children: screens),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freemorsel/api/checkuser.dart';
 import 'package:freemorsel/data/userdata.dart';
 import 'package:freemorsel/screens/navbarscreens/narbar.dart';
-import 'package:freemorsel/theme/deftheme.dart';
+import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 import 'package:freemorsel/widgets/profileselector.dart';
 
 class RegisterScreen extends StatefulWidget {
