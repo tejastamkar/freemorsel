@@ -46,13 +46,13 @@ Future createDonation(
       donationId: donationId.id,
       userId: FirebaseAuth.instance.currentUser!.uid) as List;
 
-  for (int i = 0; i < imageUrl.length; i++) {
-    await FirebaseFirestore.instance
-        .collection("PendingDonation/${donationId.id}/Images")
-        .add({
-      "Image": imageUrl[i],
-    });
-  }
+  await FirebaseFirestore.instance
+      .collection("PendingDonation/${donationId.id}")
+      .doc(donationId.id)
+      .update({
+    "images": imageUrl,
+  });
+
   // for (int i = 0; i < 20; i++) {
   //   await addtoDonation(address: address, serves: serves, foodName: foodName);
   // }

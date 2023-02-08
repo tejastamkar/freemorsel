@@ -16,7 +16,7 @@ Future cropImage({
         AndroidUiSettings(
             toolbarTitle: 'Cropper',
             activeControlsWidgetColor: primaryColor,
-            toolbarColor: primaryColor,
+            toolbarColor: primary3Color,
             toolbarWidgetColor: Colors.white,
             initAspectRatio: CropAspectRatioPreset.square,
             hideBottomControls: true,
@@ -51,7 +51,7 @@ Future userImage({
         AndroidUiSettings(
             toolbarTitle: 'Cropper',
             activeControlsWidgetColor: primaryColor,
-            toolbarColor: primaryColor,
+            toolbarColor: primary3Color,
             toolbarWidgetColor: Colors.white,
             hideBottomControls: true,
             lockAspectRatio: true),

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -26,14 +27,21 @@ class _AddPageState extends State<AddPage> {
   int current = 0, servesCount = 0;
   final TextEditingController _name = TextEditingController(),
       _donationaddress = TextEditingController();
+
   Future<dynamic> takeImages() async {
-    final XFile? image = await ImagePicker()
-        .pickImage(source: ImageSource.camera, imageQuality: 40);
-    final File file = File(image!.path);
-    String cropFile = await cropImage(pickedFile: XFile(file.path));
-    setState(() {
-      imageList.add(cropFile);
-    });
+    try {
+      final XFile? image = await ImagePicker().pickImage(
+        source: ImageSource.camera,
+        imageQuality: 40,
+      );
+      // final File file = File(image!.path);
+      String cropFile = await cropImage(pickedFile: image);
+      setState(() {
+        imageList.add(cropFile);
+      });
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   @override

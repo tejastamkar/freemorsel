@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:freemorsel/Data/carddata.dart';
+import 'package:freemorsel/data/carddata.dart';
 import 'package:freemorsel/skeleton/skeleton_container.dart';
 import 'package:freemorsel/widgets/carouselcards.dart';
 
