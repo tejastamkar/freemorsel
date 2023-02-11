@@ -1,6 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:freemorsel/screens/navbarscreens/narbar.dart';
+import 'package:freemorsel/screens/navbarscreens/bottomnavbar.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -25,7 +25,7 @@ class _DonateSplashState extends State<DonateSplash> {
             Padding(
               padding: const EdgeInsets.only(bottom: 100),
               child: SvgPicture.asset(
-                'icons/done.svg',
+                'assets/icons/done.svg',
               ),
             ),
             Column(

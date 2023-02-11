@@ -89,7 +89,7 @@ class _AddPageState extends State<AddPage> {
                         borderRadius: BorderRadius.circular(12)),
                     child: Center(
                       child: IconButton(
-                          icon: SvgPicture.asset('icons/Add.svg'),
+                          icon: SvgPicture.asset('assets/icons/Add.svg'),
                           iconSize: 45,
                           onPressed: () async => await takeImages()),
                     ),
@@ -135,7 +135,8 @@ class _AddPageState extends State<AddPage> {
                         imageList.length < 5
                             ? Center(
                                 child: IconButton(
-                                  icon: SvgPicture.asset('icons/Add.svg'),
+                                  icon:
+                                      SvgPicture.asset('assets/icons/Add.svg'),
                                   iconSize: 45,
                                   onPressed: () async => await takeImages(),
                                 ),

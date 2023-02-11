@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:freemorsel/api/checkuser.dart';
 import 'package:freemorsel/api/userdetails.dart';
 import 'package:freemorsel/screens/login.dart';
-import 'package:freemorsel/screens/navbarscreens/narbar.dart';
+import 'package:freemorsel/screens/navbarscreens/bottomnavbar.dart';
 import 'package:freemorsel/screens/registration.dart';
 import 'package:freemorsel/widgets/deletescreen.dart';
 import 'package:freemorsel/widgets/otppopup.dart';

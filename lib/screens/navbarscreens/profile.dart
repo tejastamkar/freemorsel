@@ -30,7 +30,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 alignment: AlignmentDirectional.center,
                 children: [
                   SvgPicture.asset(
-                    'icons/Bg.svg',
+                    'assets/icons/Bg.svg',
                     width: width - 50,
                   ),
                   Padding(
@@ -101,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                              'icons/reward.svg',
+                              'assets/icons/reward.svg',
                               width: 30,
                               height: 30,
                             ),
@@ -142,7 +142,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                              'icons/history.svg',
+                              'assets/icons/history.svg',
                               width: 30,
                               height: 30,
                             ),
@@ -188,7 +188,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                              'icons/edit.svg',
+                              'assets/icons/edit.svg',
                               width: 30,
                               height: 30,
                             ),
@@ -232,7 +232,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
-                icon: SvgPicture.asset('icons/setting.svg'),
+                icon: SvgPicture.asset('assets/icons/setting.svg'),
                 onPressed: () {
                   Navigator.push(
                       context,
@@ -254,7 +254,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 onPressed: () async => PhoneAuth().logOut(context: context),
-                icon: SvgPicture.asset('icons/logout.svg'),
+                icon: SvgPicture.asset('assets/icons/logout.svg'),
                 label: const Text(
                   'Logout',
                   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18),

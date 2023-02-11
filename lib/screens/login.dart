@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                   width: width / 2,
                   height: width <= 440 ? width / 2 : width / 3,
-                  child: SvgPicture.asset('icons/logo.svg')),
+                  child: SvgPicture.asset('assets/icons/logo.svg')),
               const SizedBox(
                 height: 100,
               ),

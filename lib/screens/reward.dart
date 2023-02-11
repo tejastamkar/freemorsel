@@ -331,7 +331,7 @@ class _RewardState extends State<Reward> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         SvgPicture.asset(
-                          'icons/friends.svg',
+                          'assets/icons/friends.svg',
                           height: 30,
                           width: 30,
                         ),

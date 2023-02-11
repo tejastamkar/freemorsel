@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:freemorsel/screens/navbarscreens/narbar.dart';
+import 'package:freemorsel/screens/navbarscreens/bottomnavbar.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 
 class TutorialPage extends StatefulWidget {

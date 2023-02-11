@@ -32,7 +32,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_svg: ^1.0.3
+  flutter_svg: ^1.1.6
   fluttertoast: ^8.0.9
   carousel_slider: ^4.0.0
   carousel_indicator: ^1.0.6
@@ -93,8 +93,6 @@ flutter:
   assets:
     - assets/
     - assets/profileavatar/
-    - icons/
-    - navicons/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
