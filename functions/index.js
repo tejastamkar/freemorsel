@@ -17,14 +17,14 @@ const db = admin.firestore();
 //
 export const pickupCall = functions.region("asia-south1").firestore.document('PendingDonation/{donationId}')
     .onCreate(async (snapshot, context) => {
-        // const donationId = context.params.donationId;
+        const donationId = context.params.donationId;
         const donationData = snapshot.data();
 
         await db.collection("Rider").where("Active", "==", "").get().then((value) => value.docs.forEach(async (riderdetail) => {
             const payload = {
                 token: riderdetail.data()["token"].toString(),
                 notification: {
-                    title: `FreeMorsel`,
+                    title: `FreeMorsel Rider`,
                     body: `Pickup Near ${donationData["address"]}`,
                 },
                 data: {
@@ -44,13 +44,15 @@ export const pickupCall = functions.region("asia-south1").firestore.document('Pe
         return Promise.resolve();
     });
 export const pickupAlertCall = functions.region("asia-south1").firestore.document('PendingDonation/{donationId}')
-    .onUpdate(async (snapshot, context) => {
+    .onUpdate(async (snapshort, context) => {
+        const donationData = snapshort.after.data();
         const donationId = context.params.donationId;
-        const donationData = snapshot.data();
-        const userDetail = await db.collection("Users").doc(userId).get().then((doc) => doc.data());
+        const userDetail = await db.collection("Users").doc(donationData["userId"]).get().then((doc) => doc.data());
+
+
         if (donationData["Status"] == "Active") {
 
-            await db.collection("Rider").where("Active", "!=", donationId).get().then((value) => value.docs.forEach(async (doc) => {
+            await db.collection("Rider").where("Active", "==", donationId).get().then((value) => value.docs.forEach(async (doc) => {
 
                 const payload = {
                     token: userDetail["token"].toString(),
