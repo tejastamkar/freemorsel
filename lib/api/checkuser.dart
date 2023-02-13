@@ -14,7 +14,7 @@ Future<bool> checkLogin() async {
         .get()
         .then((docSnapshot) async {
       if (docSnapshot.exists) {
-        getFCM(uid: uid);
+        await getFCM(uid: uid);
         newUser = true;
       } else {
         newUser = false;

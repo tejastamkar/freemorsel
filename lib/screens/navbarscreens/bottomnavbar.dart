@@ -1,12 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:freemorsel/api/userdetails.dart';
+import 'package:freemorsel/api/getuserdetails_api.dart';
 import 'package:freemorsel/screens/navbarscreens/add.dart';
 import 'package:freemorsel/screens/navbarscreens/homescreen.dart';
 import 'package:freemorsel/screens/navbarscreens/profile.dart';
-import 'package:freemorsel/provider/notifcationprovider.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({Key? key}) : super(key: key);
@@ -39,31 +36,13 @@ class _NavbarState extends State<Navbar> {
         appBarTitle = 'Profile';
         break;
       default:
-        appBarTitle = 'Free Morsel';
+        appBarTitle = 'FreeMorsel';
     }
   }
 
   @override
   void initState() {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      if (notification != null && android != null) {
-        flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                playSound: true,
-                icon: '@mipmap/ic_launcher',
-              ),
-            ));
-      }
-    });
-    UserDetails().userExits(context: context);
+    getUserDeatilsApi();
     super.initState();
   }
 

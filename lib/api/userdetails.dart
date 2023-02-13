@@ -2,25 +2,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:freemorsel/api/checkuser.dart';
 import 'package:freemorsel/data/userdata.dart';
-import 'package:freemorsel/provider/notifcationprovider.dart';
 import 'package:freemorsel/provider/phoneauth.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 
 class UserDetails {
   String uid = FirebaseAuth.instance.currentUser!.uid;
   FirebaseFirestore firebaseStore = FirebaseFirestore.instance;
-  userExits({required BuildContext context}) async {
-    await checkLogin().then((userExit) async {
-      if (userExit) {
-        getFCM(uid: uid);
-        await getUserDetails(context: context);
-      } else {
-        await PhoneAuth().logOut(context: context);
-      }
-    });
-  }
+  // userExits({required BuildContext context}) async {
+  //   await checkLogin().then((userExit) async {
+  //     if (userExit) {
+  //       getFCM(uid: uid);
+  //       await getUserDetails(context: context);
+  //     } else {
+  //       await PhoneAuth().logOut(context: context);
+  //     }
+  //   });
+  // }
 
   Future updateUerDetails(
       {required BuildContext context,

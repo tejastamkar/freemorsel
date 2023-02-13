@@ -1,33 +1,57 @@
 class PostCardModel {
-  String? level, address, donationId, iteamName, name, userId, time;
-  int? serves;
+  String? level,
+      address,
+      donationId,
+      iteamName,
+      name,
+      userId,
+      time,
+      status,
+      typeofDonation;
+  int? serves, size;
   List images = [];
-  PostCardModel(this.level, this.serves, this.address, this.donationId,
-      this.iteamName, this.name, this.userId, this.time);
+  PostCardModel(
+      this.level,
+      this.serves,
+      this.address,
+      this.donationId,
+      this.status,
+      this.iteamName,
+      this.name,
+      this.typeofDonation,
+      this.userId,
+      this.time,
+      this.size);
 
   PostCardModel.fromMap(Map<String, dynamic> map) {
     level = map["Level"];
     serves = map["Serves"];
+    size = map["SizeOfGood"];
+    status = map["Status"];
+    time = map["time"].toDate();
+    typeofDonation = map["TypeOfDonation"];
     address = map['address'];
     donationId = map["donationId"];
-    userId = map["userid"];
+    iteamName = map["foodName"];
     images = map["imgaes"];
     name = map["name"];
-    iteamName = map["iteamName"];
-    time = map["time"].toDate();
+    userId = map["userid"];
   }
 
   Map<String, dynamic> toMap() {
     return {
       "level": level,
       "serves": serves,
-      "images": images,
+      "size": size,
+      "status": status,
+      "time": time,
+      "typeofDonation": typeofDonation,
       "address": address,
       "donationId": donationId,
-      "userId": userId,
       "iteamName": iteamName,
+      "images": images,
+      "userId": userId,
       "userName": name,
-      "time": time,
     };
   }
 }

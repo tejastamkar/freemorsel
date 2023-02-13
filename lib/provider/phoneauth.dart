@@ -100,7 +100,7 @@ class PhoneAuth {
         verificationId: verificationId, smsCode: smsCode);
     await auth.signInWithCredential(credential).whenComplete(() async {
       if (FirebaseAuth.instance.currentUser == null) {
-        logOut(context: context);
+        await logOut(context: context);
       } else {
         await checkLogin().then((newUser) {
           if (newUser) {
