@@ -58,10 +58,10 @@ export const pickupAlertCall = functions.region("asia-south1").firestore.documen
                     token: userDetail["token"].toString(),
                     notification: {
                         title: `FreeMorsel`,
-                        body: `Your order will be picked up by ${doc["username"]}`,
+                        body: `Your order will be picked up by ${doc.data()["username"]}`,
                     },
                     data: {
-                        body: `Your order will be picked up by ${doc["username"]}`,
+                        body: `Your order will be picked up by ${doc.data()["username"]}`,
                     }
                 };
                 await admin.messaging().send(payload).then((response) => {
