@@ -12,27 +12,18 @@ class Donation extends StatefulWidget {
 
 class _DonationState extends State<Donation> {
   List foodDonationList = [];
-  List foodDonationImages = [];
+  // List foodDonationImages = [];
   bool loader = true;
 
-  getData() {
-    FirebaseFirestore.instance
-        .collection('Donations')
+  Future getData() async {
+    await FirebaseFirestore.instance
+        .collection('Donation')
         .get()
         .then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {
         foodDonationList.add(doc.data());
-        Object? temp = doc.id;
-        FirebaseFirestore.instance
-            .collection('Donations/$temp/Images')
-            .get()
-            .then((QuerySnapshot querySnapshot) {
-          for (var doc in querySnapshot.docs) {
-            foodDonationImages.add(doc.data());
-          }
-        }).whenComplete(() => setState(() => loader = false));
       }
-    });
+    }).whenComplete(() => setState(() => loader = false));
   }
 
   @override
@@ -72,7 +63,7 @@ class _DonationState extends State<Donation> {
                   width: width,
                   itemCount: foodDonationList.length,
                   donationDataList: foodDonationList,
-                  donationLimageList: foodDonationImages,
+                  // donationLimageList: foodDonationImages,
                 ),
         ));
   }

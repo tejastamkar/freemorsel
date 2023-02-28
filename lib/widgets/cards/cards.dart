@@ -22,8 +22,6 @@ class DonationCards extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) => DonationScreen(
-                        username: subtitle,
-                        foodname: title,
                         id: id,
                       )));
         },
@@ -53,12 +51,15 @@ class DonationCards extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                Text(
-                  title,
-                  style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w800),
+                SizedBox(
+                  width: 140,
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w800),
+                  ),
                 ),
                 const Spacer(),
                 Text(
@@ -68,7 +69,7 @@ class DonationCards extends StatelessWidget {
                       color: Colors.grey,
                       fontWeight: FontWeight.w800),
                 ),
-                const Spacer(),
+                // const Spacer(),
               ],
             ),
           ),

@@ -32,6 +32,7 @@ Future createDonation(
     "name": username,
     "address": address,
     "Serves": serves,
+    "City": "",
     "Status": "pending",
     "TypeOfDonation": type,
     "SizeOfGood": sizeOfGood,

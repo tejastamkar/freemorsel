@@ -1,15 +1,8 @@
 class PostCardModel {
-  String? level,
-      address,
-      donationId,
-      iteamName,
-      name,
-      userId,
-      time,
-      status,
-      typeofDonation;
-  int? serves, size;
+  String? address, donationId, iteamName, name, userId, status, typeofDonation;
+  int? serves, size, level;
   List images = [];
+  DateTime time = DateTime.now();
   PostCardModel(
       this.level,
       this.serves,
@@ -28,12 +21,12 @@ class PostCardModel {
     serves = map["Serves"];
     size = map["SizeOfGood"];
     status = map["Status"];
-    time = map["time"].toDate();
+    time = map["Time"].toDate();
     typeofDonation = map["TypeOfDonation"];
     address = map['address'];
     donationId = map["donationId"];
     iteamName = map["foodName"];
-    images = map["imgaes"];
+    images = map["images"];
     name = map["name"];
     userId = map["userid"];
   }

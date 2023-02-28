@@ -25,7 +25,7 @@ class _SplashState extends State<Splash> {
           width: width / 2,
           height: width / 2,
           child: SvgPicture.asset(
-            'assets/icons/logo.svg',
+            "assets/icons/logo.svg",
             fit: BoxFit.cover,
           ),
         ),

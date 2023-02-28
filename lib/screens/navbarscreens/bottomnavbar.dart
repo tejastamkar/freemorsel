@@ -42,7 +42,7 @@ class _NavbarState extends State<Navbar> {
 
   @override
   void initState() {
-    getUserDeatilsApi();
+    getUserDeatilsApi(context: context);
     super.initState();
   }
 

@@ -15,8 +15,8 @@ class TrendingCampaigns extends StatefulWidget {
 class _TrendingCampaignsState extends State<TrendingCampaigns> {
   List trendingData = [];
   bool loader = true;
-  getData() {
-    FirebaseFirestore.instance
+  Future getData() async {
+    await FirebaseFirestore.instance
         .collection('TrendingCampaigns')
         .get()
         .then((QuerySnapshot querySnapshot) {
@@ -24,6 +24,7 @@ class _TrendingCampaignsState extends State<TrendingCampaigns> {
         trendingData.add(doc.data());
       }
     }).whenComplete(() => setState(() => loader = false));
+    print(trendingData);
   }
 
   @override

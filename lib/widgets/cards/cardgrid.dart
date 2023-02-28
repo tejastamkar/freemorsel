@@ -7,13 +7,13 @@ class CardGridView extends StatelessWidget {
     required this.width,
     required this.itemCount,
     required this.donationDataList,
-    required this.donationLimageList,
+    // required this.donationLimageList,
   }) : super(key: key);
 
   final double width;
   final int itemCount;
   final List donationDataList;
-  final List donationLimageList;
+  // final List donationLimageList;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class CardGridView extends StatelessWidget {
         itemBuilder: (context, index) => DonationCards(
               title: donationDataList[index]['foodName'],
               subtitle: donationDataList[index]['name'],
-              image: donationLimageList[0]["Image"],
+              image: donationDataList[index]["images"][0],
               id: donationDataList[index]['donationId'],
             ));
   }

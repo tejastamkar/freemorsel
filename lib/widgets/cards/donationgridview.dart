@@ -13,27 +13,25 @@ class FoodDonationCardGrid extends StatefulWidget {
 
 class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
   List foodDonationList = [];
-  List foodDonationImages = [];
+  // List foodDonationImages = [];
   bool loader = true;
 
-  getData() {
-    FirebaseFirestore.instance
-        .collection('Donations')
+  Future getData() async {
+    await FirebaseFirestore.instance
+        .collection('Donation')
         .get()
         .then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {
         foodDonationList.add(doc.data());
-        Object? temp = doc.id;
-        FirebaseFirestore.instance
-            .collection('Donations/$temp/Images')
-            .get()
-            .then((QuerySnapshot querySnapshot) {
-          for (var doc in querySnapshot.docs) {
-            foodDonationImages.add(doc.data());
-          }
-        }).whenComplete(() => setState(() => loader = false));
+        // Object? temp = doc.id;
+        //  await    FirebaseFirestore.instance
+        //         .collection('Donations/$temp/Images')
+        //         .get()
+        //         .then((QuerySnapshot querySnapshot) {
+        //       for (var doc in querySnapshot.docs) {
+        //         foodDonationImages.add(doc.data());
       }
-    });
+    }).whenComplete(() => setState(() => loader = false));
   }
 
   @override
@@ -92,7 +90,7 @@ class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
                 width: width,
                 itemCount: width < 441 ? 6 : 4,
                 donationDataList: foodDonationList,
-                donationLimageList: foodDonationImages,
+                // donationLimageList: foodDonationList,
               ),
       ],
     );
@@ -167,17 +165,11 @@ class _GoodsDonationCardGridState extends State<GoodsDonationCardGrid> {
 
   getData() {
     FirebaseFirestore.instance
-        .collection('Donations')
+        .collection('Donation')
         .get()
         .then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {
         goodDonation.add(doc.data());
-        Object? temp = doc.id;
-        FirebaseFirestore.instance
-            .collection('Donations/$temp/Images')
-            .get()
-            .then((QuerySnapshot querySnapshot) => goodDonationImages
-                .add({for (var doc in querySnapshot.docs) doc.data()}));
       }
     }).whenComplete(() => setState(() => loader = false));
   }
@@ -238,7 +230,7 @@ class _GoodsDonationCardGridState extends State<GoodsDonationCardGrid> {
                 width: width,
                 itemCount: width < 441 ? 6 : 4,
                 donationDataList: goodDonation,
-                donationLimageList: goodDonationImages,
+                // donationLimageList: goodDonationImages,
               ),
       ],
     );

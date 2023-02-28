@@ -3,19 +3,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:freemorsel/api/getdonation.dart';
-import 'package:freemorsel/data/userdata.dart';
+import 'package:freemorsel/models/postmodel.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 import 'package:freemorsel/widgets/cards/cardgrid.dart';
 import 'package:freemorsel/widgets/cards/donationgridview.dart';
 
 class DonationScreen extends StatefulWidget {
-  final String foodname, username, id;
-  const DonationScreen(
-      {Key? key,
-      required this.foodname,
-      required this.username,
-      required this.id})
-      : super(key: key);
+  final String id;
+  const DonationScreen({Key? key, required this.id}) : super(key: key);
 
   @override
   State<DonationScreen> createState() => _DonationScreenState();
@@ -23,29 +18,23 @@ class DonationScreen extends StatefulWidget {
 
 class _DonationScreenState extends State<DonationScreen> {
   int current = 0;
-  List data = [], imageData = [], otherDonation = [], otherDonationImages = [];
+  PostCardModel? data;
+  List otherDonation = [];
   bool loader = true;
 
   getData({required String id}) async {
     await FirebaseFirestore.instance
-        .collection('Donations')
+        .collection('Donation')
         .doc(id)
         .get()
         .then((DocumentSnapshot documentSnapshot) async {
-          var temp = await getDonationData();
-          otherDonation = temp[0];
-          otherDonationImages = temp[1];
-          data.add(documentSnapshot.data());
-        })
-        .then((value) => FirebaseFirestore.instance
-                .collection('Donations/$id/Images')
-                .get()
-                .then((QuerySnapshot querySnapshot) {
-              for (var doc in querySnapshot.docs) {
-                imageData.add(doc.data());
-              }
-            }))
-        .whenComplete(() => setState(() => loader = false));
+      otherDonation.addAll(await getDonationData());
+      List temp = [];
+      temp.add(documentSnapshot.data());
+      for (var tempData in temp) {
+        data = PostCardModel.fromMap(tempData);
+      }
+    }).whenComplete(() => setState(() => loader = false));
   }
 
   @override
@@ -64,7 +53,7 @@ class _DonationScreenState extends State<DonationScreen> {
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
           title: const Text(
-            'Food Donated',
+            'Donations',
             style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24),
           ),
           centerTitle: true,
@@ -101,25 +90,28 @@ class _DonationScreenState extends State<DonationScreen> {
                               aspectRatio: 1 / 1,
                               viewportFraction: 1,
                               initialPage: 0,
-                              autoPlay: true,
+                              autoPlay: data!.images.length > 1 ? true : false,
                               autoPlayInterval: const Duration(seconds: 12),
                               autoPlayAnimationDuration:
                                   const Duration(milliseconds: 800),
                               autoPlayCurve: Curves.easeInOut,
                               enlargeCenterPage: true,
+                              scrollPhysics: data!.images.length > 1
+                                  ? const ScrollPhysics()
+                                  : const NeverScrollableScrollPhysics(),
                               scrollDirection: Axis.horizontal,
                               onPageChanged: (index, reason) {
                                 setState(() {
                                   current = index;
                                 });
                               }),
-                          items: imageData.map((i) {
+                          items: data!.images.map((i) {
                             return Padding(
                               padding: const EdgeInsets.all(10),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
                                 child: Image.network(
-                                  i["Image"],
+                                  i,
                                   // height: 160,
                                   width: width,
                                   fit: BoxFit.fitWidth,
@@ -131,21 +123,24 @@ class _DonationScreenState extends State<DonationScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Center(
-                          child: CarouselIndicator(
-                            height: 10,
-                            width: 10,
-                            cornerRadius: 10,
-                            color: const Color.fromRGBO(0, 0, 0, 0.6),
-                            activeColor: const Color.fromARGB(255, 80, 0, 192),
-                            count: imageData.length,
-                            index: current,
-                          ),
-                        ),
+                        data!.images.length > 1
+                            ? Center(
+                                child: CarouselIndicator(
+                                  height: 10,
+                                  width: 10,
+                                  cornerRadius: 10,
+                                  color: const Color.fromRGBO(0, 0, 0, 0.6),
+                                  activeColor:
+                                      const Color.fromARGB(255, 80, 0, 192),
+                                  count: data!.images.length,
+                                  index: current,
+                                ),
+                              )
+                            : const SizedBox.shrink(),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(30, 40, 0, 15),
                           child: Text(
-                            'Name: ${widget.username}',
+                            'Name: ${data!.name}',
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
@@ -155,7 +150,7 @@ class _DonationScreenState extends State<DonationScreen> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(30, 10, 0, 10),
                           child: Text(
-                            'Food Name: ${widget.foodname}',
+                            'Food Name: ${data!.iteamName}',
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
@@ -165,7 +160,7 @@ class _DonationScreenState extends State<DonationScreen> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(30, 10, 0, 10),
                           child: Text(
-                            'Serves: $level',
+                            'Serves: ${data!.serves}',
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
@@ -175,7 +170,7 @@ class _DonationScreenState extends State<DonationScreen> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(30, 10, 0, 40),
                           child: Text(
-                            'Level: $level',
+                            'Level: ${data!.level}',
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
@@ -202,7 +197,7 @@ class _DonationScreenState extends State<DonationScreen> {
                           width: width,
                           itemCount: width < 441 ? 6 : 4,
                           donationDataList: otherDonation,
-                          donationLimageList: otherDonationImages,
+                          // donationLimageList: otherDonationImages,
                         ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),

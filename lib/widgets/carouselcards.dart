@@ -28,7 +28,9 @@ class CarouselCards extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        await FirebaseHelper.getCampDetailModel(id: id)
+        print(id);
+        await FirebaseHelper()
+            .getCampDetailModel(id: id)
             .then((value) => Navigator.push(
                   context,
                   MaterialPageRoute(

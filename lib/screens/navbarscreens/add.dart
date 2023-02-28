@@ -10,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freemorsel/api/adddonation.dart';
 import 'package:freemorsel/provider/imagecopper.dart';
 import 'package:freemorsel/screens/splashscreens/donatesplash.dart';
+import 'package:freemorsel/widgets/processing.dart';
 import 'package:image_picker/image_picker.dart';
 
 List<String> imageList = [];
@@ -48,18 +49,20 @@ class _AddPageState extends State<AddPage> {
     if (imageList.isNotEmpty &&
         _name.text != "" &&
         _donationaddress.text != "") {
+      processingPopup(context: context, msg: "Donating....");
       await createDonation(
               foodName: _name.text,
               serves: typeOfDonation == 0 ? servesCount : 0,
               address: _donationaddress.text,
               sizeOfGood: typeOfDonation == 0 ? 0 : sizeOfGood!.toInt(),
               type: typeOfDonation == 0 ? 'Food' : "Good")
-          .then(
-        (value) => Navigator.push(
+          .then((value) {
+        Navigator.pop(context);
+        Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const DonateSplash()),
-        ),
-      );
+        );
+      });
     } else {
       Fluttertoast.showToast(
           msg: "Please Provide Proper Info",

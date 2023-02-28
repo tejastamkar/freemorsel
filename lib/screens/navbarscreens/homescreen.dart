@@ -13,18 +13,17 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SingleChildScrollView(
           child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TutorialCard(width: width),
-            const TrendingCampaigns(),
-            const FoodDonationCardGrid(),
-            const UpComingEvents(),
+          children: const [
+            TutorialCard(),
+            TrendingCampaigns(),
+            FoodDonationCardGrid(),
+            UpComingEvents(),
           ],
         ),
       )),
