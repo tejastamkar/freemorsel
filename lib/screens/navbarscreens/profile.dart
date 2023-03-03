@@ -3,9 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freemorsel/data/userdata.dart';
 import 'package:freemorsel/provider/phoneauth.dart';
 import 'package:freemorsel/screens/editprofilescreen.dart';
+import 'package:freemorsel/screens/mydonations.dart';
 import 'package:freemorsel/screens/settings.dart';
 import 'package:freemorsel/screens/reward.dart';
-import 'package:freemorsel/screens/history.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -137,7 +137,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const History())),
+                                builder: (context) => const MyDonations())),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -150,7 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               width: 25,
                             ),
                             const Text(
-                              "History",
+                              "My Donations",
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w400),
                             ),

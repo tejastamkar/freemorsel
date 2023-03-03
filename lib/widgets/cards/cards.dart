@@ -26,8 +26,8 @@ class DonationCards extends StatelessWidget {
                       )));
         },
         child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          elevation: 2,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: const BorderSide(width: 0.4, color: Colors.grey)),
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Column(
@@ -58,7 +58,7 @@ class DonationCards extends StatelessWidget {
                     style: const TextStyle(
                         fontSize: 16,
                         color: Colors.black,
-                        fontWeight: FontWeight.w800),
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
                 const Spacer(),
@@ -67,7 +67,7 @@ class DonationCards extends StatelessWidget {
                   style: const TextStyle(
                       fontSize: 12,
                       color: Colors.grey,
-                      fontWeight: FontWeight.w800),
+                      fontWeight: FontWeight.w600),
                 ),
                 // const Spacer(),
               ],

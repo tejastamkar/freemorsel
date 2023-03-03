@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
             TutorialCard(),
             TrendingCampaigns(),
             FoodDonationCardGrid(),
-            UpComingEvents(),
+            // UpComingEvents(),
           ],
         ),
       )),

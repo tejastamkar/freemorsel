@@ -6,14 +6,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:freemorsel/widgets/cards/foodcard.dart';
 
-class History extends StatefulWidget {
-  const History({Key? key}) : super(key: key);
+class MyDonations extends StatefulWidget {
+  const MyDonations({Key? key}) : super(key: key);
 
   @override
-  State<History> createState() => _HistoryState();
+  State<MyDonations> createState() => _MyDonationsState();
 }
 
-class _HistoryState extends State<History> {
+class _MyDonationsState extends State<MyDonations> {
   bool loader = true;
   List historyData = [];
 
@@ -42,9 +42,9 @@ class _HistoryState extends State<History> {
       appBar: AppBar(
           elevation: 0,
           title: const Text(
-            "Your History",
+            "My Donations",
             style: TextStyle(
-              fontSize: 25,
+              fontSize: 24,
               fontWeight: FontWeight.w700,
               color: Colors.black,
             ),
@@ -75,6 +75,7 @@ class _HistoryState extends State<History> {
                     title: historyData[index]["foodName"],
                     status: historyData[index]["Status"],
                     image: historyData[index]["images"][0],
+                    id: historyData[index]['donationId'],
                     date: "${tsdate.year}/${tsdate.month}/${tsdate.day}");
               }),
     );

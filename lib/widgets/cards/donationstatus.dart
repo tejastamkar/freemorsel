@@ -5,18 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:freemorsel/api/getdonation.dart';
 import 'package:freemorsel/models/postmodel.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
-import 'package:freemorsel/widgets/cards/cardgrid.dart';
-import 'package:freemorsel/widgets/cards/donationgridview.dart';
 
-class DonationScreen extends StatefulWidget {
+class DonationStatusCard extends StatefulWidget {
   final String id;
-  const DonationScreen({Key? key, required this.id}) : super(key: key);
+  const DonationStatusCard({Key? key, required this.id}) : super(key: key);
 
   @override
-  State<DonationScreen> createState() => _DonationScreenState();
+  State<DonationStatusCard> createState() => _DonationStatusCardState();
 }
 
-class _DonationScreenState extends State<DonationScreen> {
+class _DonationStatusCardState extends State<DonationStatusCard> {
   int current = 0;
   PostCardModel? data;
   List otherDonation = [];
@@ -24,7 +22,7 @@ class _DonationScreenState extends State<DonationScreen> {
 
   getData({required String id}) async {
     await FirebaseFirestore.instance
-        .collection('Donation')
+        .collection('PendingDonation')
         .doc(id)
         .get()
         .then((DocumentSnapshot documentSnapshot) async {
@@ -43,17 +41,16 @@ class _DonationScreenState extends State<DonationScreen> {
 
     super.initState();
   }
-
+  
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    // double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
           title: const Text(
-            'Donations',
+            'Order',
             style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24),
           ),
           centerTitle: true,
@@ -67,26 +64,23 @@ class _DonationScreenState extends State<DonationScreen> {
               Navigator.pop(context);
             },
           )),
-      backgroundColor: Colors.white,
-      body: loader
+      body: SafeArea(
+        child: loader
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : SingleChildScrollView(
-              padding: const EdgeInsets.all(20),
+        : SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+          child: Card(
+            elevation: 2,
+            color: secondaryColor,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: const BorderSide(width: 0.4, color: Colors.grey)),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Card(
-                    color: secondaryColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 15, right: 10, left: 10, bottom: 40),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CarouselSlider(
+                  CarouselSlider(
                             options: CarouselOptions(
                                 height: 250,
                                 aspectRatio: 1 / 1,
@@ -107,7 +101,7 @@ class _DonationScreenState extends State<DonationScreen> {
                                     current = index;
                                   });
                                 }),
-                            items: data!.images.map((i) {
+                            items: data?.images.map((i) {
                               return ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.network(
@@ -128,15 +122,15 @@ class _DonationScreenState extends State<DonationScreen> {
                                     color: const Color.fromRGBO(0, 0, 0, 0.6),
                                     activeColor:
                                         const Color.fromARGB(255, 80, 0, 192),
-                                    count: data!.images.length,
+                                    count: data?.images.length,
                                     index: current,
                                   ),
                                 )
                               : const SizedBox.shrink(),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(5, 40, 0, 15),
+                              Padding(
+                            padding: const EdgeInsets.fromLTRB(5, 30, 0, 15),
                             child: Text(
-                              'Name: ${data!.name}',
+                              'Name: ${data?.name}',
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 20,
@@ -146,7 +140,17 @@ class _DonationScreenState extends State<DonationScreen> {
                           Padding(
                             padding: const EdgeInsets.only(left: 5),
                             child: Text(
-                              'Food Name: ${data!.iteamName}',
+                              'Item Name: ${data?.iteamName}',
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(5, 15, 0, 0),
+                            child: Text(
+                              'Address: ${data?.address}',
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 20,
@@ -156,7 +160,33 @@ class _DonationScreenState extends State<DonationScreen> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(5, 15, 0, 15),
                             child: Text(
-                              'Serves: ${data!.serves}',
+                              'Serves: ${data?.serves}',
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                          data?.typeofDonation == "Good" ? 
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5, bottom: 15),
+                            child: Text(
+                              data?.size == 0 ?
+                              'Size Of Good: Small'
+                              : data?.size == 1 ?
+                              'Size Of Good: Medium'
+                              : 'Size Of Good: Large',
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          )
+                          : const SizedBox.shrink(),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text(
+                              'Level: ${data?.level}',
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 20,
@@ -164,66 +194,43 @@ class _DonationScreenState extends State<DonationScreen> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 5),
+                            padding: const EdgeInsets.only(left: 5, top: 15, bottom: 20),
                             child: Text(
-                              'Level: ${data!.level}',
+                              'Status: ${data?.status}',
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w400),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                    child: Text(
-                      "Other Donations",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  loader
-                      ? donationcardskelton(
-                          width: width, length: width < 441 ? 6 : 4)
-                      : CardGridView(
-                          width: width,
-                          itemCount: width < 441 ? 6 : 4,
-                          donationDataList: otherDonation,
-                          // donationLimageList: otherDonationImages,
-                        ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Note:  ',
-                          style: TextStyle(
-                              color: Color.fromRGBO(0, 0, 0, 0.33),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        SizedBox(
-                          width: width - 100,
-                          child: const Text(
-                            'Higher the number of Level.Good number of feedback.',
-                            style: TextStyle(
-                                color: Color.fromRGBO(0, 0, 0, 0.33),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
+                          
                 ],
               ),
             ),
+          ),
+        )
+      ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          data?.status == "pending" ?
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+                                child: ElevatedButton(
+                                  onPressed: (){}, 
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                    backgroundColor: primary2Color,
+                                    minimumSize: Size(width, 50)
+                                  ),
+                                  child: const Text("Cancel Pickup",
+                                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
+                                  )
+                                ),
+                              )
+                              : const SizedBox.shrink(),
+        ],
+      ),
     );
   }
 }
