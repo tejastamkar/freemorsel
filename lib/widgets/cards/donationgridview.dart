@@ -48,7 +48,7 @@ class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
         loader
             ? headingskeleton()
             : Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
+                padding: const EdgeInsets.only(top: 15, bottom: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

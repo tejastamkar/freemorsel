@@ -73,16 +73,17 @@ class _DonationScreenState extends State<DonationScreen> {
               child: CircularProgressIndicator(),
             )
           : SingleChildScrollView(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Card(
+                    elevation: 2,
                     color: secondaryColor,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(10), side: const BorderSide(width: 0.4, color: Colors.grey)),
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 15, right: 10, left: 10, bottom: 40),
+                      padding: const EdgeInsets.only(top: 15, right: 10, left: 10, bottom: 30),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -134,7 +135,7 @@ class _DonationScreenState extends State<DonationScreen> {
                                 )
                               : const SizedBox.shrink(),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(5, 40, 0, 15),
+                            padding: const EdgeInsets.fromLTRB(5, 30, 0, 15),
                             child: Text(
                               'Name: ${data!.name}',
                               style: const TextStyle(
@@ -178,7 +179,7 @@ class _DonationScreenState extends State<DonationScreen> {
                     ),
                   ),
                   const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15),
+                    padding: EdgeInsets.only(top: 15, bottom: 7),
                     child: Text(
                       "Other Donations",
                       style: TextStyle(
@@ -197,21 +198,22 @@ class _DonationScreenState extends State<DonationScreen> {
                           // donationLimageList: otherDonationImages,
                         ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 10,),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
                           'Note:  ',
                           style: TextStyle(
-                              color: Color.fromRGBO(0, 0, 0, 0.33),
+                              color: Colors.grey,
                               fontSize: 14,
                               fontWeight: FontWeight.w400),
                         ),
-                        SizedBox(
-                          width: width - 100,
+                        Container(
+                          width: width-100,
                           child: const Text(
-                            'Higher the number of Level.Good number of feedback.',
+                            'Higher the number of Level, Good number of feedback.',
+                            overflow: TextOverflow.clip,
                             style: TextStyle(
                                 color: Color.fromRGBO(0, 0, 0, 0.33),
                                 fontSize: 14,

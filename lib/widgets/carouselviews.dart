@@ -43,7 +43,7 @@ class _TrendingCampaignsState extends State<TrendingCampaigns> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
-            padding: EdgeInsets.symmetric(vertical: 20),
+            padding: EdgeInsets.only(top: 15, bottom: 20),
             child: Text(
               "Trending Campaigns",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
@@ -51,14 +51,12 @@ class _TrendingCampaignsState extends State<TrendingCampaigns> {
           ),
           CarouselSlider(
             options: CarouselOptions(
-              height: 278,
-              // height: width / 1.85,
+              // height: 250,
+              height: width / 1.8,
               // aspectRatio: 16 / 9,
               viewportFraction: 1,
               initialPage: 0,
               autoPlay: false,
-              autoPlayInterval: const Duration(seconds: 8),
-              autoPlayAnimationDuration: const Duration(milliseconds: 800),
               autoPlayCurve: Curves.fastOutSlowIn,
               enlargeCenterPage: true,
               scrollDirection: Axis.horizontal,

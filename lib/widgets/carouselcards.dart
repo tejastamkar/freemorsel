@@ -40,10 +40,11 @@ class CarouselCards extends StatelessWidget {
                 ));
       },
       child: Card(
+        elevation: 2,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15), side: BorderSide(width: 0.4, color: Colors.grey)),
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -51,19 +52,20 @@ class CarouselCards extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   child: Image.network(
                     image,
-                    height: 185,
-                    width: width - 60,
+                    height: width/2.5,
+                    width: width,
                     fit: BoxFit.cover,
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.only(top: 5),
-                  width: width - 60,
-                  height: 20,
-                  child: Text(
-                    title,
-                    style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w700),
+                Padding(
+                  padding: const EdgeInsets.only(top: 12),
+                  child: Container(
+                    width: width,
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.w700),
+                    ),
                   ),
                 ),
               ],
