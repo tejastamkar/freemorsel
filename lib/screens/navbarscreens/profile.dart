@@ -19,23 +19,22 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: 10, horizontal: width < 440 ? 20 : 60),
-              child: Stack(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            children: [
+              Stack(
                 alignment: AlignmentDirectional.center,
                 children: [
                   SvgPicture.asset(
                     'assets/icons/Bg.svg',
-                    width: width - 50,
+                    width: width,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 15),
+                      horizontal: 15,
+                    ),
                     child: Column(
                       children: [
                         SvgPicture.asset(
@@ -43,28 +42,25 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 150,
                           height: 150,
                         ),
-                        const SizedBox(height: 10),
-                        Column(
-                          children: [
-                            Text(
-                              username,
-                              style: const TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                              ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 35, bottom: 25),
+                          child: Text(
+                            username,
+                            style: const TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
                             ),
-                          ],
+                          ),
                         ),
-                        const SizedBox(height: 40),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text('Level-$level',
                                 style: const TextStyle(
                                     fontSize: 20,
                                     color: Colors.white,
                                     fontWeight: FontWeight.w700)),
-                            const Spacer(),
                             Text('Points-$points',
                                 style: const TextStyle(
                                     fontSize: 20,
@@ -77,36 +73,33 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ],
               ),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: Card(
+              Card(
+                margin: const EdgeInsets.only(top: 30),
+                elevation: 2,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Column(
-                    children: [
-                      InkWell(
-                        onTap: () => Navigator.push(
+                    borderRadius: BorderRadius.circular(15),
+                    side: const BorderSide(width: 0.4, color: Colors.grey)),
+                child: Column(
+                  children: [
+                    ElevatedButton(
+                        onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const Reward())),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black,
+                            minimumSize: Size(width, 60),
+                            elevation: 0),
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                              'assets/icons/reward.svg',
-                              width: 30,
+                              "assets/icons/reward.svg",
                               height: 30,
+                              width: 30,
                             ),
                             const SizedBox(
-                              width: 25,
+                              width: 20,
                             ),
                             const Text(
                               "Reward",
@@ -114,40 +107,35 @@ class _ProfilePageState extends State<ProfilePage> {
                                   fontSize: 18, fontWeight: FontWeight.w400),
                             ),
                             const Spacer(),
-                            const RotatedBox(
-                              quarterTurns: 2,
-                              child: Icon(Icons.arrow_back_ios),
-                            )
+                            const Icon(Icons.arrow_forward_ios_rounded)
                           ],
-                        ),
+                        )),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Divider(
+                        height: 2,
+                        color: Colors.grey,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 20),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.grey.shade200,
-                          ),
-                          width: width,
-                          height: 2,
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () => Navigator.push(
+                    ),
+                    ElevatedButton(
+                        onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const MyDonations())),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black,
+                            minimumSize: Size(width, 60),
+                            elevation: 0),
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                              'assets/icons/history.svg',
-                              width: 30,
+                              "assets/icons/history.svg",
                               height: 30,
+                              width: 30,
                             ),
                             const SizedBox(
-                              width: 25,
+                              width: 20,
                             ),
                             const Text(
                               "My Donations",
@@ -155,27 +143,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                   fontSize: 18, fontWeight: FontWeight.w400),
                             ),
                             const Spacer(),
-                            const RotatedBox(
-                              quarterTurns: 2,
-                              child: Icon(Icons.arrow_back_ios),
-                            )
+                            const Icon(Icons.arrow_forward_ios_rounded)
                           ],
-                        ),
+                        )),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Divider(
+                        height: 2,
+                        color: Colors.grey,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 20),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.grey.shade200,
-                          ),
-                          width: width,
-                          height: 2,
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () => Navigator.push(
+                    ),
+                    ElevatedButton(
+                        onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => EditProfile(
@@ -184,16 +163,20 @@ class _ProfilePageState extends State<ProfilePage> {
                                         Navigator.pop(context);
                                       },
                                     ))),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black,
+                            minimumSize: Size(width, 60),
+                            elevation: 0),
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                              'assets/icons/edit.svg',
-                              width: 30,
+                              "assets/icons/edit.svg",
                               height: 30,
+                              width: 30,
                             ),
                             const SizedBox(
-                              width: 25,
+                              width: 20,
                             ),
                             const Text(
                               "Edit Profile",
@@ -201,20 +184,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                   fontSize: 18, fontWeight: FontWeight.w400),
                             ),
                             const Spacer(),
-                            const RotatedBox(
-                              quarterTurns: 2,
-                              child: Icon(Icons.arrow_back_ios),
-                            )
+                            const Icon(Icons.arrow_forward_ios_rounded)
                           ],
-                        ),
-                      ),
-                    ],
-                  ),
+                        )),
+                  ],
                 ),
               ),
-            ),
-            // const Spacer(),
-          ],
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Padding(
