@@ -11,7 +11,6 @@ import 'package:freemorsel/api/adddonation.dart';
 import 'package:freemorsel/provider/imagecopper.dart';
 import 'package:freemorsel/screens/splashscreens/donatesplash.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
-import 'package:freemorsel/widgets/processing.dart';
 import 'package:image_picker/image_picker.dart';
 
 List<String> imageList = [];
@@ -50,7 +49,7 @@ class _AddPageState extends State<AddPage> {
     if (imageList.isNotEmpty &&
         _name.text != "" &&
         _donationaddress.text != "") {
-      processingPopup(context: context, msg: "Donating....");
+      // processingPopup(context: context, msg: "Donating....");
       await createDonation(
               foodName: _name.text,
               serves: typeOfDonation == 0 ? servesCount : 0,
@@ -80,14 +79,14 @@ class _AddPageState extends State<AddPage> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.only(top: 10),
         child: Column(
           children: [
             imageList.isEmpty
                 ? Container(
                     height: 390,
                     width: width,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.grey,
                     ),
                     child: Center(
@@ -98,50 +97,49 @@ class _AddPageState extends State<AddPage> {
                     ),
                   )
                 : Stack(
-                  alignment: AlignmentDirectional.center,
-                  children: [
-                    CarouselSlider(
-                      options: CarouselOptions(
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            current = index;
-                          });
-                        },
-                        aspectRatio: 1 / 1,
-                        scrollPhysics: imageList.length > 1
-                            ? const ScrollPhysics()
-                            : const NeverScrollableScrollPhysics(),
-                        enableInfiniteScroll: false,
-                        viewportFraction: 1,
-                        initialPage: 0,
-                        autoPlay: false,
-                        autoPlayInterval: const Duration(seconds: 3),
-                        autoPlayAnimationDuration:
-                            const Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeCenterPage: true,
-                        scrollDirection: Axis.horizontal,
-                      ),
-                      items: imageList.map((i) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Image.file(File(i));
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      CarouselSlider(
+                        options: CarouselOptions(
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              current = index;
+                            });
                           },
-                        );
-                      }).toList(),
-                    ),
-                    imageList.length < 5
-                        ? Center(
-                            child: IconButton(
-                              icon:
-                                  SvgPicture.asset('assets/icons/Add.svg'),
-                              iconSize: 45,
-                              onPressed: () async => await takeImages(),
-                            ),
-                          )
-                        : const SizedBox.shrink()
-                  ],
-                ),
+                          aspectRatio: 1 / 1,
+                          scrollPhysics: imageList.length > 1
+                              ? const ScrollPhysics()
+                              : const NeverScrollableScrollPhysics(),
+                          enableInfiniteScroll: false,
+                          viewportFraction: 1,
+                          initialPage: 0,
+                          autoPlay: false,
+                          autoPlayInterval: const Duration(seconds: 3),
+                          autoPlayAnimationDuration:
+                              const Duration(milliseconds: 800),
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          enlargeCenterPage: true,
+                          scrollDirection: Axis.horizontal,
+                        ),
+                        items: imageList.map((i) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return Image.file(File(i));
+                            },
+                          );
+                        }).toList(),
+                      ),
+                      imageList.length < 5
+                          ? Center(
+                              child: IconButton(
+                                icon: SvgPicture.asset('assets/icons/Add.svg'),
+                                iconSize: 45,
+                                onPressed: () async => await takeImages(),
+                              ),
+                            )
+                          : const SizedBox.shrink()
+                    ],
+                  ),
             imageList.isNotEmpty
                 ? Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
@@ -173,8 +171,8 @@ class _AddPageState extends State<AddPage> {
                               fontWeight: FontWeight.w700),
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          margin: EdgeInsets.only(top: 3, bottom: 13),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          margin: const EdgeInsets.only(top: 3, bottom: 13),
                           alignment: Alignment.center,
                           child: CupertinoSlidingSegmentedControl<int>(
                               backgroundColor: CupertinoColors.white,
@@ -186,8 +184,25 @@ class _AddPageState extends State<AddPage> {
                                   alignment: Alignment.center,
                                   width: width,
                                   height: 40,
-                                  child: Text("Food", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: typeOfDonation == 0 ? Colors.white : Colors.black),),),
-                                1: Text("Goods", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: typeOfDonation == 1 ? Colors.white : Colors.black),),
+                                  child: Text(
+                                    "Food",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400,
+                                        color: typeOfDonation == 0
+                                            ? Colors.white
+                                            : Colors.black),
+                                  ),
+                                ),
+                                1: Text(
+                                  "Goods",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: typeOfDonation == 1
+                                          ? Colors.white
+                                          : Colors.black),
+                                ),
                               },
                               onValueChanged: (groupValue) =>
                                   setState(() => typeOfDonation = groupValue)),
@@ -196,15 +211,15 @@ class _AddPageState extends State<AddPage> {
                           typeOfDonation == 1
                               ? "Size of Goods:"
                               : "No of Serves:",
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.grey,
                               fontSize: 18,
                               fontWeight: FontWeight.w700),
                         ),
                         Container(
                             alignment: Alignment.center,
-                            margin: EdgeInsets.only(top: 5, bottom: 15),
-                            padding: EdgeInsets.symmetric(horizontal: 30),
+                            margin: const EdgeInsets.only(top: 5, bottom: 15),
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
                             child: typeOfDonation == 1
                                 ? CupertinoSlidingSegmentedControl<int>(
                                     backgroundColor: CupertinoColors.white,
@@ -213,14 +228,38 @@ class _AddPageState extends State<AddPage> {
                                     padding: const EdgeInsets.all(4),
                                     children: {
                                       0: Container(
-                                  alignment: Alignment.center,
-                                  width: width,
-                                  height: 40,
-                                  child: Text("Small", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: sizeOfGood == 0 ? Colors.white : Colors.black),),),
-                                      1: Text("Medium", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: sizeOfGood == 1 ? Colors.white : Colors.black),),
-                                      2: Text("Large", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: sizeOfGood == 2 ? Colors.white : Colors.black),),
-                                      
-                                      },
+                                        alignment: Alignment.center,
+                                        width: width,
+                                        height: 40,
+                                        child: Text(
+                                          "Small",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400,
+                                              color: sizeOfGood == 0
+                                                  ? Colors.white
+                                                  : Colors.black),
+                                        ),
+                                      ),
+                                      1: Text(
+                                        "Medium",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            color: sizeOfGood == 1
+                                                ? Colors.white
+                                                : Colors.black),
+                                      ),
+                                      2: Text(
+                                        "Large",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            color: sizeOfGood == 2
+                                                ? Colors.white
+                                                : Colors.black),
+                                      ),
+                                    },
                                     onValueChanged: (int? newValue) {
                                       setState(() {
                                         sizeOfGood = newValue;
@@ -228,25 +267,40 @@ class _AddPageState extends State<AddPage> {
                                     })
                                 : Center(
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         ElevatedButton(
-                                          onPressed: () => setState(() {
-                                            if (servesCount > 0)
-                                              servesCount--;
-                                          }), 
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.red[300],
-                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(12), bottomLeft: Radius.circular(12)),
-                                          ),
-                                          minimumSize: Size(120, 40)
-                                          ),
-                                          child: Icon(Icons.remove, size: 30,)
-                                        ),
+                                            onPressed: () => setState(() {
+                                                  if (servesCount > 0) {
+                                                    servesCount--;
+                                                  }
+                                                }),
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    Colors.red[300],
+                                                shape:
+                                                    const RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  12),
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  12)),
+                                                ),
+                                                minimumSize:
+                                                    const Size(120, 40)),
+                                            child: const Icon(
+                                              Icons.remove,
+                                              size: 30,
+                                            )),
                                         Container(
                                           alignment: Alignment.center,
                                           color: Colors.grey.shade200,
-                                          padding: EdgeInsets.symmetric(horizontal: 35),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 35),
                                           height: 42,
                                           child: Text(
                                             "$servesCount",
@@ -255,27 +309,39 @@ class _AddPageState extends State<AddPage> {
                                           ),
                                         ),
                                         ElevatedButton(
-                                          onPressed: () => setState(() {
-                                            if (servesCount < 7)
-                                              servesCount++;
-                                          }), 
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: primary2Color,
-                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topRight: Radius.circular(12), bottomRight: Radius.circular(12)),
-                                          ),
-                                          minimumSize: Size(120, 40)
-                                          ),
-                                          child: Icon(Icons.add, size: 30,)
-                                        ),
+                                            onPressed: () => setState(() {
+                                                  if (servesCount < 7) {
+                                                    servesCount++;
+                                                  }
+                                                }),
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor: primary2Color,
+                                                shape:
+                                                    const RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  12),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  12)),
+                                                ),
+                                                minimumSize:
+                                                    const Size(120, 40)),
+                                            child: const Icon(
+                                              Icons.add,
+                                              size: 30,
+                                            )),
                                       ],
                                     ),
                                   )),
                         Card(
-                          margin: EdgeInsets.all(0),
+                          margin: const EdgeInsets.all(0),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            side: BorderSide(width: 0.4, color: Colors.grey)
-                          ),
+                              borderRadius: BorderRadius.circular(8.0),
+                              side: const BorderSide(
+                                  width: 0.4, color: Colors.grey)),
                           elevation: 2,
                           child: TextField(
                             controller: _name,
@@ -289,16 +355,18 @@ class _AddPageState extends State<AddPage> {
                                 fillColor: Colors.white,
                                 filled: true,
                                 labelText: 'Item Name',
-                                labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: Colors.grey)
-                                ),
+                                labelStyle: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.grey)),
                           ),
                         ),
                         Card(
-                          margin: EdgeInsets.only(top: 20, bottom: 24),
+                          margin: const EdgeInsets.only(top: 20, bottom: 24),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            side: BorderSide(width: 0.4, color: Colors.grey)
-                          ),
+                              borderRadius: BorderRadius.circular(8.0),
+                              side: const BorderSide(
+                                  width: 0.4, color: Colors.grey)),
                           elevation: 2,
                           child: TextField(
                             controller: _donationaddress,
@@ -306,25 +374,26 @@ class _AddPageState extends State<AddPage> {
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w400),
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              fillColor: Colors.white,
-                              filled: true,
-                              labelText: 'Address',
-                              labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: Colors.grey)
-                            ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                fillColor: Colors.white,
+                                filled: true,
+                                labelText: 'Address',
+                                labelStyle: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.grey)),
                           ),
                         ),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              backgroundColor: Colors.red.shade400,
-                              minimumSize: Size(width, 40)
-                            ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                backgroundColor: Colors.red.shade400,
+                                minimumSize: Size(width, 40)),
                             child: const Text(
                               'Clear All',
                               style: TextStyle(
@@ -338,7 +407,9 @@ class _AddPageState extends State<AddPage> {
                                   sizeOfGood = 0,
                                   servesCount = 0
                                 })),
-                                SizedBox(height: 10,)
+                        const SizedBox(
+                          height: 10,
+                        )
                       ],
                     ),
                   )

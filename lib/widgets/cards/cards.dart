@@ -28,7 +28,9 @@ class DonationCards extends StatelessWidget {
         },
         child: Card(
           elevation: 2,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: const BorderSide(width: 0.4, color: Colors.grey)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: const BorderSide(width: 0.4, color: Colors.grey)),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
             child: Column(
@@ -53,10 +55,11 @@ class DonationCards extends StatelessWidget {
                 ),
                 Container(
                   width: width,
-                  padding: EdgeInsets.only(top: 8, bottom: 4),
+                  padding: const EdgeInsets.only(top: 8, bottom: 4),
                   child: Text(
                     title,
                     style: const TextStyle(
+                        overflow: TextOverflow.ellipsis,
                         fontSize: 16,
                         color: Colors.black,
                         fontWeight: FontWeight.w600),

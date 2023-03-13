@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freemorsel/data/userdata.dart';
-import 'package:freemorsel/screens/friends.dart';
+import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 import 'package:freemorsel/widgets/graph.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -123,115 +122,115 @@ class _RewardState extends State<Reward> {
                   ],
                 ),
               ),
-              SizedBox(
-                width: width - 20,
-                child: Card(
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(20, 16, 0, 0),
-                        child: Text(
-                          "Your Weekly Activity",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(25, 5, 0, 11),
-                        child: Text(
-                          "Last 5 weeks",
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 40),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            CircularPercentIndicator(
-                              radius: 25.0,
-                              lineWidth: 7.0,
-                              percent: 0.25,
-                              progressColor:
-                                  const Color.fromRGBO(117, 183, 158, 1),
-                              footer: const Text(
-                                "W1",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16.0),
-                              ),
-                              circularStrokeCap: CircularStrokeCap.round,
-                            ),
-                            CircularPercentIndicator(
-                              radius: 25.0,
-                              lineWidth: 7.0,
-                              percent: 0.25,
-                              progressColor:
-                                  const Color.fromRGBO(117, 183, 158, 1),
-                              footer: const Text(
-                                "W2",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16.0),
-                              ),
-                              circularStrokeCap: CircularStrokeCap.round,
-                            ),
-                            CircularPercentIndicator(
-                              radius: 25.0,
-                              lineWidth: 7.0,
-                              percent: 0.25,
-                              progressColor:
-                                  const Color.fromRGBO(117, 183, 158, 1),
-                              footer: const Text(
-                                "W3",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16.0),
-                              ),
-                              circularStrokeCap: CircularStrokeCap.round,
-                            ),
-                            CircularPercentIndicator(
-                              radius: 25.0,
-                              lineWidth: 7.0,
-                              percent: 0.25,
-                              progressColor:
-                                  const Color.fromRGBO(117, 183, 158, 1),
-                              footer: const Text(
-                                "W4",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16.0),
-                              ),
-                              circularStrokeCap: CircularStrokeCap.round,
-                            ),
-                            CircularPercentIndicator(
-                              radius: 25.0,
-                              lineWidth: 7.0,
-                              percent: 0.25,
-                              progressColor:
-                                  const Color.fromRGBO(117, 183, 158, 1),
-                              footer: const Text(
-                                "W5",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16.0),
-                              ),
-                              circularStrokeCap: CircularStrokeCap.round,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // SizedBox(
+              //   width: width - 20,
+              //   child: Card(
+              //     elevation: 3,
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(18),
+              //     ),
+              //     child: Column(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: [
+              //         const Padding(
+              //           padding: EdgeInsets.fromLTRB(20, 16, 0, 0),
+              //           child: Text(
+              //             "Your Weekly Activity",
+              //             style: TextStyle(
+              //                 fontSize: 18, fontWeight: FontWeight.w400),
+              //           ),
+              //         ),
+              //         const Padding(
+              //           padding: EdgeInsets.fromLTRB(25, 5, 0, 11),
+              //           child: Text(
+              //             "Last 5 weeks",
+              //             style: TextStyle(
+              //                 fontSize: 15, fontWeight: FontWeight.w400),
+              //           ),
+              //         ),
+              //         Padding(
+              //           padding: const EdgeInsets.symmetric(
+              //               vertical: 10, horizontal: 40),
+              //           child: Row(
+              //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //             children: [
+              //               CircularPercentIndicator(
+              //                 radius: 25.0,
+              //                 lineWidth: 7.0,
+              //                 percent: 0.25,
+              //                 progressColor:
+              //                     const Color.fromRGBO(117, 183, 158, 1),
+              //                 footer: const Text(
+              //                   "W1",
+              //                   style: TextStyle(
+              //                       fontWeight: FontWeight.w400,
+              //                       fontSize: 16.0),
+              //                 ),
+              //                 circularStrokeCap: CircularStrokeCap.round,
+              //               ),
+              //               CircularPercentIndicator(
+              //                 radius: 25.0,
+              //                 lineWidth: 7.0,
+              //                 percent: 0.25,
+              //                 progressColor:
+              //                     const Color.fromRGBO(117, 183, 158, 1),
+              //                 footer: const Text(
+              //                   "W2",
+              //                   style: TextStyle(
+              //                       fontWeight: FontWeight.w400,
+              //                       fontSize: 16.0),
+              //                 ),
+              //                 circularStrokeCap: CircularStrokeCap.round,
+              //               ),
+              //               CircularPercentIndicator(
+              //                 radius: 25.0,
+              //                 lineWidth: 7.0,
+              //                 percent: 0.25,
+              //                 progressColor:
+              //                     const Color.fromRGBO(117, 183, 158, 1),
+              //                 footer: const Text(
+              //                   "W3",
+              //                   style: TextStyle(
+              //                       fontWeight: FontWeight.w400,
+              //                       fontSize: 16.0),
+              //                 ),
+              //                 circularStrokeCap: CircularStrokeCap.round,
+              //               ),
+              //               CircularPercentIndicator(
+              //                 radius: 25.0,
+              //                 lineWidth: 7.0,
+              //                 percent: 0.25,
+              //                 progressColor:
+              //                     const Color.fromRGBO(117, 183, 158, 1),
+              //                 footer: const Text(
+              //                   "W4",
+              //                   style: TextStyle(
+              //                       fontWeight: FontWeight.w400,
+              //                       fontSize: 16.0),
+              //                 ),
+              //                 circularStrokeCap: CircularStrokeCap.round,
+              //               ),
+              //               CircularPercentIndicator(
+              //                 radius: 25.0,
+              //                 lineWidth: 7.0,
+              //                 percent: 0.25,
+              //                 progressColor:
+              //                     const Color.fromRGBO(117, 183, 158, 1),
+              //                 footer: const Text(
+              //                   "W5",
+              //                   style: TextStyle(
+              //                       fontWeight: FontWeight.w400,
+              //                       fontSize: 16.0),
+              //                 ),
+              //                 circularStrokeCap: CircularStrokeCap.round,
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               const SizedBox(
                 height: 10,
               ),
@@ -316,35 +315,270 @@ class _RewardState extends State<Reward> {
                     )),
               ),
               const SizedBox(
-                height: 10,
+                height: 20,
               ),
-              InkWell(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const FriendsRank())),
-                child: Card(
-                  elevation: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/icons/friends.svg',
-                          height: 30,
-                          width: 30,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "Friends",
+                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width - 140,
+                    child: Card(
+                      color: primary3Color,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const SizedBox(width: 10),
+                                const Text(
+                                  "1st",
+                                  style: TextStyle(
+                                    fontFamily: "overpass",
+                                    fontSize: 36,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const [
+                                    Text(
+                                      "Dhoni",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      "170 points",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        const Text(
-                          "View My Rank",
-                          style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.w400),
-                        ),
-                        const Icon(Icons.arrow_forward_ios_rounded)
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    child: Image.asset("assets/profile1.png", height: 80),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width - 180,
+                    child: Card(
+                      color: primary2Color,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const SizedBox(width: 10),
+                                const Text(
+                                  "2nd",
+                                  style: TextStyle(
+                                    fontFamily: "overpass",
+                                    fontSize: 36,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const [
+                                    Text(
+                                      "Virat",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      "130 points",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    child: Image.asset("assets/profile2.png", height: 80),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width - 220,
+                    child: Card(
+                      color: primary3Color,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const SizedBox(width: 10),
+                                const Text(
+                                  "3rd",
+                                  style: TextStyle(
+                                    fontFamily: "overpass",
+                                    fontSize: 36,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const [
+                                    Text(
+                                      "Rohit",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      "130 points",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    child: Image.asset("assets/profile1.png", height: 80),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width - 40,
+                    child: Card(
+                      color: primary2Color,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const SizedBox(width: 10),
+                                const Text(
+                                  "16",
+                                  style: TextStyle(
+                                    fontFamily: "overpass",
+                                    fontSize: 36,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const [
+                                    Text(
+                                      "You",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      "20 points",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(120, 5, 15, 5),
+                                  child: Image.asset("assets/profile2.png",
+                                      height: 80),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
