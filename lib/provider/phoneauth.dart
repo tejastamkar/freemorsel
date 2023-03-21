@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +20,7 @@ class PhoneAuth {
     try {
       await auth.verifyPhoneNumber(
         phoneNumber: "+91$phoneNo",
-        timeout: const Duration(seconds: 40),
+        timeout: const Duration(seconds: 120),
         verificationCompleted: (PhoneAuthCredential credential) async {
           // await auth
           //     .signInWithCredential(credential)
@@ -52,7 +54,7 @@ class PhoneAuth {
     try {
       await auth.verifyPhoneNumber(
         phoneNumber: "+91$phoneNo",
-        timeout: const Duration(seconds: 60),
+        timeout: const Duration(seconds: 120),
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException e) {},
         codeSent: (String verificationId, int? resendToken) => showDialog(
@@ -98,23 +100,28 @@ class PhoneAuth {
       required BuildContext context}) async {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId, smsCode: smsCode);
-    await auth.signInWithCredential(credential).whenComplete(() async {
-      if (FirebaseAuth.instance.currentUser == null) {
-        await logOut(context: context);
-      } else {
-        await checkLogin().then((newUser) {
-          if (newUser) {
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const Navbar()),
-                (route) => false);
-          } else {
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const RegisterScreen()),
-                (route) => false);
-          }
-        });
-      }
-    });
+    try {
+      await auth.signInWithCredential(credential).whenComplete(() async {
+        if (FirebaseAuth.instance.currentUser == null) {
+          await logOut(context: context);
+        } else {
+          await checkLogin().then((newUser) {
+            if (newUser) {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const Navbar()),
+                  (route) => false);
+            } else {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => const RegisterScreen()),
+                  (route) => false);
+            }
+          });
+        }
+      });
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   logOut({required BuildContext context}) {

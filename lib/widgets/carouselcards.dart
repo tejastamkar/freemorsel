@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:freemorsel/api/firebasehelper.dart';
+import 'package:freemorsel/data/userdata.dart';
 import 'package:freemorsel/widgets/cards/ngoinfo.dart';
+import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 
 class CarouselCards extends StatelessWidget {
   final double width;
@@ -28,7 +31,6 @@ class CarouselCards extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        print(id);
         await FirebaseHelper()
             .getCampDetailModel(id: id)
             .then((value) => Navigator.push(
@@ -40,9 +42,10 @@ class CarouselCards extends StatelessWidget {
                 ));
       },
       child: Card(
-        elevation: 2,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15), side: BorderSide(width: 0.4, color: Colors.grey)),
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+              side: const BorderSide(width: 0.4, color: Colors.grey)),
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(
@@ -50,16 +53,23 @@ class CarouselCards extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(15),
-                  child: Image.network(
-                    image,
-                    height: width/2.5,
+                  child: CachedNetworkImage(
+                    key: UniqueKey(),
+                    cacheManager: customCacheManager,
+                    imageUrl: image,
+                    height: width / 2.5,
                     width: width,
                     fit: BoxFit.cover,
+                    placeholder: (context, url) => Container(
+                      height: width / 2.5,
+                      width: width,
+                      color: primary3Color,
+                    ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 12),
-                  child: Container(
+                  child: SizedBox(
                     width: width,
                     child: Text(
                       title,

@@ -9,7 +9,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freemorsel/api/adddonation.dart';
 import 'package:freemorsel/provider/imagecopper.dart';
-import 'package:freemorsel/provider/locationprovider.dart';
 import 'package:freemorsel/screens/splashscreens/donatesplash.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 import 'package:image_picker/image_picker.dart';
@@ -77,7 +76,7 @@ class _AddPageState extends State<AddPage> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    // double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 10),
@@ -376,32 +375,17 @@ class _AddPageState extends State<AddPage> {
                                 fontSize: 18, fontWeight: FontWeight.w400),
                             controller: _donationaddress,
                             decoration: InputDecoration(
-                              labelText: "Address",
-                              labelStyle: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.grey),
-                              suffixIcon: InkWell(
-                                onTap: () async {
-                                  _donationaddress.clear();
-                                  _donationaddress.text =
-                                      await getLoction(context: context);
-                                },
-                                child: Icon(
-                                  CupertinoIcons.location_fill,
-                                  color: _donationaddress.text == ""
-                                      ? Colors.grey
-                                      : primaryColor,
-                                ),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 10),
-                              filled: true,
-                              fillColor: Colors.white,
-                              border: OutlineInputBorder(
+                                border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(10)),
-                            ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                fillColor: Colors.white,
+                                filled: true,
+                                labelText: 'Address',
+                                labelStyle: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.grey)),
                           ),
                         ),
                         ElevatedButton(

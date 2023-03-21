@@ -1,3 +1,5 @@
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+
 // String name = 'Zara', lastName = 'Adam';
 int donationLevel = 3, level = 2, points = 10;
 String profileImage =
@@ -7,3 +9,6 @@ String email = "zara.adam@freemosal.com";
 String username = "", phoneNum = "", fcmToken = "";
 
 int profilePicSelector = 1;
+
+final customCacheManager = CacheManager(Config('customCacheManager',
+    stalePeriod: const Duration(minutes: 20), maxNrOfCacheObjects: 100));

@@ -1,14 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:freemorsel/api/getdonation.dart';
+import 'package:freemorsel/data/userdata.dart';
 import 'package:freemorsel/models/postmodel.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 
 class DonationStatusCard extends StatefulWidget {
-  final String id;
-  const DonationStatusCard({Key? key, required this.id}) : super(key: key);
+  final String id, status;
+  const DonationStatusCard({Key? key, required this.id, required this.status})
+      : super(key: key);
 
   @override
   State<DonationStatusCard> createState() => _DonationStatusCardState();
@@ -22,17 +24,15 @@ class _DonationStatusCardState extends State<DonationStatusCard> {
 
   getData({required String id}) async {
     await FirebaseFirestore.instance
-        .collection('PendingDonation')
+        .collection(widget.status == "Done" ? "Donation" : "PendingDonation")
         .doc(id)
         .get()
-        .then((DocumentSnapshot documentSnapshot) async {
-      otherDonation.addAll(await getDonationData());
-      List temp = [];
-      temp.add(documentSnapshot.data());
-      for (var tempData in temp) {
-        data = PostCardModel.fromMap(tempData);
+        .then((DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
+      if (documentSnapshot.exists) {
+        data = PostCardModel.fromMap(documentSnapshot.data()!);
+        setState(() => loader = false);
       }
-    }).whenComplete(() => setState(() => loader = false));
+    });
   }
 
   @override
@@ -41,7 +41,7 @@ class _DonationStatusCardState extends State<DonationStatusCard> {
 
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -65,28 +65,32 @@ class _DonationStatusCardState extends State<DonationStatusCard> {
             },
           )),
       body: SafeArea(
-        child: loader
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-        : SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-          child: Card(
-            elevation: 2,
-            color: secondaryColor,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: const BorderSide(width: 0.4, color: Colors.grey)),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 15, 10, 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CarouselSlider(
+          child: loader
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : SingleChildScrollView(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  child: Card(
+                    elevation: 2,
+                    color: secondaryColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: const BorderSide(width: 0.4, color: Colors.grey)),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 15, 10, 30),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CarouselSlider(
                             options: CarouselOptions(
                                 height: 250,
                                 aspectRatio: 1 / 1,
                                 viewportFraction: 1,
                                 initialPage: 0,
-                                autoPlay: data!.images.length > 1 ? true : false,
+                                autoPlay:
+                                    data!.images.length > 1 ? true : false,
                                 autoPlayInterval: const Duration(seconds: 12),
                                 autoPlayAnimationDuration:
                                     const Duration(milliseconds: 800),
@@ -104,8 +108,15 @@ class _DonationStatusCardState extends State<DonationStatusCard> {
                             items: data?.images.map((i) {
                               return ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
-                                child: Image.network(
-                                  i,
+                                child: CachedNetworkImage(
+                                  placeholder: (context, url) => Container(
+                                    height: 160,
+                                    width: width,
+                                    color: primary2Color,
+                                  ),
+                                  key: UniqueKey(),
+                                  cacheManager: customCacheManager,
+                                  imageUrl: i,
                                   height: 160,
                                   width: width,
                                   fit: BoxFit.fitWidth,
@@ -127,7 +138,7 @@ class _DonationStatusCardState extends State<DonationStatusCard> {
                                   ),
                                 )
                               : const SizedBox.shrink(),
-                              Padding(
+                          Padding(
                             padding: const EdgeInsets.fromLTRB(5, 30, 0, 15),
                             child: Text(
                               'Name: ${data?.name}',
@@ -167,22 +178,23 @@ class _DonationStatusCardState extends State<DonationStatusCard> {
                                   fontWeight: FontWeight.w400),
                             ),
                           ),
-                          data?.typeofDonation == "Good" ? 
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5, bottom: 15),
-                            child: Text(
-                              data?.size == 0 ?
-                              'Size Of Good: Small'
-                              : data?.size == 1 ?
-                              'Size Of Good: Medium'
-                              : 'Size Of Good: Large',
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          )
-                          : const SizedBox.shrink(),
+                          data?.typeofDonation == "Good"
+                              ? Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 5, bottom: 15),
+                                  child: Text(
+                                    data?.size == 0
+                                        ? 'Size Of Good: Small'
+                                        : data?.size == 1
+                                            ? 'Size Of Good: Medium'
+                                            : 'Size Of Good: Large',
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                )
+                              : const SizedBox.shrink(),
                           Padding(
                             padding: const EdgeInsets.only(left: 5),
                             child: Text(
@@ -194,7 +206,8 @@ class _DonationStatusCardState extends State<DonationStatusCard> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 5, top: 15, bottom: 20),
+                            padding: const EdgeInsets.only(
+                                left: 5, top: 15, bottom: 20),
                             child: Text(
                               'Status: ${data?.status}',
                               style: const TextStyle(
@@ -203,32 +216,32 @@ class _DonationStatusCardState extends State<DonationStatusCard> {
                                   fontWeight: FontWeight.w400),
                             ),
                           ),
-                          
-                ],
-              ),
-            ),
-          ),
-        )
-      ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )),
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          data?.status == "pending" ?
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
-                                child: ElevatedButton(
-                                  onPressed: (){}, 
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                    backgroundColor: primary2Color,
-                                    minimumSize: Size(width, 50)
-                                  ),
-                                  child: const Text("Cancel Pickup",
-                                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
-                                  )
-                                ),
-                              )
-                              : const SizedBox.shrink(),
+          data?.status == "pending"
+              ? Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+                  child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          backgroundColor: primary2Color,
+                          minimumSize: Size(width, 50)),
+                      child: const Text(
+                        "Cancel Pickup",
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.w400),
+                      )),
+                )
+              : const SizedBox.shrink(),
         ],
       ),
     );

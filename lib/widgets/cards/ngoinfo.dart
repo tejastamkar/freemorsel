@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:freemorsel/data/userdata.dart';
 import 'package:freemorsel/models/trendingcamps_models.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 import 'package:freemorsel/widgets/volunteerpopup.dart';
@@ -44,10 +46,17 @@ class _NgoInfoState extends State<NgoInfo> {
               Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(15),
-              child: Image.network(
-                widget.campDetail.image.toString(),
+              child: CachedNetworkImage(
+                imageUrl: widget.campDetail.image.toString(),
                 height: 185,
                 width: width - 60,
+                key: UniqueKey(),
+                cacheManager: customCacheManager,
+                placeholder: (context, url) => Container(
+                  height: 185,
+                  width: width - 60,
+                  color: primary2Color,
+                ),
                 fit: BoxFit.cover,
               ),
             ),

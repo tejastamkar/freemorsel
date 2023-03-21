@@ -1,8 +1,10 @@
 import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:freemorsel/api/getdonation.dart';
+import 'package:freemorsel/data/userdata.dart';
 import 'package:freemorsel/models/postmodel.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 import 'package:freemorsel/widgets/cards/cardgrid.dart';
@@ -81,9 +83,11 @@ class _DonationScreenState extends State<DonationScreen> {
                     elevation: 2,
                     color: secondaryColor,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10), side: const BorderSide(width: 0.4, color: Colors.grey)),
+                        borderRadius: BorderRadius.circular(10),
+                        side: const BorderSide(width: 0.4, color: Colors.grey)),
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 15, right: 10, left: 10, bottom: 30),
+                      padding: const EdgeInsets.only(
+                          top: 15, right: 10, left: 10, bottom: 30),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -93,7 +97,8 @@ class _DonationScreenState extends State<DonationScreen> {
                                 aspectRatio: 1 / 1,
                                 viewportFraction: 1,
                                 initialPage: 0,
-                                autoPlay: data!.images.length > 1 ? true : false,
+                                autoPlay:
+                                    data!.images.length > 1 ? true : false,
                                 autoPlayInterval: const Duration(seconds: 12),
                                 autoPlayAnimationDuration:
                                     const Duration(milliseconds: 800),
@@ -111,8 +116,15 @@ class _DonationScreenState extends State<DonationScreen> {
                             items: data!.images.map((i) {
                               return ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
-                                child: Image.network(
-                                  i,
+                                child: CachedNetworkImage(
+                                  key: UniqueKey(),
+                                  cacheManager: customCacheManager,
+                                  placeholder: (context, url) => Container(
+                                    height: 160,
+                                    width: width,
+                                    color: primary2Color,
+                                  ),
+                                  imageUrl: i,
                                   height: 160,
                                   width: width,
                                   fit: BoxFit.fitWidth,
@@ -198,7 +210,9 @@ class _DonationScreenState extends State<DonationScreen> {
                           // donationLimageList: otherDonationImages,
                         ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10,),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                    ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -209,8 +223,8 @@ class _DonationScreenState extends State<DonationScreen> {
                               fontSize: 14,
                               fontWeight: FontWeight.w400),
                         ),
-                        Container(
-                          width: width-100,
+                        SizedBox(
+                          width: width - 100,
                           child: const Text(
                             'Higher the number of Level, Good number of feedback.',
                             overflow: TextOverflow.clip,

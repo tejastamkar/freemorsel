@@ -23,8 +23,8 @@ class _TrendingCampaignsState extends State<TrendingCampaigns> {
       for (var doc in querySnapshot.docs) {
         trendingData.add(doc.data());
       }
+      trendingData.shuffle();
     }).whenComplete(() => setState(() => loader = false));
-    print(trendingData);
   }
 
   @override
@@ -52,8 +52,8 @@ class _TrendingCampaignsState extends State<TrendingCampaigns> {
           CarouselSlider(
             options: CarouselOptions(
               // height: 250,
-              height: width / 1.8,
-              // aspectRatio: 16 / 9,
+              // height: width / 1.8,
+              aspectRatio: 15 / 9,
               viewportFraction: 1,
               initialPage: 0,
               autoPlay: false,
@@ -86,8 +86,8 @@ class UpComingEvents extends StatefulWidget {
 class _UpComingEventsState extends State<UpComingEvents> {
   List upComingEventsData = [];
   bool loader = true;
-  getData() {
-    FirebaseFirestore.instance
+  Future getData() async {
+    await FirebaseFirestore.instance
         .collection('UpComing')
         .get()
         .then((QuerySnapshot querySnapshot) {
@@ -99,7 +99,7 @@ class _UpComingEventsState extends State<UpComingEvents> {
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3), () => getData());
+    getData();
     super.initState();
   }
 

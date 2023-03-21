@@ -11,7 +11,7 @@ class TrendingCampaning {
   TrendingCampaning(this.id, this.image, this.title, this.organization,
       this.dateofdrive, this.venue, this.time, this.contact);
 
-  TrendingCampaning.fromMap(Map<String, dynamic> map) {
+  TrendingCampaning.fromMap(map) {
     id = map["id"];
     image = map["image"];
     title = map['title'];

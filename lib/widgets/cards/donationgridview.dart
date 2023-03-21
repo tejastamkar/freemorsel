@@ -31,6 +31,7 @@ class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
         //       for (var doc in querySnapshot.docs) {
         //         foodDonationImages.add(doc.data());
       }
+      foodDonationList.shuffle();
     }).whenComplete(() => setState(() => loader = false));
   }
 

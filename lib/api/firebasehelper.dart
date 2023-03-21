@@ -4,17 +4,15 @@ import 'package:freemorsel/models/trendingcamps_models.dart';
 class FirebaseHelper {
   Future<TrendingCampaning?> getCampDetailModel({required String id}) async {
     TrendingCampaning? campDetail;
-    DocumentSnapshot docSnap = await FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection("TrendingCampaigns")
         .doc(id)
-        .get();
-    if (docSnap.data() != null) {
-      List temp = [];
-      temp.add(docSnap.data());
-      for (var tempData in temp) {
-        campDetail = TrendingCampaning.fromMap(tempData);
-      }
-    }
+        .get()
+        .then((value) {
+      campDetail = TrendingCampaning.fromMap(value.data());
+      return campDetail;
+    });
+
     return campDetail;
   }
 }

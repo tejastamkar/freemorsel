@@ -1,5 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:freemorsel/data/userdata.dart';
 import 'package:freemorsel/screens/donationscreen.dart';
+import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 
 class DonationCards extends StatelessWidget {
   final String title, subtitle, image, id;
@@ -42,13 +45,18 @@ class DonationCards extends StatelessWidget {
                   child: Center(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: SizedBox(
+                      child: CachedNetworkImage(
+                        placeholder: (context, url) => Container(
+                          color: primary2Color,
+                          height: 120,
+                          width: width,
+                        ),
+                        key: UniqueKey(),
+                        cacheManager: customCacheManager,
                         height: 120,
                         width: width,
-                        child: Image.network(
-                          image,
-                          fit: BoxFit.cover,
-                        ),
+                        imageUrl: image,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
