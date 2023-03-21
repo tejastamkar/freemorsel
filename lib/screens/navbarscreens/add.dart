@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freemorsel/api/adddonation.dart';
 import 'package:freemorsel/provider/imagecopper.dart';
+import 'package:freemorsel/provider/locationprovider.dart';
 import 'package:freemorsel/screens/splashscreens/donatesplash.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 import 'package:image_picker/image_picker.dart';
@@ -369,22 +370,38 @@ class _AddPageState extends State<AddPage> {
                                   width: 0.4, color: Colors.grey)),
                           elevation: 2,
                           child: TextField(
-                            controller: _donationaddress,
-                            maxLines: 3,
+                            maxLines: 2,
+                            keyboardType: TextInputType.multiline,
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w400),
+                            controller: _donationaddress,
                             decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(8.0),
+                              labelText: "Address",
+                              labelStyle: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey),
+                              suffixIcon: InkWell(
+                                onTap: () async {
+                                  _donationaddress.clear();
+                                  _donationaddress.text =
+                                      await getLoction(context: context);
+                                },
+                                child: Icon(
+                                  CupertinoIcons.location_fill,
+                                  color: _donationaddress.text == ""
+                                      ? Colors.grey
+                                      : primaryColor,
                                 ),
-                                fillColor: Colors.white,
-                                filled: true,
-                                labelText: 'Address',
-                                labelStyle: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.grey)),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 10),
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
                           ),
                         ),
                         ElevatedButton(
