@@ -54,7 +54,7 @@ class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Food Donated",
+                      "Food and Good Donatations",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     ),
@@ -89,7 +89,11 @@ class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
             ? donationcardskelton(width: width, length: width < 441 ? 6 : 4)
             : CardGridView(
                 width: width,
-                itemCount: width < 441 ? 6 : foodDonationList.length<4?foodDonationList.length:4,
+                itemCount: width < 441
+                    ? 6
+                    : foodDonationList.length < 4
+                        ? foodDonationList.length
+                        : 4,
                 donationDataList: foodDonationList,
                 // donationLimageList: foodDonationList,
               ),
@@ -229,7 +233,11 @@ class _GoodsDonationCardGridState extends State<GoodsDonationCardGrid> {
             ? donationcardskelton(width: width, length: width < 441 ? 6 : 4)
             : CardGridView(
                 width: width,
-                itemCount: width < 441 ? 6 : goodDonation.length<4?goodDonation.length: 4,
+                itemCount: width < 441
+                    ? 6
+                    : goodDonation.length < 4
+                        ? goodDonation.length
+                        : 4,
                 donationDataList: goodDonation,
                 // donationLimageList: goodDonationImages,
               ),
