@@ -370,7 +370,7 @@ class _AddPageState extends State<AddPage> {
                                   width: 0.4, color: Colors.grey)),
                           elevation: 2,
                           child: TextField(
-                            maxLines: 2,
+                            // maxLines: 2,
                             keyboardType: TextInputType.multiline,
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w400),
