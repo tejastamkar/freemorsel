@@ -542,32 +542,28 @@ class _RewardState extends State<Reward> {
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-        child: Card(
-          color: primary2Color,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    const SizedBox(width: 10),
-                    const Text(
-                      "16",
-                      style: TextStyle(
-                        fontFamily: "overpass",
-                        fontSize: 36,
-                        fontWeight: FontWeight.w400,
-                      ),
+      bottomNavigationBar: Card(
+        margin: const EdgeInsets.all(0),
+        elevation: 0,
+        color: primary2Color,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+              child: Row(
+                children: [
+                  const Text(
+                    "16",
+                    style: TextStyle(
+                      fontFamily: "overpass",
+                      fontSize: 36,
+                      fontWeight: FontWeight.w400,
                     ),
-                    const SizedBox(width: 20),
-                    Column(
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
                         Text(
@@ -577,7 +573,6 @@ class _RewardState extends State<Reward> {
                               fontSize: 20,
                               fontWeight: FontWeight.w400),
                         ),
-                        SizedBox(height: 8),
                         Text(
                           "20 points",
                           style: TextStyle(
@@ -587,19 +582,17 @@ class _RewardState extends State<Reward> {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(120, 5, 15, 5),
-                      child: SvgPicture.asset(
-                        "assets/profileavatar/avatar-$profilePicSelector.svg",
-                        width: 70,
-                        height: 70,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                  const Spacer(),
+                  SvgPicture.asset(
+                    "assets/profileavatar/avatar-$profilePicSelector.svg",
+                    width: 70,
+                    height: 70,
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
