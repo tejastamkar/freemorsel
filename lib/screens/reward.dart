@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freemorsel/data/userdata.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 import 'package:freemorsel/widgets/graph.dart';
@@ -11,6 +12,25 @@ class Reward extends StatefulWidget {
 }
 
 class _RewardState extends State<Reward> {
+  int level = 0;
+
+  getmylevel() {
+    for (int i = 0; i <= 100; i++) {
+      if (points >= 100) {
+        points = points - 100;
+      } else {
+        level = i;
+        break;
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    getmylevel();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -518,69 +538,67 @@ class _RewardState extends State<Reward> {
               const SizedBox(
                 height: 25,
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width - 40,
-                    child: Card(
-                      color: primary2Color,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                const SizedBox(width: 10),
-                                const Text(
-                                  "16",
-                                  style: TextStyle(
-                                    fontFamily: "overpass",
-                                    fontSize: 36,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                const SizedBox(width: 20),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      "You",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    SizedBox(height: 8),
-                                    Text(
-                                      "20 points",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(120, 5, 15, 5),
-                                  child: Image.asset("assets/profile2.png",
-                                      height: 80),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: Card(
+          color: primary2Color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const SizedBox(width: 10),
+                    const Text(
+                      "16",
+                      style: TextStyle(
+                        fontFamily: "overpass",
+                        fontSize: 36,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    const SizedBox(width: 20),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "You",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          "20 points",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(120, 5, 15, 5),
+                      child: SvgPicture.asset(
+                        "assets/profileavatar/avatar-$profilePicSelector.svg",
+                        width: 70,
+                        height: 70,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
