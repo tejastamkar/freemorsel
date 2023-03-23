@@ -31,7 +31,8 @@ def getMyRank():
     docsnap = db.collection('Users').get()
     for doc in docsnap:
         userData.append(doc.to_dict())
-    myresults = MyRank(userData, userid)
+    sortedList = getRank(userData)
+    myresults = MyRank(sortedList, userid)
     return f"{myresults}"
 
 
