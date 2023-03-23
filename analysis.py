@@ -53,15 +53,19 @@ def getMonthDetails(data):
 def getMap(dataSet, nameOFaxis: str):
     y1 = 0
     y2 = 0
-    x = []
+    x = {
+        "x": nameOFaxis,
+        "y1": 0,
+        "y2": 0
+    }
     for data in dataSet:
         if (data["TypeOfDonation"] != "Good"):
             y1 += 1
         else:
             y2 += 1
-    x.append(nameOFaxis)
-    x.append(y1)
-    x.append(y2)
+
+    x["y1"] = y1
+    x["y2"] = y2
     return x
 # getMonthDetails()
 

@@ -29,6 +29,11 @@ def getrank():
     for doc in docsnap:
         userData.append(doc.to_dict())
     myresults = getRank(userData)
+
+    for data in myresults: 
+        print(type(data))
+
+
     return myresults[0:3]
 
 
