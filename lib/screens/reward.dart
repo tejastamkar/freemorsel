@@ -378,50 +378,41 @@ class _RewardState extends State<Reward> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Row(
+                              const SizedBox(width: 10),
+                              const Text(
+                                "3rd",
+                                style: TextStyle(
+                                  fontFamily: "overpass",
+                                  fontSize: 36,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              const SizedBox(width: 20),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(width: 10),
-                                  const Text(
-                                    "3rd",
-                                    style: TextStyle(
-                                      fontFamily: "overpass",
-                                      fontSize: 36,
-                                      fontWeight: FontWeight.w400,
+                                  SizedBox(
+                                    width: width - 335,
+                                    child: Text(
+                                      ranks[2]["username"],
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400),
                                     ),
                                   ),
-                                  const SizedBox(width: 20),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        width: width - 220,
-                                        child: Text(
-                                          ranks[2]["username"],
-                                          overflow: TextOverflow.clip,
-                                          style: const TextStyle(
-                                              overflow: TextOverflow.clip,
-                                              color: Colors.white,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      SizedBox(
-                                        width: width - 220,
-                                        child: Text(
-                                          "${ranks[2]["Points"]} points",
-                                          style: const TextStyle(
-                                              overflow: TextOverflow.ellipsis,
-                                              color: Colors.white,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                      ),
-                                    ],
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    "${ranks[2]["Points"]} points",
+                                    style: const TextStyle(
+                                        overflow: TextOverflow.ellipsis,
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w400),
                                   ),
                                 ],
                               ),
@@ -443,64 +434,61 @@ class _RewardState extends State<Reward> {
                 const SizedBox(
                   height: 25,
                 ),
-                Card(
-                  margin: const EdgeInsets.all(0),
-                  elevation: 0,
-                  color: primary2Color,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 8),
-                        child: Row(
-                          children: [
-                            const Text(
-                              "2nd",
-                              style: TextStyle(
-                                fontFamily: "overpass",
-                                fontSize: 36,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "You",
-                                    style: TextStyle(
-                                      fontFamily: "overpass",
-                                      fontSize: 36,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  Text(
-                                    "$points points",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const Spacer(),
-                            SvgPicture.asset(
-                              "assets/profileavatar/avatar-$profilePicSelector.svg",
-                              width: 70,
-                              height: 70,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ]),
+      ),
+      bottomNavigationBar: Card(
+        margin: const EdgeInsets.all(0),
+        elevation: 0,
+        color: primary2Color,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+              child: Row(
+                children: [
+                  const Text(
+                    "2nd",
+                    style: TextStyle(
+                      fontFamily: "overpass",
+                      fontSize: 36,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "You",
+                          style: TextStyle(
+                            fontFamily: "overpass",
+                            fontSize: 36,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        Text(
+                          "$points points",
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Spacer(),
+                  SvgPicture.asset(
+                    "assets/profileavatar/avatar-$profilePicSelector.svg",
+                    width: 70,
+                    height: 70,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
