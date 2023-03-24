@@ -20,7 +20,7 @@ class CardGridView extends StatelessWidget {
     return GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: donationDataList.length,
+        itemCount: itemCount,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: width < 441 ? 3 : 2,
         ),

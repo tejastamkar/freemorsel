@@ -64,23 +64,18 @@ class UserDetails {
     }
   }
 
-  Future getUserDetails({required BuildContext context}) async {
+  Future getUserDetails(
+      {required DocumentSnapshot<Map<String, dynamic>> docSnapshot}) async {
     try {
-      await FirebaseFirestore.instance
-          .collection("Users")
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .get()
-          .then((docSnapshot) async {
-        var data = docSnapshot.data()!;
-        username = data["username"];
-        phoneNum = data["PhoneNo"];
-        email = data["email"];
-        level = data["level"];
-        points = data["Points"];
-        profilePicSelector = data["profilePic"];
-      });
+      var data = docSnapshot.data()!;
+      username = data["username"];
+      phoneNum = data["PhoneNo"];
+      email = data["email"];
+      level = data["level"];
+      points = data["Points"];
+      profilePicSelector = data["profilePic"];
     } catch (e) {
-      PhoneAuth().logOut(context: context);
+      FirebaseAuth.instance.signOut();
     }
   }
 }

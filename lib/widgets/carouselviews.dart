@@ -29,7 +29,7 @@ class _TrendingCampaignsState extends State<TrendingCampaigns> {
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3), () => getData());
+    getData();
     super.initState();
   }
 
@@ -53,7 +53,7 @@ class _TrendingCampaignsState extends State<TrendingCampaigns> {
             options: CarouselOptions(
               // height: 250,
               // height: width / 1.8,
-              aspectRatio: 15 / 9,
+              aspectRatio: 14 / 9,
               viewportFraction: 1,
               initialPage: 0,
               autoPlay: false,

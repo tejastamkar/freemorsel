@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:freemorsel/api/userdetails.dart';
 import 'package:freemorsel/data/userdata.dart';
 import 'package:freemorsel/provider/notifcationprovider.dart';
 
@@ -15,6 +16,7 @@ Future<bool> checkLogin() async {
         .then((docSnapshot) async {
       if (docSnapshot.exists) {
         await getFCM(uid: uid);
+        await UserDetails().getUserDetails(docSnapshot: docSnapshot);
         newUser = true;
       } else {
         newUser = false;

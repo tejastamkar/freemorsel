@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:freemorsel/api/getuserdetails_api.dart';
 import 'package:freemorsel/screens/navbarscreens/add.dart';
 import 'package:freemorsel/screens/navbarscreens/homescreen.dart';
 import 'package:freemorsel/screens/navbarscreens/profile.dart';
@@ -38,12 +37,6 @@ class _NavbarState extends State<Navbar> {
       default:
         appBarTitle = 'FreeMorsel';
     }
-  }
-
-  @override
-  void initState() {
-    getUserDeatilsApi(context: context);
-    super.initState();
   }
 
   @override

@@ -98,50 +98,50 @@ class _RewardState extends State<Reward> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(60, 15, 66, 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(children: const [
-                      Text(
-                        "10",
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.w400),
-                      ),
-                      Text(
-                        "    No of\nDonations",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w400),
-                      ),
-                    ]),
-                    Column(children: const [
-                      Text(
-                        "15",
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.w400),
-                      ),
-                      Text(
-                        "Rank\n(City)",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w400),
-                      ),
-                    ]),
-                    Column(children: const [
-                      Text(
-                        "9",
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.w400),
-                      ),
-                      Text(
-                        "Rank\n(Area)",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w400),
-                      ),
-                    ]),
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.fromLTRB(60, 15, 66, 10),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //     children: [
+              //       Column(children: const [
+              //         Text(
+              //           "10",
+              //           style: TextStyle(
+              //               fontSize: 24, fontWeight: FontWeight.w400),
+              //         ),
+              //         Text(
+              //           "    No of\nDonations",
+              //           style: TextStyle(
+              //               fontSize: 20, fontWeight: FontWeight.w400),
+              //         ),
+              //       ]),
+              //       Column(children: const [
+              //         Text(
+              //           "15",
+              //           style: TextStyle(
+              //               fontSize: 24, fontWeight: FontWeight.w400),
+              //         ),
+              //         Text(
+              //           "Rank\n(City)",
+              //           style: TextStyle(
+              //               fontSize: 20, fontWeight: FontWeight.w400),
+              //         ),
+              //       ]),
+              //       Column(children: const [
+              //         Text(
+              //           "9",
+              //           style: TextStyle(
+              //               fontSize: 24, fontWeight: FontWeight.w400),
+              //         ),
+              //         Text(
+              //           "Rank\n(Area)",
+              //           style: TextStyle(
+              //               fontSize: 20, fontWeight: FontWeight.w400),
+              //         ),
+              //       ]),
+              //     ],
+              //   ),
+              // ),
               // SizedBox(
               //   width: width - 20,
               //   child: Card(
@@ -274,15 +274,15 @@ class _RewardState extends State<Reward> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: const [
                                     Text(
-                                      "Rank(City & Area)",
+                                      "Rank",
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      "Last 5 weeks",
+                                      "Last 4 weeks",
                                       style: TextStyle(
-                                          fontSize: 12,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.w400),
                                     ),
                                   ]),
@@ -303,7 +303,7 @@ class _RewardState extends State<Reward> {
                                               Color.fromRGBO(117, 183, 158, 1),
                                         ),
                                         Text(
-                                          " City",
+                                          " Foods",
                                           style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w400),
@@ -319,7 +319,7 @@ class _RewardState extends State<Reward> {
                                               Color.fromRGBO(106, 140, 175, 1),
                                         ),
                                         Text(
-                                          "Area",
+                                          "Goods",
                                           style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w400),
@@ -330,7 +330,10 @@ class _RewardState extends State<Reward> {
                             ),
                           ],
                         ),
-                        SizedBox(height: height / 5, child: const BarChart())
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const SizedBox(height: 280, child: BarChart())
                       ],
                     )),
               ),

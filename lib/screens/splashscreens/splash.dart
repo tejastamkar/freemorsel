@@ -1,6 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:freemorsel/api/getuserdetails_api.dart';
 import 'package:freemorsel/screens/login.dart';
 import 'package:freemorsel/screens/navbarscreens/bottomnavbar.dart';
 import 'package:page_transition/page_transition.dart';
@@ -17,8 +18,17 @@ class _SplashState extends State<Splash> {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
+  void initState() {
+    if (auth.currentUser != null) {
+      getUserDeatilsApi();
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+
     return AnimatedSplashScreen(
         duration: 1500,
         splash: SizedBox(

@@ -17,10 +17,8 @@ class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
   bool loader = true;
 
   Future getData() async {
-    await FirebaseFirestore.instance
-        .collection('Donation')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
+    await FirebaseFirestore.instance.collection('Donation').get().then(
+        (QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {
         foodDonationList.add(doc.data());
         // Object? temp = doc.id;
@@ -32,12 +30,13 @@ class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
         //         foodDonationImages.add(doc.data());
       }
       foodDonationList.shuffle();
-    }).whenComplete(() => setState(() => loader = false));
+    }).whenComplete(() =>
+        foodDonationList.isNotEmpty ? setState(() => loader = false) : null);
   }
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3), () => getData());
+    getData();
     super.initState();
   }
 
@@ -49,7 +48,7 @@ class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
         loader
             ? headingskeleton()
             : Padding(
-                padding: const EdgeInsets.only(top: 15, bottom: 15),
+                padding: const EdgeInsets.symmetric(vertical: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

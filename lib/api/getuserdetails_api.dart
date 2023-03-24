@@ -1,11 +1,9 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:freemorsel/api/checkuser.dart';
-import 'package:freemorsel/api/userdetails.dart';
 import 'package:freemorsel/provider/notifcationprovider.dart';
 
-Future getUserDeatilsApi({required BuildContext context}) async {
+Future getUserDeatilsApi() async {
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     RemoteNotification? notification = message.notification;
     AndroidNotification? android = message.notification?.android;
@@ -24,9 +22,5 @@ Future getUserDeatilsApi({required BuildContext context}) async {
           ));
     }
   });
-  await checkLogin().then((value) {
-    if (value) {
-      UserDetails().getUserDetails(context: context);
-    } else {}
-  });
+  await checkLogin();
 }

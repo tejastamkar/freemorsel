@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:freemorsel/api/checkuser.dart';
 import 'package:freemorsel/api/userdetails.dart';
 import 'package:freemorsel/data/userdata.dart';
 import 'package:freemorsel/widgets/profileselector.dart';
@@ -224,7 +225,7 @@ class _EditProfileState extends State<EditProfile> {
                     userName: _userName.text,
                     email: _email.text)
                 .then((value) async {
-              await UserDetails().getUserDetails(context: context);
+              await checkLogin();
             });
             widget.refresh();
           },
