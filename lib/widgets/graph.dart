@@ -1,5 +1,3 @@
-// ignore_for_file: sized_box_for_whitespace
-
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -10,18 +8,32 @@ class ChartData {
   final double? y1;
 }
 
-class BarChart extends StatelessWidget {
+class BarChart extends StatefulWidget {
   const BarChart({Key? key}) : super(key: key);
 
   @override
+  State<BarChart> createState() => _BarChartState();
+}
+
+class _BarChartState extends State<BarChart> {
+  final List<ChartData> chartData = <ChartData>[
+    ChartData('W1', 2, 1),
+    ChartData('W2', 0, 1),
+    ChartData('W3', 2, 16),
+    ChartData('W4', 7, 9),
+  ];
+
+  callApi() async {
+    // await FirebaseFirestore.instance.collection("").get()
+  }
+  @override
+  void initState() {
+    callApi();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final List<ChartData> chartData = <ChartData>[
-      ChartData('W1', 128, 92),
-      ChartData('W2', 123, 92),
-      ChartData('W3', 107, 106),
-      ChartData('W4', 87, 95),
-      ChartData('W5', 87, 80),
-    ];
     return SfCartesianChart(
         backgroundColor: Colors.transparent,
         primaryXAxis: CategoryAxis(),

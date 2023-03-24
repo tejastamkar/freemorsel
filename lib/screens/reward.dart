@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freemorsel/data/userdata.dart';
@@ -13,28 +15,51 @@ class Reward extends StatefulWidget {
 
 class _RewardState extends State<Reward> {
   int level = 0;
+  int prograssPoints = points;
+  List ranks = [];
+  bool getrankloader = true;
 
-  getmylevel() {
+  getmylevel() async {
     for (int i = 0; i <= 100; i++) {
-      if (points >= 100) {
-        points = points - 100;
+      if (prograssPoints >= 100) {
+        prograssPoints = prograssPoints - 100;
       } else {
         level = i;
+        await FirebaseFirestore.instance
+            .doc("Users/${FirebaseAuth.instance.currentUser!.uid}")
+            .update({"level": level});
         break;
       }
+    }
+  }
+
+  callApi() async {
+    await FirebaseFirestore.instance
+        .collection("Users")
+        .orderBy("Points", descending: true)
+        .limit(3)
+        .get()
+        .then((value) => {
+              for (var doc in value.docs) {ranks.add(doc)}
+            });
+    if (ranks.isNotEmpty) {
+      setState(() {
+        getrankloader = false;
+      });
     }
   }
 
   @override
   void initState() {
     getmylevel();
+    callApi();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    // double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
           elevation: 0,
@@ -58,545 +83,424 @@ class _RewardState extends State<Reward> {
             },
           )),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
-                  child: CircularPercentIndicator(
-                    radius: 82.5,
-                    lineWidth: 8.0,
-                    percent: points / 100,
-                    center: Column(
-                      children: [
-                        const SizedBox(height: 25),
-                        Text(
-                          "$level",
-                          style: const TextStyle(
-                              fontSize: 28, fontWeight: FontWeight.w700),
-                        ),
-                        const Text(
-                          "Level",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w700),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          "$points Points",
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w700),
-                        )
-                      ],
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: getrankloader
+            ? const SizedBox.shrink()
+            : Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+                    child: CircularPercentIndicator(
+                      radius: 82.5,
+                      lineWidth: 8.0,
+                      percent: prograssPoints / 100,
+                      center: Column(
+                        children: [
+                          const SizedBox(height: 25),
+                          Text(
+                            "$level",
+                            style: const TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.w700),
+                          ),
+                          const Text(
+                            "Level",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w700),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "$points Points",
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w700),
+                          )
+                        ],
+                      ),
+                      progressColor: const Color.fromRGBO(117, 183, 158, 1),
+                      circularStrokeCap: CircularStrokeCap.round,
                     ),
-                    progressColor: const Color.fromRGBO(117, 183, 158, 1),
-                    circularStrokeCap: CircularStrokeCap.round,
                   ),
                 ),
-              ),
-              // Padding(
-              //   padding: const EdgeInsets.fromLTRB(60, 15, 66, 10),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //     children: [
-              //       Column(children: const [
-              //         Text(
-              //           "10",
-              //           style: TextStyle(
-              //               fontSize: 24, fontWeight: FontWeight.w400),
-              //         ),
-              //         Text(
-              //           "    No of\nDonations",
-              //           style: TextStyle(
-              //               fontSize: 20, fontWeight: FontWeight.w400),
-              //         ),
-              //       ]),
-              //       Column(children: const [
-              //         Text(
-              //           "15",
-              //           style: TextStyle(
-              //               fontSize: 24, fontWeight: FontWeight.w400),
-              //         ),
-              //         Text(
-              //           "Rank\n(City)",
-              //           style: TextStyle(
-              //               fontSize: 20, fontWeight: FontWeight.w400),
-              //         ),
-              //       ]),
-              //       Column(children: const [
-              //         Text(
-              //           "9",
-              //           style: TextStyle(
-              //               fontSize: 24, fontWeight: FontWeight.w400),
-              //         ),
-              //         Text(
-              //           "Rank\n(Area)",
-              //           style: TextStyle(
-              //               fontSize: 20, fontWeight: FontWeight.w400),
-              //         ),
-              //       ]),
-              //     ],
-              //   ),
-              // ),
-              // SizedBox(
-              //   width: width - 20,
-              //   child: Card(
-              //     elevation: 3,
-              //     shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(18),
-              //     ),
-              //     child: Column(
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: [
-              //         const Padding(
-              //           padding: EdgeInsets.fromLTRB(20, 16, 0, 0),
-              //           child: Text(
-              //             "Your Weekly Activity",
-              //             style: TextStyle(
-              //                 fontSize: 18, fontWeight: FontWeight.w400),
-              //           ),
-              //         ),
-              //         const Padding(
-              //           padding: EdgeInsets.fromLTRB(25, 5, 0, 11),
-              //           child: Text(
-              //             "Last 5 weeks",
-              //             style: TextStyle(
-              //                 fontSize: 15, fontWeight: FontWeight.w400),
-              //           ),
-              //         ),
-              //         Padding(
-              //           padding: const EdgeInsets.symmetric(
-              //               vertical: 10, horizontal: 40),
-              //           child: Row(
-              //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //             children: [
-              //               CircularPercentIndicator(
-              //                 radius: 25.0,
-              //                 lineWidth: 7.0,
-              //                 percent: 0.25,
-              //                 progressColor:
-              //                     const Color.fromRGBO(117, 183, 158, 1),
-              //                 footer: const Text(
-              //                   "W1",
-              //                   style: TextStyle(
-              //                       fontWeight: FontWeight.w400,
-              //                       fontSize: 16.0),
-              //                 ),
-              //                 circularStrokeCap: CircularStrokeCap.round,
-              //               ),
-              //               CircularPercentIndicator(
-              //                 radius: 25.0,
-              //                 lineWidth: 7.0,
-              //                 percent: 0.25,
-              //                 progressColor:
-              //                     const Color.fromRGBO(117, 183, 158, 1),
-              //                 footer: const Text(
-              //                   "W2",
-              //                   style: TextStyle(
-              //                       fontWeight: FontWeight.w400,
-              //                       fontSize: 16.0),
-              //                 ),
-              //                 circularStrokeCap: CircularStrokeCap.round,
-              //               ),
-              //               CircularPercentIndicator(
-              //                 radius: 25.0,
-              //                 lineWidth: 7.0,
-              //                 percent: 0.25,
-              //                 progressColor:
-              //                     const Color.fromRGBO(117, 183, 158, 1),
-              //                 footer: const Text(
-              //                   "W3",
-              //                   style: TextStyle(
-              //                       fontWeight: FontWeight.w400,
-              //                       fontSize: 16.0),
-              //                 ),
-              //                 circularStrokeCap: CircularStrokeCap.round,
-              //               ),
-              //               CircularPercentIndicator(
-              //                 radius: 25.0,
-              //                 lineWidth: 7.0,
-              //                 percent: 0.25,
-              //                 progressColor:
-              //                     const Color.fromRGBO(117, 183, 158, 1),
-              //                 footer: const Text(
-              //                   "W4",
-              //                   style: TextStyle(
-              //                       fontWeight: FontWeight.w400,
-              //                       fontSize: 16.0),
-              //                 ),
-              //                 circularStrokeCap: CircularStrokeCap.round,
-              //               ),
-              //               CircularPercentIndicator(
-              //                 radius: 25.0,
-              //                 lineWidth: 7.0,
-              //                 percent: 0.25,
-              //                 progressColor:
-              //                     const Color.fromRGBO(117, 183, 158, 1),
-              //                 footer: const Text(
-              //                   "W5",
-              //                   style: TextStyle(
-              //                       fontWeight: FontWeight.w400,
-              //                       fontSize: 16.0),
-              //                 ),
-              //                 circularStrokeCap: CircularStrokeCap.round,
-              //               ),
-              //             ],
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              const SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                width: width - 20,
-                child: Card(
-                    elevation: 3,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18),
+                const SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  width: width - 20,
+                  child: Card(
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 25),
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: const [
+                                      Text(
+                                        "Rank",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      Text(
+                                        "Last 4 weeks",
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ]),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 25),
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: const [
+                                          Icon(
+                                            Icons.circle,
+                                            size: 12,
+                                            color: Color.fromRGBO(
+                                                117, 183, 158, 1),
+                                          ),
+                                          Text(
+                                            " Food",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: const [
+                                          Icon(
+                                            Icons.circle,
+                                            size: 12,
+                                            color: Color.fromRGBO(
+                                                106, 140, 175, 1),
+                                          ),
+                                          Text(
+                                            " Good",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                        ],
+                                      ),
+                                    ]),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 240, child: BarChart())
+                        ],
+                      )),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "Friends",
+                      style:
+                          TextStyle(fontSize: 26, fontWeight: FontWeight.w400),
                     ),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 25),
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                getrankloader
+                    ? const SizedBox.shrink()
+                    : Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: width - 140,
+                            child: Card(
+                              color: primary3Color,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      "Rank",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    Text(
-                                      "Last 4 weeks",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ]),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 25),
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Row(
-                                      children: const [
-                                        Icon(
-                                          Icons.circle,
-                                          size: 12,
-                                          color:
-                                              Color.fromRGBO(117, 183, 158, 1),
-                                        ),
-                                        Text(
-                                          " Foods",
+                                      children: [
+                                        const SizedBox(width: 10),
+                                        const Text(
+                                          "1st",
                                           style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400),
+                                            fontFamily: "overpass",
+                                            fontSize: 36,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 20),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              ranks[0]["username"],
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Text(
+                                              "${ranks[0]["Points"]} points",
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                            child: SvgPicture.asset(
+                              "assets/profileavatar/avatar-${ranks[0]["profilePic"]}.svg",
+                              width: 70,
+                              height: 70,
+                            ),
+                          ),
+                        ],
+                      ),
+                const SizedBox(
+                  height: 20,
+                ),
+                getrankloader
+                    ? const SizedBox.shrink()
+                    : Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: width - 180,
+                            child: Card(
+                              color: primary2Color,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
                                     Row(
-                                      children: const [
-                                        Icon(
-                                          Icons.circle,
-                                          size: 12,
-                                          color:
-                                              Color.fromRGBO(106, 140, 175, 1),
-                                        ),
-                                        Text(
-                                          "Goods",
+                                      children: [
+                                        const SizedBox(width: 10),
+                                        const Text(
+                                          "2nd",
                                           style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400),
+                                            fontFamily: "overpass",
+                                            fontSize: 36,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 20),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              ranks[1]["username"],
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Text(
+                                              "${ranks[1]["Points"]} points",
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                  ]),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const SizedBox(height: 280, child: BarChart())
-                      ],
-                    )),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "Friends",
-                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width - 140,
-                    child: Card(
-                      color: primary3Color,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                const SizedBox(width: 10),
-                                const Text(
-                                  "1st",
-                                  style: TextStyle(
-                                    fontFamily: "overpass",
-                                    fontSize: 36,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                const SizedBox(width: 20),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      "Dhoni",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    SizedBox(height: 8),
-                                    Text(
-                                      "170 points",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400),
-                                    ),
                                   ],
                                 ),
-                              ],
+                              ),
                             ),
-                          ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                            child: SvgPicture.asset(
+                              "assets/profileavatar/avatar-${ranks[1]["profilePic"]}.svg",
+                              width: 70,
+                              height: 70,
+                            ),
+                          ),
+                        ],
+                      ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width - 220,
+                      child: Card(
+                        color: primary3Color,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                    child: Image.asset("assets/profile1.png", height: 80),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width - 180,
-                    child: Card(
-                      color: primary2Color,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                const SizedBox(width: 10),
-                                const Text(
-                                  "2nd",
-                                  style: TextStyle(
-                                    fontFamily: "overpass",
-                                    fontSize: 36,
-                                    fontWeight: FontWeight.w400,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  const SizedBox(width: 10),
+                                  const Text(
+                                    "3rd",
+                                    style: TextStyle(
+                                      fontFamily: "overpass",
+                                      fontSize: 36,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(width: 20),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      "Virat",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    SizedBox(height: 8),
-                                    Text(
-                                      "130 points",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                    child: Image.asset("assets/profile2.png", height: 80),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width - 220,
-                    child: Card(
-                      color: primary3Color,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                const SizedBox(width: 10),
-                                const Text(
-                                  "3rd",
-                                  style: TextStyle(
-                                    fontFamily: "overpass",
-                                    fontSize: 36,
-                                    fontWeight: FontWeight.w400,
+                                  const SizedBox(width: 20),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: width - 220,
+                                        child: Text(
+                                          ranks[2]["username"],
+                                          overflow: TextOverflow.clip,
+                                          style: const TextStyle(
+                                              overflow: TextOverflow.clip,
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 8),
+                                      SizedBox(
+                                        width: width - 220,
+                                        child: Text(
+                                          "${ranks[2]["Points"]} points",
+                                          style: const TextStyle(
+                                              overflow: TextOverflow.ellipsis,
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                const SizedBox(width: 20),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      "Rohit",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                      child: SvgPicture.asset(
+                        "assets/profileavatar/avatar-${ranks[2]["profilePic"]}.svg",
+                        width: 70,
+                        height: 70,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                Card(
+                  margin: const EdgeInsets.all(0),
+                  elevation: 0,
+                  color: primary2Color,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 8),
+                        child: Row(
+                          children: [
+                            const Text(
+                              "2nd",
+                              style: TextStyle(
+                                fontFamily: "overpass",
+                                fontSize: 36,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "You",
+                                    style: TextStyle(
+                                      fontFamily: "overpass",
+                                      fontSize: 36,
+                                      fontWeight: FontWeight.w400,
                                     ),
-                                    SizedBox(height: 8),
-                                    Text(
-                                      "130 points",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                  ),
+                                  Text(
+                                    "$points points",
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Spacer(),
+                            SvgPicture.asset(
+                              "assets/profileavatar/avatar-$profilePicSelector.svg",
+                              width: 70,
+                              height: 70,
                             ),
                           ],
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                    child: Image.asset("assets/profile1.png", height: 80),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-            ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: Card(
-        margin: const EdgeInsets.all(0),
-        elevation: 0,
-        color: primary2Color,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-              child: Row(
-                children: [
-                  const Text(
-                    "16",
-                    style: TextStyle(
-                      fontFamily: "overpass",
-                      fontSize: 36,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "You",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          "20 points",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Spacer(),
-                  SvgPicture.asset(
-                    "assets/profileavatar/avatar-$profilePicSelector.svg",
-                    width: 70,
-                    height: 70,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+                ),
+              ]),
       ),
     );
   }
