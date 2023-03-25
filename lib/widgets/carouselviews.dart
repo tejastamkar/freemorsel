@@ -6,37 +6,21 @@ import 'package:freemorsel/skeleton/skeleton_container.dart';
 import 'package:freemorsel/widgets/carouselcards.dart';
 
 class TrendingCampaigns extends StatefulWidget {
-  const TrendingCampaigns({Key? key}) : super(key: key);
+  final List trendingData;
+  final bool loader;
+  const TrendingCampaigns(
+      {Key? key, required this.trendingData, this.loader = true})
+      : super(key: key);
 
   @override
   State<TrendingCampaigns> createState() => _TrendingCampaignsState();
 }
 
 class _TrendingCampaignsState extends State<TrendingCampaigns> {
-  List trendingData = [];
-  bool loader = true;
-  Future getData() async {
-    await FirebaseFirestore.instance
-        .collection('TrendingCampaigns')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      for (var doc in querySnapshot.docs) {
-        trendingData.add(doc.data());
-      }
-      trendingData.shuffle();
-    }).whenComplete(() => setState(() => loader = false));
-  }
-
-  @override
-  void initState() {
-    getData();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    if (loader) {
+    if (widget.loader) {
       return trandingskeleton(width: width);
     } else {
       return Column(
@@ -61,7 +45,7 @@ class _TrendingCampaignsState extends State<TrendingCampaigns> {
               enlargeCenterPage: true,
               scrollDirection: Axis.horizontal,
             ),
-            items: trendingData
+            items: widget.trendingData
                 .map((data) => CarouselCards(
                       width: width,
                       image: data["image"],

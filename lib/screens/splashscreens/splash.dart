@@ -16,11 +16,11 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   FirebaseAuth auth = FirebaseAuth.instance;
-
+  bool waitNav = true;
   @override
   void initState() {
     if (auth.currentUser != null) {
-      getUserDeatilsApi();
+      getUserDeatilsApi().whenComplete(() => setState(() => waitNav = false));
     }
     super.initState();
   }
@@ -39,6 +39,7 @@ class _SplashState extends State<Splash> {
             fit: BoxFit.cover,
           ),
         ),
+        disableNavigation: waitNav,
         splashTransition: SplashTransition.fadeTransition,
         pageTransitionType: PageTransitionType.fade,
         nextScreen:

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:freemorsel/widgets/carouselviews.dart';
@@ -12,22 +13,87 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List trendingData = [], foodDonationList = [], goodDonation = [];
+  bool trendingDataloader = true, foodDataLoader = true, goodDataLoader = true;
+  Future getTrendingData() async {
+    await FirebaseFirestore.instance
+        .collection('TrendingCampaigns')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        trendingData.add(doc.data());
+      }
+      trendingData.shuffle();
+    }).whenComplete(() => setState(() => trendingDataloader = false));
+  }
+
+  Future getDonationData() async {
+    await FirebaseFirestore.instance
+        .collection('Donation')
+        .where("TypeOfDonation", isEqualTo: "Food")
+        .limit(4)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        foodDonationList.add(doc.data());
+      }
+      foodDonationList.shuffle();
+    }).whenComplete(() => foodDonationList.isNotEmpty
+            ? setState(() => foodDataLoader = false)
+            : null);
+    await FirebaseFirestore.instance
+        .collection('Donation')
+        .where("TypeOfDonation", isEqualTo: "Good")
+        .limit(4)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        goodDonation.add(doc.data());
+      }
+      goodDonation.shuffle();
+    }).whenComplete(() => goodDonation.isNotEmpty
+            ? setState(() => goodDataLoader = false)
+            : null);
+  }
+
+  Future callApi() async {
+    await getTrendingData();
+    await getDonationData();
+  }
+
+  @override
+  void initState() {
+    callApi();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-          child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            TutorialCard(),
-            TrendingCampaigns(),
-            FoodDonationCardGrid(),
-            // UpComingEvents(),
-          ],
-        ),
-      )),
+    return RefreshIndicator(
+      onRefresh: callApi,
+      child: Scaffold(
+        body: SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TutorialCard(),
+                TrendingCampaigns(
+                  trendingData: trendingData,
+                  loader: trendingDataloader,
+                ),
+                FoodDonationCardGrid(
+                  foodDonationList: foodDonationList,
+                  loader: foodDataLoader,
+                ),
+                GoodsDonationCardGrid(
+                  goodDonation: goodDonation,
+                  loader: goodDataLoader,
+                ),
+                // UpComingEvents(),
+              ],
+            )),
+      ),
     );
   }
 }

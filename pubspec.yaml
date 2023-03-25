@@ -67,6 +67,7 @@ dependencies:
   geolocator: ^9.0.2
   flutter_cache_manager: ^3.3.0
   cached_network_image: ^3.2.3
+  flutter_native_splash: ^2.2.19
 
 dev_dependencies:
   flutter_test:
@@ -98,6 +99,7 @@ flutter:
     - assets/profileavatar/
     - assets/navicons/
     - assets/icons/
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
@@ -152,3 +154,16 @@ flutter:
           style: italic
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_native_splash:
+    color: "#ffffff"
+    image: assets/logo.png
+    # branding: assets/.png
+    color_dark: "#000000"
+    image_dark: assets/logo.png
+    # branding_dark: assets/branding-development.png
+
+android_12:
+    image: assets/logo.png
+    icon_background_color: "#ffffff"
+    image_dark: assets/logo.png
+    icon_background_color_dark: "#000000"

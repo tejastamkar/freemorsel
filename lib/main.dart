@@ -1,10 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:freemorsel/api/getuserdetails_api.dart';
 import 'package:freemorsel/firebase_options.dart';
 import 'package:freemorsel/provider/notifcationprovider.dart';
-import 'package:freemorsel/screens/splashscreens/splash.dart';
+import 'package:freemorsel/screens/login.dart';
+import 'package:freemorsel/screens/navbarscreens/bottomnavbar.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
@@ -51,11 +55,30 @@ Future<void> main() async {
       home: const Main()));
 }
 
-class Main extends StatelessWidget {
+class Main extends StatefulWidget {
   const Main({Key? key}) : super(key: key);
 
   @override
+  State<Main> createState() => _MainState();
+}
+
+class _MainState extends State<Main> {
+  FirebaseAuth auth = FirebaseAuth.instance;
+  bool waitNav = true;
+  Future callApi() async {
+    if (auth.currentUser != null) {
+      await getUserDeatilsApi();
+    }
+  }
+
+  @override
+  void initState() {
+    callApi().whenComplete(() => FlutterNativeSplash.remove());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Splash();
+    return auth.currentUser == null ? const LoginScreen() : const Navbar();
   }
 }

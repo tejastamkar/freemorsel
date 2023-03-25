@@ -4,31 +4,33 @@ import 'package:freemorsel/widgets/cards/cardgrid.dart';
 import 'package:freemorsel/widgets/cards/donationgridview.dart';
 
 class Donation extends StatefulWidget {
-  const Donation({Key? key}) : super(key: key);
+  final String whichData;
+  const Donation({Key? key, required this.whichData}) : super(key: key);
 
   @override
   State<Donation> createState() => _DonationState();
 }
 
 class _DonationState extends State<Donation> {
-  List foodDonationList = [];
-  // List foodDonationImages = [];
+  List donationList = [];
+
   bool loader = true;
 
   Future getData() async {
     await FirebaseFirestore.instance
         .collection('Donation')
+        .where("TypeOfDonation", isEqualTo: widget.whichData)
         .get()
         .then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {
-        foodDonationList.add(doc.data());
+        donationList.add(doc.data());
       }
     }).whenComplete(() => setState(() => loader = false));
   }
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3), () => getData());
+    getData();
     super.initState();
   }
 
@@ -61,8 +63,8 @@ class _DonationState extends State<Donation> {
               ? donationcardskelton(width: width, length: 6)
               : CardGridView(
                   width: width,
-                  itemCount: foodDonationList.length,
-                  donationDataList: foodDonationList,
+                  itemCount: donationList.length,
+                  donationDataList: donationList,
                   // donationLimageList: foodDonationImages,
                 ),
         ));

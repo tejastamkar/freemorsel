@@ -1,51 +1,26 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:freemorsel/screens/navbarscreens/donation.dart';
 import 'package:freemorsel/skeleton/skeleton_container.dart';
 import 'package:freemorsel/widgets/cards/cardgrid.dart';
 
 class FoodDonationCardGrid extends StatefulWidget {
-  const FoodDonationCardGrid({Key? key}) : super(key: key);
+  final List foodDonationList;
+  final bool loader;
+  const FoodDonationCardGrid(
+      {Key? key, required this.foodDonationList, this.loader = true})
+      : super(key: key);
 
   @override
   State<FoodDonationCardGrid> createState() => _FoodDonationCardGridState();
 }
 
 class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
-  List foodDonationList = [];
-  // List foodDonationImages = [];
-  bool loader = true;
-
-  Future getData() async {
-    await FirebaseFirestore.instance.collection('Donation').get().then(
-        (QuerySnapshot querySnapshot) {
-      for (var doc in querySnapshot.docs) {
-        foodDonationList.add(doc.data());
-        // Object? temp = doc.id;
-        //  await    FirebaseFirestore.instance
-        //         .collection('Donations/$temp/Images')
-        //         .get()
-        //         .then((QuerySnapshot querySnapshot) {
-        //       for (var doc in querySnapshot.docs) {
-        //         foodDonationImages.add(doc.data());
-      }
-      foodDonationList.shuffle();
-    }).whenComplete(() =>
-        foodDonationList.isNotEmpty ? setState(() => loader = false) : null);
-  }
-
-  @override
-  void initState() {
-    getData();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Column(
       children: [
-        loader
+        widget.loader
             ? headingskeleton()
             : Padding(
                 padding: const EdgeInsets.symmetric(vertical: 15),
@@ -53,7 +28,7 @@ class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Food and Good Donatations",
+                      "Food Donatations",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     ),
@@ -62,7 +37,9 @@ class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Donation()),
+                              builder: (context) => const Donation(
+                                    whichData: 'Food',
+                                  )),
                         );
                       },
                       child: Row(
@@ -84,16 +61,16 @@ class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
                   ],
                 ),
               ),
-        loader
+        widget.loader
             ? donationcardskelton(width: width, length: width < 441 ? 6 : 4)
             : CardGridView(
                 width: width,
                 itemCount: width < 441
                     ? 6
-                    : foodDonationList.length < 4
-                        ? foodDonationList.length
+                    : widget.foodDonationList.length < 4
+                        ? widget.foodDonationList.length
                         : 4,
-                donationDataList: foodDonationList,
+                donationDataList: widget.foodDonationList,
                 // donationLimageList: foodDonationList,
               ),
       ],
@@ -156,40 +133,23 @@ Widget donationcardskelton({required double width, required int length}) =>
             )));
 
 class GoodsDonationCardGrid extends StatefulWidget {
-  const GoodsDonationCardGrid({Key? key}) : super(key: key);
+  final List goodDonation;
+  final bool loader;
+  const GoodsDonationCardGrid(
+      {Key? key, required this.goodDonation, this.loader = true})
+      : super(key: key);
 
   @override
   State<GoodsDonationCardGrid> createState() => _GoodsDonationCardGridState();
 }
 
 class _GoodsDonationCardGridState extends State<GoodsDonationCardGrid> {
-  List goodDonation = [];
-  List goodDonationImages = [];
-  bool loader = true;
-
-  getData() {
-    FirebaseFirestore.instance
-        .collection('Donation')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      for (var doc in querySnapshot.docs) {
-        goodDonation.add(doc.data());
-      }
-    }).whenComplete(() => setState(() => loader = false));
-  }
-
-  @override
-  void initState() {
-    Future.delayed(const Duration(seconds: 3), () => getData());
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Column(
       children: [
-        loader
+        widget.loader
             ? headingskeleton()
             : Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
@@ -197,7 +157,7 @@ class _GoodsDonationCardGridState extends State<GoodsDonationCardGrid> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Food Donated",
+                      "Good Donatations",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     ),
@@ -206,7 +166,9 @@ class _GoodsDonationCardGridState extends State<GoodsDonationCardGrid> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Donation()),
+                              builder: (context) => const Donation(
+                                    whichData: 'Good',
+                                  )),
                         );
                       },
                       child: Row(
@@ -228,16 +190,16 @@ class _GoodsDonationCardGridState extends State<GoodsDonationCardGrid> {
                   ],
                 ),
               ),
-        loader
+        widget.loader
             ? donationcardskelton(width: width, length: width < 441 ? 6 : 4)
             : CardGridView(
                 width: width,
                 itemCount: width < 441
                     ? 6
-                    : goodDonation.length < 4
-                        ? goodDonation.length
+                    : widget.goodDonation.length < 4
+                        ? widget.goodDonation.length
                         : 4,
-                donationDataList: goodDonation,
+                donationDataList: widget.goodDonation,
                 // donationLimageList: goodDonationImages,
               ),
       ],
