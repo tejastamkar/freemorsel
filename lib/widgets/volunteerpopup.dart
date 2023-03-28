@@ -17,15 +17,17 @@ class _VolunteerState extends State<Volunteer> {
     return AlertDialog(
       content: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Volunteer Information",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w400,
+            const Center(
+              child: Text(
+                "Volunteer Information",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w400,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 5, top: 30),
@@ -98,22 +100,19 @@ class _VolunteerState extends State<Volunteer> {
                       setState(() => available = groupValue)),
             ),
             const SizedBox(
-              height: 110,
+              height: 20,
             ),
-            SizedBox(
-              height: 45,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                     backgroundColor: primary2Color,
-                  ),
-                  onPressed: () {},
-                  child: const Text(
-                    "Submit",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
-                  )),
-            )
+                    minimumSize: Size(width, 50)),
+                onPressed: () {},
+                child: const Text(
+                  "Submit",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
+                ))
           ]),
     );
   }
