@@ -21,8 +21,7 @@ class _NavbarState extends State<Navbar> {
     const ProfilePage(),
   ];
 
-  // ignore: non_constant_identifier_names
-  ChangeAppBarTitle({required int inDexNumber}) {
+  changeAppBarTitle({required int inDexNumber}) {
     switch (inDexNumber) {
       case 0:
         appBarTitle = 'Free Morsel';
@@ -89,7 +88,7 @@ class _NavbarState extends State<Navbar> {
           setState(() {
             _selectedIndex = index;
           }),
-          ChangeAppBarTitle(inDexNumber: _selectedIndex)
+          changeAppBarTitle(inDexNumber: _selectedIndex)
         },
       ),
     );

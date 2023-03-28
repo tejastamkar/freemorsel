@@ -59,25 +59,10 @@ class _MainState extends State<Main> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-          fontFamily: "Overpass",
-          primaryColor: primary3Color,
-          scaffoldBackgroundColor: Colors.white,
-          textTheme: const TextTheme(
-              headlineLarge: TextStyle(
-                  color: Colors.black, fontSize: 28, fontFamily: "Overpass")),
-          appBarTheme: const AppBarTheme(
-              backgroundColor: Colors.white, foregroundColor: Colors.black),
-
-          // primary: primary3Color,
-          // appBarStyle: AppB(),
-          // secondaryContainer: primary2Color,
-          // scaffoldBackground: Colors.white,
-          // appBarBackground: Colors.white,
-        ),
+        theme: ligthTheme,
+        // darkTheme: darkTheme,
         // The Mandy red, dark theme.
         // darkTheme: ThemeData(
-
         //     // scaffoldBackground: Colors.black,
         //     // appBarBackground: Colors.black,
         //     // fontFamily: "Overpass",

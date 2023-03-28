@@ -18,13 +18,10 @@ class _DonationState extends State<Donation> {
 
   Future getData() async {
     await FirebaseFirestore.instance
-        .collection('Donation')
-        .where("TypeOfDonation", isEqualTo: widget.whichData)
+        .doc('Donation/${widget.whichData}')
         .get()
-        .then((QuerySnapshot querySnapshot) {
-      for (var doc in querySnapshot.docs) {
-        donationList.add(doc.data());
-      }
+        .then((DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
+      donationList.add(documentSnapshot.data());
     }).whenComplete(() => setState(() => loader = false));
   }
 

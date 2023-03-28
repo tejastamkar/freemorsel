@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,28 +23,23 @@ class DonationScreen extends StatefulWidget {
 class _DonationScreenState extends State<DonationScreen> {
   int current = 0;
   PostCardModel? data;
+  Random random = Random();
   List otherDonation = [];
   bool loader = true;
-
-  getData({required String id}) async {
+  final List _colors = [primary2Color, primary3Color, primaryColor];
+  getData() async {
     await FirebaseFirestore.instance
-        .collection('Donation')
-        .doc(id)
+        .doc('Donation/${widget.id}')
         .get()
-        .then((DocumentSnapshot documentSnapshot) async {
+        .then((DocumentSnapshot<Map<String, dynamic>> documentSnapshot) async {
       otherDonation.addAll(await getDonationData());
-      List temp = [];
-      temp.add(documentSnapshot.data());
-      for (var tempData in temp) {
-        data = PostCardModel.fromMap(tempData);
-      }
+      data = PostCardModel.fromMap(documentSnapshot.data()!);
     }).whenComplete(() => setState(() => loader = false));
   }
 
   @override
   void initState() {
-    getData(id: widget.id);
-
+    getData();
     super.initState();
   }
 
@@ -81,7 +78,7 @@ class _DonationScreenState extends State<DonationScreen> {
                 children: [
                   Card(
                     elevation: 2,
-                    color: secondaryColor,
+                    color: _colors[random.nextInt(_colors.length)],
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                         side: const BorderSide(width: 0.4, color: Colors.grey)),
