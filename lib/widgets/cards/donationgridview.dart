@@ -28,7 +28,7 @@ class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Food Donatations",
+                      "Food Donations",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     ),
@@ -157,7 +157,7 @@ class _GoodsDonationCardGridState extends State<GoodsDonationCardGrid> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Good Donatations",
+                      "Good Donations",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     ),
