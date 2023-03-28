@@ -29,12 +29,13 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              SizedBox(
-                  width: width / 2,
-                  height: width <= 440 ? width / 2 : width / 3,
-                  child: SvgPicture.asset('assets/icons/logo.svg')),
+              SvgPicture.asset(
+                width: width - 100,
+                'assets/icons/logo.svg',
+                fit: BoxFit.fitWidth,
+              ),
               const SizedBox(
-                height: 100,
+                height: 20,
               ),
               Container(
                 margin: EdgeInsets.symmetric(
@@ -68,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.only(bottom: 10),
                         child: IntlPhoneField(
                           dropdownTextStyle: const TextStyle(fontSize: 14),
-                          style: const TextStyle(fontSize: 14),
+                          style: const TextStyle(fontSize: 18),
                           initialCountryCode: "IN",
                           showDropdownIcon: false,
                           showCountryFlag: false,
@@ -91,9 +92,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               : ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 100, vertical: 25),
+                                        horizontal: 80, vertical: 20),
                                     backgroundColor:
                                         const Color.fromRGBO(117, 183, 158, 1),
+                                    textStyle: const TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w700),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(14.0),
                                     ),

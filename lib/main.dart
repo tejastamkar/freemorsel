@@ -31,28 +31,7 @@ Future<void> main() async {
     sound: true,
   );
 
-  runApp(MaterialApp(
-      builder: (context, child) => ResponsiveWrapper.builder(
-            BouncingScrollWrapper.builder(context, child!),
-            maxWidth: 1200,
-            minWidth: 450,
-            defaultScale: true,
-            breakpoints: [
-              const ResponsiveBreakpoint.resize(450, name: MOBILE),
-              const ResponsiveBreakpoint.autoScale(800, name: TABLET),
-              const ResponsiveBreakpoint.autoScale(1000, name: TABLET),
-              const ResponsiveBreakpoint.resize(1200, name: DESKTOP),
-              const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
-            ],
-          ),
-      theme: ThemeData(
-          fontFamily: "Overpass",
-          primaryColor: primary3Color,
-          secondaryHeaderColor: primary2Color,
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo)
-              .copyWith(background: backgroundColors)),
-      title: 'FreeMorsel',
-      home: const Main()));
+  runApp(const Main());
 }
 
 class Main extends StatefulWidget {
@@ -79,6 +58,56 @@ class _MainState extends State<Main> {
 
   @override
   Widget build(BuildContext context) {
-    return auth.currentUser == null ? const LoginScreen() : const Navbar();
+    return MaterialApp(
+        theme: ThemeData(
+          fontFamily: "Overpass",
+          primaryColor: primary3Color,
+          scaffoldBackgroundColor: Colors.white,
+          textTheme: const TextTheme(
+              headlineLarge: TextStyle(
+                  color: Colors.black, fontSize: 28, fontFamily: "Overpass")),
+          appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.white, foregroundColor: Colors.black),
+
+          // primary: primary3Color,
+          // appBarStyle: AppB(),
+          // secondaryContainer: primary2Color,
+          // scaffoldBackground: Colors.white,
+          // appBarBackground: Colors.white,
+        ),
+        // The Mandy red, dark theme.
+        // darkTheme: ThemeData(
+
+        //     // scaffoldBackground: Colors.black,
+        //     // appBarBackground: Colors.black,
+        //     // fontFamily: "Overpass",
+        //     // appBarStyle: FlexAppBarStyle.background,
+        //     // primary: primary3Color,
+        //     // secondaryContainer: primary2Color,
+        //     ),
+        // Use dark or light theme based on system setting.
+        themeMode: ThemeMode.system,
+        builder: (context, child) => ResponsiveWrapper.builder(
+              BouncingScrollWrapper.builder(context, child!),
+              maxWidth: 1200,
+              minWidth: 450,
+              defaultScale: true,
+              breakpoints: [
+                const ResponsiveBreakpoint.resize(450, name: MOBILE),
+                const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+                const ResponsiveBreakpoint.autoScale(1000, name: TABLET),
+                const ResponsiveBreakpoint.resize(1200, name: DESKTOP),
+                const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
+              ],
+            ),
+        // theme: ThemeData(
+        //     fontFamily: "Overpass",
+        //     primaryColor: primary3Color,
+        //     secondaryHeaderColor: primary2Color,
+        //     colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo)
+        //         .copyWith(background: backgroundColors)),
+        title: 'FreeMorsel',
+        home: auth.currentUser == null ? const LoginScreen() : const Navbar());
+    // return auth.currentUser == null ? const LoginScreen() : const Navbar();
   }
 }

@@ -13,3 +13,7 @@ getDonationData() async {
 
   return donationData;
 }
+
+Future deletePendingDonation({required String donationId}) async {
+  await FirebaseFirestore.instance.doc("PendingDonation/$donationId").delete();
+}

@@ -69,7 +69,7 @@ class DonationCards extends StatelessWidget {
                     style: const TextStyle(
                         overflow: TextOverflow.ellipsis,
                         fontSize: 16,
-                        color: Colors.black,
+                        // color: Colors.black,
                         fontWeight: FontWeight.w600),
                   ),
                 ),

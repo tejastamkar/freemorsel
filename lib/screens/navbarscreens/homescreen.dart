@@ -24,7 +24,8 @@ class _HomeState extends State<Home> {
         trendingData.add(doc.data());
       }
       trendingData.shuffle();
-    }).whenComplete(() => setState(() => trendingDataloader = false));
+    }).whenComplete(
+            () => mounted ? setState(() => trendingDataloader = false) : null);
   }
 
   Future getDonationData() async {
@@ -38,7 +39,7 @@ class _HomeState extends State<Home> {
         foodDonationList.add(doc.data());
       }
       foodDonationList.shuffle();
-    }).whenComplete(() => foodDonationList.isNotEmpty
+    }).whenComplete(() => foodDonationList.isNotEmpty && mounted
             ? setState(() => foodDataLoader = false)
             : null);
     await FirebaseFirestore.instance
@@ -51,7 +52,7 @@ class _HomeState extends State<Home> {
         goodDonation.add(doc.data());
       }
       goodDonation.shuffle();
-    }).whenComplete(() => goodDonation.isNotEmpty
+    }).whenComplete(() => goodDonation.isNotEmpty && mounted
             ? setState(() => goodDataLoader = false)
             : null);
   }

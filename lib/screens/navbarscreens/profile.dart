@@ -4,7 +4,7 @@ import 'package:freemorsel/data/userdata.dart';
 import 'package:freemorsel/provider/phoneauth.dart';
 import 'package:freemorsel/screens/editprofilescreen.dart';
 import 'package:freemorsel/screens/mydonations.dart';
-import 'package:freemorsel/screens/settings.dart';
+import 'package:freemorsel/screens/navbarscreens/settings.dart';
 import 'package:freemorsel/screens/reward.dart';
 
 class ProfilePage extends StatefulWidget {

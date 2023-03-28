@@ -43,13 +43,17 @@ class _NavbarState extends State<Navbar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(appBarTitle),
-        backgroundColor: Colors.white,
+        title: Text(
+          appBarTitle,
+          style: Theme.of(context).textTheme.headlineLarge,
+        ),
+        // backgroundColor: Colors.white,
+
         elevation: 0,
-        titleTextStyle: const TextStyle(color: Colors.black, fontSize: 26.0),
+        titleTextStyle: const TextStyle(fontSize: 26.0),
         centerTitle: true,
       ),
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       body: IndexedStack(index: _selectedIndex, children: screens),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

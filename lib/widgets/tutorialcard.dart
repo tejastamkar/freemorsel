@@ -17,8 +17,8 @@ class _TutorialCardState extends State<TutorialCard> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    Future.delayed(
-        const Duration(seconds: 5), () => setState(() => height = 80));
+    Future.delayed(const Duration(seconds: 5),
+        () => mounted ? setState(() => height = 80) : null);
     return InkWell(
       onTap: () {
         Navigator.push(context,

@@ -85,6 +85,7 @@ class _MyDonationsState extends State<MyDonations> {
                       DateTime tsdate = DateTime.fromMillisecondsSinceEpoch(
                           historyData[index]["Time"].millisecondsSinceEpoch);
                       return FoodCard(
+                          getApi: callApi,
                           title: historyData[index]["foodName"],
                           status: historyData[index]["Status"],
                           image: historyData[index]["images"][0],

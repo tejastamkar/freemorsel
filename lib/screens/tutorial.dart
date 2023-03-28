@@ -108,8 +108,10 @@ class _TutorialPageState extends State<TutorialPage> {
             ),
             InkWell(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => const Navbar())));
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: ((context) => const Navbar())),
+                    (route) => false);
               },
               child: Card(
                 color: primary3Color,

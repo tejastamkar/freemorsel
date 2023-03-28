@@ -52,8 +52,8 @@ class _DonationScreenState extends State<DonationScreen> {
     // double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
+          // backgroundColor: Colors.white,
+          // foregroundColor: Colors.black,
           title: const Text(
             'Donations',
             style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24),

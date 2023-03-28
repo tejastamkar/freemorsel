@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +33,7 @@ class PhoneAuth {
         },
         codeSent: (String verificationId, int? resendToken) {
           showDialog(
+              barrierDismissible: true,
               context: context,
               builder: (context) => OtpPopup(
                     phoneNumber: phoneNo,
@@ -101,8 +100,10 @@ class PhoneAuth {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId, smsCode: smsCode);
     try {
-      await auth.signInWithCredential(credential).whenComplete(() async {
-        if (FirebaseAuth.instance.currentUser == null) {
+      await auth
+          .signInWithCredential(credential)
+          .then((UserCredential userCredential) async {
+        if (userCredential.user == null) {
           await logOut(context: context);
         } else {
           await checkLogin().then((newUser) {
@@ -119,8 +120,17 @@ class PhoneAuth {
           });
         }
       });
+      return "welcome back";
     } catch (e) {
-      log(e.toString());
+      if (e is FirebaseAuthException) {
+        if (e.code == 'invalid-verification-code') {
+          return ('The verification code is invalid.');
+        } else {
+          return ('An error occurred while verifying the verification code: $e');
+        }
+      } else {
+        return ('An error occurred while verifying the verification code: $e');
+      }
     }
   }
 

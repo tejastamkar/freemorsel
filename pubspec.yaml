@@ -68,6 +68,7 @@ dependencies:
   flutter_cache_manager: ^3.3.0
   cached_network_image: ^3.2.3
   flutter_native_splash: ^2.2.19
+  flex_color_scheme: ^6.1.2
 
 dev_dependencies:
   flutter_test:

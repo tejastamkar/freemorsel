@@ -6,13 +6,15 @@ import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 
 class FoodCard extends StatefulWidget {
   final String title, id, status, image, date;
+  final Function getApi;
   const FoodCard(
       {Key? key,
       required this.date,
       required this.image,
       required this.status,
       required this.id,
-      required this.title})
+      required this.title,
+      required this.getApi})
       : super(key: key);
 
   @override
@@ -31,6 +33,7 @@ class _FoodCardState extends State<FoodCard> {
               context,
               MaterialPageRoute(
                   builder: (context) => DonationStatusCard(
+                        getAPi: widget.getApi,
                         status: widget.status,
                         id: widget.id,
                       )));

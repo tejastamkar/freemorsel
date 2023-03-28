@@ -3,13 +3,16 @@ import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:freemorsel/api/getdonation.dart';
 import 'package:freemorsel/data/userdata.dart';
 import 'package:freemorsel/models/postmodel.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 
 class DonationStatusCard extends StatefulWidget {
   final String id, status;
-  const DonationStatusCard({Key? key, required this.id, required this.status})
+  final Function getAPi;
+  const DonationStatusCard(
+      {Key? key, required this.id, required this.status, required this.getAPi})
       : super(key: key);
 
   @override
@@ -19,6 +22,7 @@ class DonationStatusCard extends StatefulWidget {
 class _DonationStatusCardState extends State<DonationStatusCard> {
   int current = 0;
   PostCardModel? data;
+
   List otherDonation = [];
   bool loader = true;
 
@@ -229,7 +233,10 @@ class _DonationStatusCardState extends State<DonationStatusCard> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        deletePendingDonation(donationId: widget.id);
+                        Navigator.pop(context);
+                      },
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
