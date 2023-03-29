@@ -22,6 +22,21 @@ class FoodCard extends StatefulWidget {
 }
 
 class _FoodCardState extends State<FoodCard> {
+  Color cardColor = primary2Color;
+
+  @override
+  void initState() {
+    switch (widget.status) {
+      case "Active":
+        cardColor = primary3Color;
+        break;
+      case "pending":
+        cardColor = Colors.red.shade300;
+        break;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -40,6 +55,7 @@ class _FoodCardState extends State<FoodCard> {
         },
         child: Card(
           elevation: 2,
+          color: cardColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
               side: const BorderSide(width: 0.2, color: Colors.grey)),
