@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freemorsel/api/checkuser.dart';
 import 'package:freemorsel/api/userdetails.dart';
 import 'package:freemorsel/data/userdata.dart';
+import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 import 'package:freemorsel/widgets/profileselector.dart';
 
 class EditProfile extends StatefulWidget {
@@ -210,7 +211,8 @@ class _EditProfileState extends State<EditProfile> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(14.0),
             ),
-            backgroundColor: Theme.of(context).secondaryHeaderColor,
+            backgroundColor: primary2Color,
+            // Theme.of(context).secondaryHeaderColor,
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
           ),
           child: const Text(

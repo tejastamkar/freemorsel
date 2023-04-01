@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:freemorsel/widgets/aboutus.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 import 'package:freemorsel/widgets/deletescreen.dart';
 
@@ -253,24 +254,32 @@ class _SettingsState extends State<SettingsScreen> {
               ),
             ),
           ),
-          Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            elevation: 3,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    "About",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                  ),
-                  Icon(
-                    Icons.error_outline_rounded,
-                    size: 30,
-                  )
-                ],
+          InkWell(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const AboutPage()));
+            },
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              elevation: 3,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 22, horizontal: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text(
+                      "About Us",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                    Icon(
+                      Icons.error_outline_rounded,
+                      size: 30,
+                    )
+                  ],
+                ),
               ),
             ),
           ),
