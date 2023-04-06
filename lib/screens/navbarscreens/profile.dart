@@ -3,8 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freemorsel/data/userdata.dart';
 import 'package:freemorsel/provider/phoneauth.dart';
 import 'package:freemorsel/screens/editprofilescreen.dart';
+import 'package:freemorsel/screens/hotelregister.dart';
 import 'package:freemorsel/screens/mydonations.dart';
 import 'package:freemorsel/screens/navbarscreens/settings.dart';
+import 'package:freemorsel/screens/organizecamp.dart';
 import 'package:freemorsel/screens/reward.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -180,6 +182,78 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             const Text(
                               "Edit Profile",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w400),
+                            ),
+                            const Spacer(),
+                            const Icon(Icons.arrow_forward_ios_rounded)
+                          ],
+                        )),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Divider(
+                        height: 2,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    ElevatedButton(
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const RegisterHotel())),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black,
+                            minimumSize: Size(width, 60),
+                            elevation: 0),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              "assets/icons/hotel.svg",
+                              height: 30,
+                              width: 30,
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            const Text(
+                              "Register as Hotel/Restaurants",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w400),
+                            ),
+                            const Spacer(),
+                            const Icon(Icons.arrow_forward_ios_rounded)
+                          ],
+                        )),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Divider(
+                        height: 2,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    ElevatedButton(
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const OrganizeCamp())),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black,
+                            minimumSize: Size(width, 60),
+                            elevation: 0),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              "assets/icons/camp.svg",
+                              height: 30,
+                              width: 30,
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            const Text(
+                              "Organize your Campaign",
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w400),
                             ),
