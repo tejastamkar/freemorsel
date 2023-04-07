@@ -4,8 +4,7 @@ import Logo from "../../assets/Logo.png";
 import Instagram from "../../assets/instagram.png";
 import Facebook from "../../assets/facebook.png";
 import Twitter from "../../assets/twitter.png";
-import PlayStore from "../../assets/playstoreBtn.png";
-import AppStore from "../../assets/appstorebtn.png";
+
 export default function Footer() {
   return (
     <div className="Footer" id="ContactUs">
