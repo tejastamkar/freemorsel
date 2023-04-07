@@ -7,17 +7,17 @@ function NgoCardGrid() {
     {
       title: "Food Donation",
       // subtitle: "Items: Cooked meal, Vegetables, Tetra packs, Oils etc",
-      image: feature1,
+      image: feature3,
     },
     {
       title: "Good Donation",
       // subtitle: "Items: Books, uniforms and other Stationary items",
-      image: feature2,
+      image: feature1,
     },
     {
       title: "Clothes Donation",
       // subtitle: "Items: Clothes in good condition, New clothes are also taken",
-      image: feature3,
+      image: feature2,
     },
   ];
 
