@@ -1,6 +1,5 @@
 @import "../styles/variables.scss";
 
-
 .navigationBar {
   height: 80px;
   width: 100%;
@@ -48,18 +47,21 @@
 // .a:hover {
 //   background-position: 0;
 // }
-.a::before {
+.a::after {
   content: "";
+
+  // border-bottom: 3px solid red;
+
   background: $secondary-color;
   display: block;
   // position: absolute;
-  bottom: -3px;
+  // bottom: -3px;
   left: 0;
   width: 0;
   height: 3px;
   transition: all 0.3s ease-in-out;
 }
-.a:hover::before {
+.a:hover::after {
   width: 100%;
 }
 .nav_links {
@@ -84,20 +86,20 @@
   .menu {
     gap: 0.4rem;
   }
-  .navigationBar{ 
+  .navigationBar {
     justify-content: center;
   }
-  .logo{ 
+  .logo {
     width: 100%;
     height: fit-content;
   }
 }
 
 @media only screen and (max-width: 700px) {
-  .navigationBar{ 
+  .navigationBar {
     justify-content: center;
   }
-  .logo{ 
+  .logo {
     width: 100%;
     height: fit-content;
   }
@@ -105,4 +107,3 @@
     display: none;
   }
 }
-
