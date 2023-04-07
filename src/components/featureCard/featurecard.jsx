@@ -5,15 +5,15 @@ import "./featurecard.scss";
 function FeatureCardGrid() {
   var featureList = [
     {
-      msg: "Donate your food/goods in less than a minute",
+      msg: "The user information is also stored in the local storage hence no repetitive fetching is required. This feature is made keeping Green IT in mind.",
       image: feature1,
     },
     {
-      msg: "Donate your food/goods in less than a minute",
+      msg: "This initiative will assist the restaurants in reducing food waste as well as the expense of scraping all the extra food.",
       image: feature2,
     },
     {
-      msg: "Donate your food/goods in less than a minute",
+      msg: "Through this application, users may donate and volunteer for any campaigns they want.",
       image: feature3,
     },
   ];
@@ -34,9 +34,9 @@ export default FeatureCardGrid;
 
 function FeatureCard({ msg, image }) {
   return (
-    <div className="FeatureCard" >
+    <div className="FeatureCard">
       <div className="ImageContainer">
-        <img src={image} className="Image"  />
+        <img src={image} className="Image" />
       </div>
       <div className="feature-title">{msg}</div>
     </div>
