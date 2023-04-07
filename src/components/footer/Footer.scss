@@ -1,0 +1,132 @@
+@import "../styles/variables.scss";
+.Footer {
+  display: flex;
+  flex-direction: column;
+  // width: 100%;
+  height: fit-content;
+  padding: 10px 0px 30px 0px;
+  margin-top: 5%;
+  background-color: rgba(117, 183, 158, 0.35);
+}
+.Footer_Sec_1 {
+  display: flex;
+  // flex-direction: row;
+  // align-content: start;
+
+  justify-content: space-evenly;
+  align-items: start;
+}
+
+.col2_details {
+  font-size: 22px;
+  font-weight: 800;
+  font-family: "Zilla Slab", serif;
+  margin-top: 5%;
+}
+.col_title {
+  font-size: 28px;
+  font-family: "Zilla Slab", serif;
+  font-weight: 800;
+}
+
+.col3_icons {
+  display: flex;
+  img {
+    width: 30px;
+    height: 30px;
+  } // justify-content: start;
+  // align-content: start;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.SocialSec {
+  text-align: start;
+  justify-items: start;
+  align-items: start;
+}
+// .col_4 {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 10px;
+// }
+// .col4Btn {
+//   width: 200px;
+//   padding: 2%;
+//   border-radius: 20px;
+//   text-align: center;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+// }
+.Footer_Sec_2 {
+  // margin: 10px;
+  margin-top: 20px;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  font-size: 22px;
+  font-family: "Zilla Slab", serif;
+  font-weight: 700;
+  border-top: solid 3px $primary-color;
+  a {
+    margin: 20px;
+  }
+}
+.policy {
+  margin-top: 20px;
+}
+
+@media only screen and (max-width: 840px) {
+  .Footer_Sec_2 {
+    font-size: 18px;
+    display: flex;
+    // flex-direction: column;
+    font-size: 18px;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .col2_details {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .col_title {
+    font-weight: 700;
+    font-size: 20px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .Footer_Sec_2 {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    gap: 10px;
+    margin-top: 20px;
+
+    a {
+      margin: 20px;
+    }
+  }
+  .Footer_Sec_1 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .logoSec {
+    align-self: center;
+  }
+  .col2_details {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .col_title {
+    font-weight: 700;
+    font-size: 20px;
+  }
+  .policy:first-child {
+    margin-top: 20px;
+  }
+}

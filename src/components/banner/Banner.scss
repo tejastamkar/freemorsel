@@ -1,0 +1,119 @@
+@import "../styles/variables.scss";
+
+.Banner {
+  // position: relative;
+  .BannerImg {
+    height: 20%;
+    // position: absolute;
+  }
+}
+.Btn {
+  padding: 15px;
+  width: 20%;
+  background-color: $secondary-color;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+  // position: absolute;
+  font-size: 22px;
+  left: 45%;
+  top: 70%;
+  font-family: "Zilla Slab", serif;
+}
+
+.content-div {
+  width: 80%;
+  text-align: center;
+  margin: auto;
+  font-family: "Zilla Slab", serif;
+}
+.sub-heading {
+  background-color: #75b79e8e;
+  color: $primary-color;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 30px;
+  font-family: "Zilla Slab", serif;
+  margin: 30px;
+}
+.info-div {
+  font-size: 24px;
+  font-family: "Zilla Slab", serif;
+  color: $primary-color;
+}
+.title {
+  font-family: "Zilla Slab", serif;
+  font-weight: 900;
+  font-size: 40px;
+  color: $primary-color;
+}
+.detail {
+  font-family: "Zilla Slab", serif;
+  font-size: 26px;
+  color: $primary-color;
+  margin: 30px;
+}
+.buttons-div {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  justify-content: center;
+  margin: 30px;
+}
+.feedback-title {
+  font-family: "Zilla Slab", serif;
+  font-size: 38px;
+  font-weight: 900;
+  color: $primary-color;
+  margin: 50px;
+}
+.feedback-1 {
+  display: flex;
+  flex-direction: row;
+}
+.feedback-div {
+  background-color: rgb(106, 140, 175, 0.35);
+  border-radius: 15px;
+  width: 70%;
+  height: 230px;
+}
+.people {
+  left: 20%;
+}
+
+.feed {
+  color: #000;
+  font-size: 28px;
+  font-family: "Zilla Slab", serif;
+  margin: 50px;
+}
+
+@media only screen and (max-width: 840px) {
+  .sub-heading {
+    font-size: 20px;
+  }
+  .info-div {
+    font-size: 18px;
+  }
+  .title {
+    font-size: 30px;
+  }
+  .detail {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .sub-heading {
+    font-size: 18px;
+  }
+  .info-div {
+    font-size: 16px;
+  }
+  .title {
+    font-size: 26px;
+  }
+  .detail {
+    font-size: 18px;
+  }
+}
