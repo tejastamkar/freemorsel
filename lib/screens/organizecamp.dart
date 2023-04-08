@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:freemorsel/provider/datepicker.dart';
+import 'package:freemorsel/provider/locationprovider.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 
 class OrganizeCamp extends StatefulWidget {
@@ -20,7 +22,10 @@ class _OrganizeCampState extends State<OrganizeCamp> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () => Navigator.pop(context),
+        ),
         elevation: 0,
         backgroundColor: Colors.white,
         centerTitle: true,
@@ -51,7 +56,6 @@ class _OrganizeCampState extends State<OrganizeCamp> {
                 height: 5,
               ),
               Container(
-                height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7),
                   boxShadow: const [
@@ -93,7 +97,6 @@ class _OrganizeCampState extends State<OrganizeCamp> {
                 height: 5,
               ),
               Container(
-                height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7),
                   boxShadow: const [
@@ -135,7 +138,6 @@ class _OrganizeCampState extends State<OrganizeCamp> {
                 height: 5,
               ),
               Container(
-                height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7),
                   boxShadow: const [
@@ -148,6 +150,13 @@ class _OrganizeCampState extends State<OrganizeCamp> {
                   ],
                 ),
                 child: TextField(
+                  readOnly: true,
+                  onTap: () => DatePicker().getDate(
+                      context: context,
+                      setDate: (date) => setState(
+                            () => _campdate.text = date,
+                          ),
+                      before: false),
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w400),
                   decoration: InputDecoration(
@@ -181,7 +190,6 @@ class _OrganizeCampState extends State<OrganizeCamp> {
                 height: 5,
               ),
               Container(
-                height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7),
                   boxShadow: const [
@@ -202,9 +210,15 @@ class _OrganizeCampState extends State<OrganizeCamp> {
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     filled: true,
                     fillColor: Colors.white,
-                    suffixIcon: Icon(
-                      Icons.my_location,
-                      color: primary2Color,
+                    suffixIcon: InkWell(
+                      onTap: () async {
+                        _campaddress.clear();
+                        _campaddress.text = await getLoction(context: context);
+                      },
+                      child: Icon(
+                        Icons.my_location,
+                        color: primary2Color,
+                      ),
                     ),
                     border: OutlineInputBorder(
                         borderSide: BorderSide.none,
@@ -228,7 +242,6 @@ class _OrganizeCampState extends State<OrganizeCamp> {
                 height: 5,
               ),
               Container(
-                height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7),
                   boxShadow: const [
@@ -241,6 +254,13 @@ class _OrganizeCampState extends State<OrganizeCamp> {
                   ],
                 ),
                 child: TextField(
+                  readOnly: true,
+                  onTap: () => DatePicker().getTime(
+                    context: context,
+                    setDate: (time) => setState(
+                      () => _camptimings.text = time,
+                    ),
+                  ),
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w400),
                   decoration: InputDecoration(
@@ -270,7 +290,6 @@ class _OrganizeCampState extends State<OrganizeCamp> {
                 height: 5,
               ),
               Container(
-                height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7),
                   boxShadow: const [
@@ -283,6 +302,7 @@ class _OrganizeCampState extends State<OrganizeCamp> {
                   ],
                 ),
                 child: TextField(
+                  keyboardType: TextInputType.number,
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w400),
                   decoration: InputDecoration(
@@ -312,7 +332,6 @@ class _OrganizeCampState extends State<OrganizeCamp> {
                 height: 5,
               ),
               Container(
-                height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7),
                   boxShadow: const [

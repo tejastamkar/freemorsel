@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:freemorsel/provider/datepicker.dart';
+import 'package:freemorsel/provider/locationprovider.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
 
 class RegisterHotel extends StatefulWidget {
@@ -21,7 +23,11 @@ class _RegisterHotelState extends State<RegisterHotel> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () => Navigator.pop(context),
+        ),
+        // automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Colors.white,
         centerTitle: true,
@@ -149,6 +155,7 @@ class _RegisterHotelState extends State<RegisterHotel> {
                   ],
                 ),
                 child: TextField(
+                  keyboardType: TextInputType.number,
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w400),
                   decoration: InputDecoration(
@@ -178,7 +185,7 @@ class _RegisterHotelState extends State<RegisterHotel> {
                 height: 5,
               ),
               Container(
-                height: 45,
+                // height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7),
                   boxShadow: const [
@@ -199,9 +206,15 @@ class _RegisterHotelState extends State<RegisterHotel> {
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     filled: true,
                     fillColor: Colors.white,
-                    suffixIcon: Icon(
-                      Icons.my_location,
-                      color: primary2Color,
+                    suffixIcon: InkWell(
+                      onTap: () async {
+                        _hoteladdress.clear();
+                        _hoteladdress.text = await getLoction(context: context);
+                      },
+                      child: Icon(
+                        Icons.my_location,
+                        color: primary2Color,
+                      ),
                     ),
                     border: OutlineInputBorder(
                         borderSide: BorderSide.none,
@@ -225,7 +238,7 @@ class _RegisterHotelState extends State<RegisterHotel> {
                 height: 5,
               ),
               Container(
-                height: 45,
+                // height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7),
                   boxShadow: const [
@@ -238,6 +251,13 @@ class _RegisterHotelState extends State<RegisterHotel> {
                   ],
                 ),
                 child: TextField(
+                  readOnly: true,
+                  onTap: () => DatePicker().getTime(
+                    context: context,
+                    setDate: (date) => setState(
+                      () => _hoteltimings.text = date,
+                    ),
+                  ),
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w400),
                   decoration: InputDecoration(
@@ -267,7 +287,7 @@ class _RegisterHotelState extends State<RegisterHotel> {
                 height: 5,
               ),
               Container(
-                height: 45,
+                // height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7),
                   boxShadow: const [
@@ -291,6 +311,7 @@ class _RegisterHotelState extends State<RegisterHotel> {
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(7)),
                   ),
+                  keyboardType: TextInputType.number,
                   controller: _hotelgstnno,
                 ),
               ),
@@ -309,7 +330,7 @@ class _RegisterHotelState extends State<RegisterHotel> {
                 height: 5,
               ),
               Container(
-                height: 45,
+                // height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7),
                   boxShadow: const [
