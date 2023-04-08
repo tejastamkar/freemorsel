@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:freemorsel/provider/datepicker.dart';
 import 'package:freemorsel/provider/locationprovider.dart';
@@ -11,6 +12,7 @@ class OrganizeCamp extends StatefulWidget {
 }
 
 class _OrganizeCampState extends State<OrganizeCamp> {
+  Timestamp camptimingStamp = Timestamp.now();
   final TextEditingController _campname = TextEditingController();
   final TextEditingController _campdetails = TextEditingController();
   final TextEditingController _campdate = TextEditingController();
@@ -257,7 +259,10 @@ class _OrganizeCampState extends State<OrganizeCamp> {
                   readOnly: true,
                   onTap: () => DatePicker().getTime(
                     context: context,
-                    setDate: (time) => setState(
+                    setTime: (time) => setState(
+                      () => camptimingStamp = time,
+                    ),
+                    showTime: (time) => setState(
                       () => _camptimings.text = time,
                     ),
                   ),

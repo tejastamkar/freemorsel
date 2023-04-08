@@ -1,20 +1,33 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 class DatePicker {
+  final Timestamp now = Timestamp.fromDate(DateTime.now());
+  DateTime todaysDate = DateTime.now();
   getTime({
     required BuildContext context,
-    required Function setDate,
+    required Function setTime,
+    required Function showTime,
   }) async {
-    TimeOfDay todaysDate = TimeOfDay.now();
+    TimeOfDay currentTime = TimeOfDay.now();
     await showTimePicker(
-      context: context, initialTime: todaysDate,
+      context: context, initialTime: currentTime,
       // initialDate: todaysDate,
       // firstDate: DateTime(1950),
       //DateTime.now() - not to allow to choose before today.
       // lastDate: DateTime(2100)
-    ).then((value) => setDate("${value!.hour} : ${value.minute}"));
+    ).then((value) {
+      DateTime dateTime = DateTime(todaysDate.year, todaysDate.month,
+          todaysDate.day, value!.hour, value.minute);
+
+      // Convert the DateTime object to a Timestamp object
+      Timestamp timestamp = Timestamp.fromDate(dateTime);
+
+      setTime(timestamp);
+      showTime("${value.hour} : ${value.minute}");
+    });
 
     // return pickedDate;
   }
@@ -23,7 +36,6 @@ class DatePicker {
       {required BuildContext context,
       required Function setDate,
       required bool before}) async {
-    DateTime todaysDate = DateTime.now();
     DateTime? pickedDate = await showDatePicker(
         context: context,
         initialDate: todaysDate,

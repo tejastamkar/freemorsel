@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:freemorsel/provider/datepicker.dart';
 import 'package:freemorsel/provider/locationprovider.dart';
@@ -11,6 +12,8 @@ class RegisterHotel extends StatefulWidget {
 }
 
 class _RegisterHotelState extends State<RegisterHotel> {
+  // Convert the DateTime object to a Timestamp object
+  Timestamp hoteltimingStamp = Timestamp.now();
   final TextEditingController _hotelname = TextEditingController();
   final TextEditingController _ownername = TextEditingController();
   final TextEditingController _hotelphoneno = TextEditingController();
@@ -254,8 +257,11 @@ class _RegisterHotelState extends State<RegisterHotel> {
                   readOnly: true,
                   onTap: () => DatePicker().getTime(
                     context: context,
-                    setDate: (date) => setState(
-                      () => _hoteltimings.text = date,
+                    setTime: (time) => setState(
+                      () => hoteltimingStamp = time,
+                    ),
+                    showTime: (time) => setState(
+                      () => _hoteltimings.text = time,
                     ),
                   ),
                   style: const TextStyle(
