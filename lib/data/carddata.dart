@@ -4,6 +4,14 @@ List imageDataItems = [
   'assets/Tiffin3.jpeg',
 ];
 
+List fakevideoData = [
+  {
+    "image":
+        "https://img.global.news.samsung.com/in/wp-content/uploads/2018/08/20180717_150941-e1533543748946.jpg",
+    "title": "Chinces Food Truck",
+    "id": 1
+  },
+];
 List carouselCardUpcomingEventsData = [
   {
     "image":

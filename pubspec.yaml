@@ -69,7 +69,11 @@ dependencies:
   cached_network_image: ^3.2.3
   flutter_native_splash: ^2.2.19
   flex_color_scheme: ^6.1.2
-
+  shared_preferences: ^2.1.0
+  video_player: ^2.6.1
+  flick_video_player: ^0.5.0
+  intl: ^0.17.0
+  pod_player: ^0.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -156,15 +160,15 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_native_splash:
-    color: "#ffffff"
-    image: assets/logo.png
-    # branding: assets/.png
-    # color_dark: "#000000"
-    # image_dark: assets/logo.png
-    # branding_dark: assets/branding-development.png
+  color: "#ffffff"
+  image: assets/logo.png
+  # branding: assets/.png
+  # color_dark: "#000000"
+  # image_dark: assets/logo.png
+  # branding_dark: assets/branding-development.png
 
 android_12:
-    image: assets/logo.png
-    icon_background_color: "#ffffff"
-    # image_dark: assets/logo.png
-    # icon_background_color_dark: "#000000"
+  image: assets/logo.png
+  icon_background_color: "#ffffff"
+  # image_dark: assets/logo.png
+  # icon_background_color_dark: "#000000"

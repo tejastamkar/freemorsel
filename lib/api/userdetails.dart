@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freemorsel/data/userdata.dart';
@@ -67,6 +68,7 @@ class UserDetails {
   Future getUserDetails(
       {required DocumentSnapshot<Map<String, dynamic>> docSnapshot}) async {
     try {
+      // final SharedPreferences prefs = await SharedPreferences.getInstance();
       var data = docSnapshot.data()!;
       username = data["username"];
       phoneNum = data["PhoneNo"];
@@ -75,6 +77,9 @@ class UserDetails {
       points = data["Points"];
       profilePicSelector = data["profilePic"];
     } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
       FirebaseAuth.instance.signOut();
     }
   }

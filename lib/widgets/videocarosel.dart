@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:freemorsel/models/hoteldatamodel.dart';
 import 'package:freemorsel/widgets/carouselcards.dart';
 import 'package:freemorsel/widgets/carouselviews.dart';
 
@@ -35,7 +36,7 @@ class _HotelVideoCaroselState extends State<HotelVideoCarosel> {
             options: CarouselOptions(
               // height: 250,
               // height: width / 1.8,
-              aspectRatio: 14 / 9,
+              aspectRatio: 12 / 9,
               viewportFraction: 1,
               initialPage: 0,
               autoPlay: false,
@@ -43,14 +44,13 @@ class _HotelVideoCaroselState extends State<HotelVideoCarosel> {
               enlargeCenterPage: true,
               scrollDirection: Axis.horizontal,
             ),
-            items: widget.hotelvideodata
-                .map((data) => VideoCarosel(
-                      width: width,
-                      image: data["image"],
-                      title: data["title"],
-                      id: data["id"],
-                    ))
-                .toList(),
+            items: widget.hotelvideodata.map((data) {
+              HotelDatamodel hotelData = HotelDatamodel.fromMap(data);
+              return VideoCarosel(
+                width: width,
+                hotelData: hotelData,
+              );
+            }).toList(),
           ),
         ],
       );

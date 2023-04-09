@@ -22,6 +22,7 @@ class OrganizeCamp extends StatefulWidget {
 String camppic = "";
 
 class _OrganizeCampState extends State<OrganizeCamp> {
+  Timestamp camptimingStamp = Timestamp.now();
   final TextEditingController _campname = TextEditingController();
   final TextEditingController _campdetails = TextEditingController();
   final TextEditingController _campdate = TextEditingController();
@@ -312,7 +313,10 @@ class _OrganizeCampState extends State<OrganizeCamp> {
                   readOnly: true,
                   onTap: () => DatePicker().getTime(
                     context: context,
-                    setDate: (time) => setState(
+                    setTime: (time) => setState(
+                      () => camptimingStamp = time,
+                    ),
+                    showTime: (time) => setState(
                       () => _camptimings.text = time,
                     ),
                   ),
