@@ -22,6 +22,7 @@ class _HomeState extends State<Home> {
       foodDataLoader = true,
       goodDataLoader = true,
       videoDataloader = true;
+
   Future getTrendingData() async {
     await FirebaseFirestore.instance
         .collection('TrendingCampaigns')
@@ -46,9 +47,7 @@ class _HomeState extends State<Home> {
         foodDonationList.add(doc.data());
       }
       foodDonationList.shuffle();
-    }).whenComplete(() => foodDonationList.isNotEmpty && mounted
-            ? setState(() => foodDataLoader = false)
-            : null);
+    });
     await FirebaseFirestore.instance
         .collection('Donation')
         .where("TypeOfDonation", isEqualTo: "Good")
@@ -59,19 +58,43 @@ class _HomeState extends State<Home> {
         goodDonation.add(doc.data());
       }
       goodDonation.shuffle();
-    }).whenComplete(() => goodDonation.isNotEmpty && mounted
-            ? setState(() => goodDataLoader = false)
-            : null);
+    });
+  }
+
+  Future getHotelData() async {
+    await FirebaseFirestore.instance
+        .collection('hotels')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        videoData.add(doc.data());
+      }
+    });
   }
 
   Future callApi() async {
     await getTrendingData();
     await getDonationData();
+    await getHotelData();
   }
 
   @override
   void initState() {
-    callApi();
+    callApi().whenComplete(() {
+      if (mounted) {
+        setState(() {
+          if (goodDonation.isNotEmpty) {
+            goodDataLoader = false;
+          }
+          if (foodDonationList.isNotEmpty) {
+            foodDataLoader = false;
+          }
+          if (videoData.isNotEmpty) {
+            videoDataloader = false;
+          }
+        });
+      }
+    });
     super.initState();
   }
 
