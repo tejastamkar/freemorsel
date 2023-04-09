@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:freemorsel/provider/datepicker.dart';
 import 'package:freemorsel/provider/locationprovider.dart';
@@ -18,6 +19,31 @@ class _RegisterHotelState extends State<RegisterHotel> {
   final TextEditingController _hoteltimings = TextEditingController();
   final TextEditingController _hotelgstnno = TextEditingController();
   final TextEditingController _hotelfssaino = TextEditingController();
+  storedata() async {
+    var details = await FirebaseFirestore.instance.collection("Hotels").add({
+      "name": _hotelname.text,
+      "ownername": _ownername.text,
+      "hotelphoneno": _hotelphoneno.text,
+      "hoteladdress": _hoteladdress.text,
+      "hoteltiming": _hoteltimings.text,
+      "gstno": _hotelgstnno.text,
+      "fassino": _hotelfssaino.text
+    });
+    await FirebaseFirestore.instance
+        .collection("Hotels")
+        .doc(details.id)
+        .update({"Applicationid": details.id}).whenComplete(() => {
+              _hotelname.clear(),
+              _ownername.clear(),
+              _hotelphoneno.clear(),
+              _hoteladdress.clear(),
+              _hoteltimings.clear(),
+              _hotelgstnno.clear(),
+              _hotelfssaino.clear(),
+              print("data enter")
+            });
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -376,7 +402,19 @@ class _RegisterHotelState extends State<RegisterHotel> {
             'Register',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
           ),
-          onPressed: () {},
+          onPressed: () {
+            if (_hotelname.text != "" &&
+                _ownername.text != "" &&
+                _hotelphoneno.text != "" &&
+                _hoteladdress.text != "" &&
+                _hoteltimings.text != "" &&
+                _hotelfssaino.text != "" &&
+                _hotelgstnno.text != "") {
+              storedata();
+            } else {
+              print("Field are empty");
+            }
+          },
         ),
       ),
     );

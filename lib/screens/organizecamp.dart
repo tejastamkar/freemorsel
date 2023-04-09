@@ -1,7 +1,16 @@
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:freemorsel/api/adddonation.dart';
 import 'package:freemorsel/provider/datepicker.dart';
+import 'package:freemorsel/provider/imagecopper.dart';
 import 'package:freemorsel/provider/locationprovider.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
+import 'package:image_picker/image_picker.dart';
 
 class OrganizeCamp extends StatefulWidget {
   const OrganizeCamp({super.key});
@@ -10,6 +19,8 @@ class OrganizeCamp extends StatefulWidget {
   State<OrganizeCamp> createState() => _OrganizeCampState();
 }
 
+String camppic = "";
+
 class _OrganizeCampState extends State<OrganizeCamp> {
   final TextEditingController _campname = TextEditingController();
   final TextEditingController _campdetails = TextEditingController();
@@ -17,6 +28,50 @@ class _OrganizeCampState extends State<OrganizeCamp> {
   final TextEditingController _campaddress = TextEditingController();
   final TextEditingController _camptimings = TextEditingController();
   final TextEditingController _campphonenno = TextEditingController();
+  String firebascamppic = "";
+  bool pickedimage = false;
+
+  storecampdetail() async {
+    var details = await FirebaseFirestore.instance.collection("Camps").add({
+      "camp": _campname.text,
+      "contactNo": _campphonenno.text,
+      "dateOfDrive": _campdate.text,
+      "venue": _campaddress.text,
+      "time": _camptimings.text,
+      "organizationName": _campdetails.text,
+      "image": firebascamppic
+    });
+    if (details.id != "") {
+      FirebaseFirestore.instance
+          .collection("Camps")
+          .doc(details.id)
+          .update({"id": details.id});
+    }
+  }
+
+  Future<dynamic> picimage({required source}) async {
+    try {
+      final XFile? image = await ImagePicker().pickImage(source: source);
+      String cropFile = await cropImage(pickedFile: image);
+
+      // final File file = File(image!.path);
+      setState(() {
+        camppic = cropFile;
+        pickedimage = true;
+      });
+      var link = await fireStoreFileUpload(
+          camppic, "${FirebaseAuth.instance.currentUser!.uid}/Camps/photo.jpg");
+
+      setState(() {
+        firebascamppic = link;
+      });
+    } catch (e) {
+      if (kDebugMode) {
+        log(e.toString());
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -150,13 +205,13 @@ class _OrganizeCampState extends State<OrganizeCamp> {
                   ],
                 ),
                 child: TextField(
-                  readOnly: true,
-                  onTap: () => DatePicker().getDate(
-                      context: context,
-                      setDate: (date) => setState(
-                            () => _campdate.text = date,
-                          ),
-                      before: false),
+                  readOnly: false,
+                  // onTap: () => DatePicker().getDate(
+                  //     context: context,
+                  //     setDate: (date) => setState(
+                  //           () => _campdate.text = date,
+                  //         ),
+                  //     before: false),
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w400),
                   decoration: InputDecoration(
@@ -331,36 +386,64 @@ class _OrganizeCampState extends State<OrganizeCamp> {
               const SizedBox(
                 height: 5,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(7),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Color(
-                          0x3f000000,
-                        ), //New
-                        blurRadius: 1.0,
-                        offset: Offset(0, 0))
-                  ],
+              InkWell(
+                onTap: () => picimage(
+                  source: ImageSource.gallery,
                 ),
-                child: TextField(
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w400),
-                  decoration: InputDecoration(
-                    contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    filled: true,
-                    fillColor: Colors.white,
-                    suffixIcon: const Icon(
-                      Icons.add,
-                      color: Colors.black,
-                    ),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(7)),
-                  ),
-                ),
+                child: pickedimage
+                    ? Image.file(File(camppic))
+                    : Container(
+                        width: width,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(7),
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Color(
+                                  0x3f000000,
+                                ), //New
+                                blurRadius: 1.0,
+                                offset: Offset(0, 0))
+                          ],
+                        ),
+                        child: const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 65),
+                            child: Icon(
+                              Icons.add,
+                              size: 50,
+                            )),
+                      ),
               ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(7),
+              //     boxShadow: const [
+              //       BoxShadow(
+              //           color: Color(
+              //             0x3f000000,
+              //           ), //New
+              //           blurRadius: 1.0,
+              //           offset: Offset(0, 0))
+              //     ],
+              //   ),
+              //   child: TextField(
+              //     style: const TextStyle(
+              //         fontSize: 18, fontWeight: FontWeight.w400),
+              //     decoration: InputDecoration(
+              //       contentPadding:
+              //           const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              //       filled: true,
+              //       fillColor: Colors.white,
+              //       suffixIcon: const Icon(
+              //         Icons.add,
+              //         color: Colors.black,
+              //       ),
+              //       border: OutlineInputBorder(
+              //           borderSide: BorderSide.none,
+              //           borderRadius: BorderRadius.circular(7)),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -368,20 +451,19 @@ class _OrganizeCampState extends State<OrganizeCamp> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
         child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14.0),
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14.0),
+              ),
+              backgroundColor: primary3Color,
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
             ),
-            backgroundColor: primary3Color,
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-          ),
-          child: const Text(
-            'Add Campaign',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-          ),
-          onPressed: () {},
-        ),
+            child: const Text(
+              'Add Campaign',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+            ),
+            onPressed: () => storecampdetail()),
       ),
     );
   }
