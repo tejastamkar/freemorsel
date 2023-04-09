@@ -19,7 +19,7 @@ class _VideoCardState extends State<VideoCard> {
           autoPlay: true, isLooping: true, forcedVideoFocus: false),
       playVideoFrom: PlayVideoFrom.network(
         // videoPlayerOptions: VideoPlayerOptions()
-        'https://firebasestorage.googleapis.com/v0/b/freemorsel-2ea41.appspot.com/o/milind%20dada%20food%20truck%2FWhatsApp%20Video%202023-04-08%20at%2010.36.46%20PM.mp4?alt=media&token=c09d9cc6-b53b-4b7a-9ee2-0d6549f3297c',
+        widget.videoUrl,
       ),
     )..initialise().whenComplete(() {
         controller.mute();
