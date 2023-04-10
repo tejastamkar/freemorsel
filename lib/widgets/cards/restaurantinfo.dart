@@ -260,7 +260,7 @@ class _RestaurantInfoState extends State<RestaurantInfo> {
                   width: 10,
                   activeColor: primary2Color,
                   color: const Color.fromRGBO(196, 196, 196, 1),
-                  count: widget.hotelData.hotelImage.length,
+                  count: widget.hotelData.donationImage.length,
                   index: donationImageIndex,
                 ),
               ),
