@@ -1,6 +1,7 @@
 import functions from "firebase-functions";
 import admin from "firebase-admin";
 import serviceAccount from "./serviceAccountKey.json" assert { type: "json" };
+import axios from "axios";
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -12,6 +13,41 @@ const db = admin.firestore();
 // // https://firebase.google.com/docs/functions/get-started
 
 //
+
+export const getRanks = functions
+  .region("asia-south1")
+  .firestore.document("Users/{Userid}")
+  .onUpdate(async (snapshort, context) => {
+    var userBefore = snapshort.before.data();
+    var userAfter = snapshort.after.data();
+
+    if (
+      userBefore["Points"] != userAfter["Points"] &&
+      userBefore["Points"] < userAfter["Points"]
+    ) {
+      await db
+        .collection("Users")
+        .get()
+        .then((value) => {
+          value.docs.forEach(async (doc) => {
+            await axios
+              .post("https://freemorselapi.onrender.com/myrank", {
+                uid: doc["userId"].toString(),
+              })
+              .then(async (response) => {
+                await db
+                  .doc(`Users/${doc["userId"]}`)
+                  .update({ myRank: response.data });
+                console.log(response.data);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          });
+        });
+    }
+    return Promise.resolve();
+  });
 
 export const donationComplete = functions
   .region("asia-south1")
