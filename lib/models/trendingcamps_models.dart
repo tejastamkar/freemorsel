@@ -7,9 +7,10 @@ class TrendingCampaning {
   String? venue;
   String? time;
   String? contact;
+  String? campdetail;
 
   TrendingCampaning(this.id, this.image, this.title, this.organization,
-      this.dateofdrive, this.venue, this.time, this.contact);
+      this.dateofdrive, this.venue, this.time, this.contact, this.campdetail);
 
   TrendingCampaning.fromMap(map) {
     id = map["id"];
@@ -20,6 +21,7 @@ class TrendingCampaning {
     venue = map["venue"];
     time = map["time"];
     contact = map["contact"];
+    campdetail = map["campdetail"];
   }
 
   Map<String, dynamic> toMap() {
@@ -32,6 +34,7 @@ class TrendingCampaning {
       "venue": venue,
       "time": time,
       "contact": contact,
+      "campdetail": campdetail,
     };
   }
 }
