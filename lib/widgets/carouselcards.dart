@@ -48,7 +48,7 @@ class CarouselCards extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
               side: const BorderSide(width: 0.4, color: Colors.grey)),
           child: Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -58,25 +58,23 @@ class CarouselCards extends StatelessWidget {
                     key: UniqueKey(),
                     cacheManager: customCacheManager,
                     imageUrl: image,
-                    height: width / 2.5,
+                    height: width / 2.6,
                     width: width,
                     fit: BoxFit.cover,
                     placeholder: (context, url) => Container(
-                      height: width / 2.5,
+                      height: width / 2.6,
                       width: width,
                       color: primary3Color,
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 12),
-                  child: SizedBox(
-                    width: width,
-                    child: Text(
-                      title,
-                      style: const TextStyle(
-                          fontSize: 14, fontWeight: FontWeight.w700),
-                    ),
+                Container(
+                  margin: const EdgeInsets.only(top: 12),
+                  width: width,
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w700),
                   ),
                 ),
               ],
