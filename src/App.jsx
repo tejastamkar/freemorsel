@@ -1,22 +1,17 @@
-import { useState } from "react";
 import "./App.css";
-import Banner from "./components/banner/Banner";
-import Navbar from "./components/navbar/Navbar";
-import Footer from "./components/footer/Footer";
-import FeatureCardGrid from "./components/featureCard/featurecard";
-import NgoCardGrid from "./components/ngocard/ngocard";
-import SocialParadigm from "./components/socialParadigm/socialParadigm";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./screen/home";
+import DonationComponent from "./components/donation/donation";
 
 function App() {
-  console.log("its working")
   return (
     <div>
-      <Navbar />
-      <Banner />
-      <FeatureCardGrid />
-      <NgoCardGrid />
-      <SocialParadigm />
-      <Footer />
+      <BrowserRouter>
+        <Routes>
+          <Route index path="/" element={<Home />} />
+          <Route path="/Donation/wallet/test" element={<DonationComponent />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
