@@ -8,13 +8,14 @@ import NgoCardGrid from "./components/ngocard/ngocard";
 import SocialParadigm from "./components/socialParadigm/socialParadigm";
 
 function App() {
+  console.log("its working")
   return (
     <div>
       <Navbar />
       <Banner />
       <FeatureCardGrid />
-      <NgoCardGrid/>
-      <SocialParadigm/>
+      <NgoCardGrid />
+      <SocialParadigm />
       <Footer />
     </div>
   );

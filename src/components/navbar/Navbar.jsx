@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../../assets/Logo.png";
 import "./Navbar.scss";
 export default function Navbar() {
+  const [myval, setMyval] = useState();
   return (
     <div className="navigationBar">
       <div className="logo_Div">
