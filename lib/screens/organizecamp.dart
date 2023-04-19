@@ -595,7 +595,7 @@ class _OrganizeCampState extends State<OrganizeCamp> {
               ),
             ],
           ),
-          Column(
+          Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Padding(
@@ -608,6 +608,7 @@ class _OrganizeCampState extends State<OrganizeCamp> {
                       color: Colors.black),
                 ),
               ),
+              const Spacer(),
               Row(
                 children: [
                   ElevatedButton(
@@ -626,23 +627,62 @@ class _OrganizeCampState extends State<OrganizeCamp> {
                         Icons.remove,
                         size: 25,
                       )),
-                  Container(
-                    alignment: Alignment.center,
-                    color: Colors.grey.shade200,
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    height: 30,
-                    // child: TextFormField(
-                    //   controller: _volunteercount,
-                    //   style: const TextStyle(
-                    //       fontSize: 18, fontWeight: FontWeight.w400),
-                    // ),
+                  // Container(
+                  //   alignment: Alignment.center,
+                  //   color: Colors.grey.shade200,
+                  //   padding: const EdgeInsets.symmetric(horizontal: 25),
+                  //   child: Text(
+                  //     "$volunteerCount",
+                  //     style: const TextStyle(
+                  //         fontSize: 18, fontWeight: FontWeight.w400),
+                  //   ),
+                  // ),
 
-                    child: Text(
-                      "$volunteerCount",
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    width: 30,
+                    color: Colors.grey.shade200,
+                    height: 30,
+                    child: TextField(
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w400),
+                      decoration: InputDecoration(
+                        hintText: "$volunteerCount",
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
+                        filled: true,
+                        fillColor: Colors.grey.shade200,
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(7)),
+                      ),
+                      controller: _volunteercount,
                     ),
                   ),
+                  // Container(
+                  //   color: Colors.grey.shade200,
+
+                  //   height: 30,
+                  //   child: TextField(
+                  //     style: const TextStyle(
+                  //         fontSize: 18, fontWeight: FontWeight.w400),
+                  //     decoration: InputDecoration(
+                  //       hintText: "$volunteerCount",
+                  //       contentPadding: const EdgeInsets.symmetric(
+                  //           horizontal: 10, vertical: 5),
+                  //       filled: true,
+                  //       fillColor: Colors.grey.shade200,
+                  //       border: OutlineInputBorder(
+                  //           borderSide: BorderSide.none,
+                  //           borderRadius: BorderRadius.circular(7)),
+                  //     ),
+                  //   ),
+                  //   // child: Text(
+                  //   //   "$volunteerCount",
+                  //   //   style: const TextStyle(
+                  //   //       fontSize: 18, fontWeight: FontWeight.w400),
+                  //   // ),
+                  // ),
                   ElevatedButton(
                     onPressed: () => setState(() {
                       if (volunteerCount < 20) {
@@ -718,6 +758,24 @@ class _OrganizeCampState extends State<OrganizeCamp> {
               // ),
             ],
           ),
+          // Container(
+          //   width: 20,
+          //   color: Colors.grey.shade200,
+          //   height: 30,
+          //   child: TextField(
+          //     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+          //     decoration: InputDecoration(
+          //       hintText: "$volunteerCount",
+          //       contentPadding:
+          //           const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          //       filled: true,
+          //       fillColor: Colors.grey.shade200,
+          //       border: OutlineInputBorder(
+          //           borderSide: BorderSide.none,
+          //           borderRadius: BorderRadius.circular(7)),
+          //     ),
+          //   ),
+          // ),
           const SizedBox(
             height: 20,
           ),
