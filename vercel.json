@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+            "source": "/Donation/wallet/test",
+            "destination": "/Donation/wallet/test"
+        }
+    ]
+}
