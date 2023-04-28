@@ -100,7 +100,7 @@ export default function DonationComponent() {
             <div className="label">Recipient Address</div>
             <div className="font-bold ml-2">{donationData.addres}</div>
             <div className="label">Amount (in ETH)</div>
-            <input className="input_amount" type="text" required={true} />
+            <input className="input_amount" type="text" name="ether" required={true} />
           </div>
           <div className="donate_div">
             <button className="donate_btn">Donate</button>
