@@ -6,17 +6,20 @@ import "./donationcard.scss";
 export default function NGOsCamps() {
   var campsList = [
     {
+      id: 2443,
       title: "Rise against hunger",
       subtile: "Don't be rude, donate some food.",
       image: feature3,
-      waletAddress: '0x0C552365A4cB48cFd14e94daBa297aEC8451ce58',
+      waletAddress: "0x0C552365A4cB48cFd14e94daBa297aEC8451ce58",
     },
     {
+      id: 4223,
       title: "Educate a child",
       subtile: "Donate a book, share a story, change a life",
       image: feature1,
     },
     {
+      id: 4456,
       title: "Give your old clothes a new Life",
       subtile: "Items: Clothes in good condition, New clothes are also taken",
       image: feature2,
@@ -32,6 +35,7 @@ export default function NGOsCamps() {
             title={data.title}
             subtitle={data.subtile}
             image={data.image}
+            id={data.id}
             key={index}
           />
         ))}
@@ -40,7 +44,7 @@ export default function NGOsCamps() {
   );
 }
 
-function NGOsCampsCard({ title, subtitle, image }) {
+function NGOsCampsCard({ title, subtitle, image, id }) {
   var router = useParams();
 
   return (
@@ -52,10 +56,7 @@ function NGOsCampsCard({ title, subtitle, image }) {
         <div className="donation-title mx-auto ">{title}</div>
         <div className="donation-subtitle mx-auto">{subtitle}</div>
       </div>
-      <a
-        href="/Donation/wallet/test?addrs=0x0C552365A4cB48cFd14e94daBa297aEC8451ce58"
-        className="DonationBtn"
-      >
+      <a href={`/Donation/wallet/test?id=${id}`} className="DonationBtn">
         Donation Now !
       </a>
     </div>

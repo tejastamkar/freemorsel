@@ -1,17 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import ErrorMessage from "./ErrorMessage";
 import TxList from "./TxList";
 import { useLocation } from "react-router-dom";
 import DonationBanner from "../../assets/DonationBanner.png";
 import "./donation.scss";
+import Navbar from "../navbar/Navbar";
+import { donationNgoData } from "../../data/data";
 
 export default function DonationComponent() {
   const [error, setError] = useState();
   const [txs, setTxs] = useState([]);
+  const [loader, setLoader] = useState(true);
+  const [donationData, setdonationData] = useState();
 
   const location = useLocation();
-  const addrs = new URLSearchParams(location.search).get("addrs");
+  const id = new URLSearchParams(location.search).get("id");
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
@@ -20,11 +24,20 @@ export default function DonationComponent() {
       setError,
       setTxs,
       ether: data.get("ether"),
-      addr: addrs,
+      addr: donationData.addres,
     });
   };
+  useEffect(() => {
+    setdonationData(donationNgoData.find((obj) => obj.id == id));
+    console.log(donationData);
+    if (donationData != null) {
+      setLoader(false);
+    }
+  }, [donationData]);
 
-  return (
+  return loader ? (
+    <h2>loading...</h2>
+  ) : (
     // <form className="m-4 my-20" onSubmit={handleSubmit}>
     //   <div className="credit-card w-full lg:w-1/2 sm:w-auto shadow-lg mx-auto rounded-xl bg-white">
     //     <main className="mt-4 p-4">
@@ -63,47 +76,38 @@ export default function DonationComponent() {
     //   </div>
     // </form>
     <div>
+      <Navbar />
       <div className="DonationBanner">
-        <img src={DonationBanner} width="100%" />
+        <img src={donationData.image} width="100%" />
       </div>
       <div className="Campaign">
         <div className="camp_details">Campaign Details</div>
         <div className="Information">
           <div className="Info">
-            <b>Organization name:</b> Samarth Foundation{" "}
+            <b>Organization name:</b>
+            {donationData.orgName}
           </div>
           <div className="Info">
-            <b>Campaign name:</b> Rise against hunger
+            <b>Campaign name:</b> {donationData.name}
           </div>
           <div className="Info">
-            <b>Description:</b> Thousands of nonprofits and individuals across
-            the country work diligently to raise funds and collect supplies in
-            the fight against hunger. When disaster strikes, the need for these
-            resources is often amplified, yet organizations struggle to match
-            the demand and meet the needs of their communities. Specifically,
-            that’s what we’ve seen as a result of Covid-19 outbreak. With
-            schools closed, millions out of work, and a looming recession ahead,
-            families are finding that they don’t know where their next meal will
-            come from. To make matters worse, most food banks and pantries are
-            being depleted of their resources faster than they can replenish
-            them.
+            <b>Description:</b> {donationData.des}
           </div>
         </div>
-        <div className="Payment">
+        <form className="Payment" onSubmit={handleSubmit}>
           <div className="camp_details">Payment Details</div>
-
           <div className="Information">
             <div className="label">Recipient Address</div>
-
-            <input className="input_address" type="text" />
-
+            <div className="font-bold ml-2">{donationData.addres}</div>
             <div className="label">Amount (in ETH)</div>
-            <input className="input_amount" type="text" />
+            <input className="input_amount" type="text" required={true} />
           </div>
           <div className="donate_div">
             <button className="donate_btn">Donate</button>
           </div>
-        </div>
+          <ErrorMessage message={error} />
+          <TxList txs={txs} />
+        </form>
       </div>
     </div>
   );
