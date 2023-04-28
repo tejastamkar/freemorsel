@@ -4,7 +4,7 @@ import "./Navbar.scss";
 export default function Navbar() {
   const [myval, setMyval] = useState();
   return (
-    <div className="navigationBar">
+    <div className="navigationBar my-4">
       <div className="logo_Div">
         <img className="logo" src={Logo} />
       </div>

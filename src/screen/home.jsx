@@ -4,6 +4,7 @@ import Footer from ".././components/footer/Footer";
 import FeatureCardGrid from ".././components/featureCard/featurecard";
 import NgoCardGrid from ".././components/ngocard/ngocard";
 import SocialParadigm from ".././components/socialParadigm/socialParadigm";
+import NGOsCamps from "../components/donation/donationcard";
 export default function Home() {
   return (
     <div>
@@ -11,6 +12,7 @@ export default function Home() {
       <Banner />
       <FeatureCardGrid />
       <NgoCardGrid />
+      <NGOsCamps />
       <SocialParadigm />
       <Footer />
     </div>

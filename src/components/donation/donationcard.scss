@@ -1,0 +1,78 @@
+@import "../styles/variables.scss";
+
+.NgoCardImage {
+  // width: 40%;
+  height: auto;
+  margin: 20px auto;
+  display: flex;
+}
+.donationCards {
+  background: rgba(117, 183, 158, 0.3);
+
+  position: relative;
+  padding: 10px;
+
+  width: 80%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+}
+
+.donation-title {
+  font-family: "Zilla Slab";
+  font-style: normal;
+  font-weight: 600;
+  text-align: justify;
+  font-size: 35px;
+  line-height: 42px;
+  text-align: center;
+}
+.donation-subtitle {
+  font-family: "Zilla Slab";
+  font-style: normal;
+  text-align: left;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 36px;
+
+  text-align: center;
+}
+.DonationBtn {
+  margin: auto 10px 10px 10px;
+  font-size: 20px;
+  vertical-align: bottom;
+  text-align: center;
+  color: white;
+  background: #87c7ae;
+  padding: 10px;
+  justify-self: center;
+  // align-self: flex-end;
+  border-radius: 20px;
+}
+.textContrainer {
+  // margin-bottom: auto;
+  width: 80%;
+}
+@media only screen and (max-width: 840px) {
+  .DonationBtn {
+    font-size: 16px;
+  }
+  .donation-title {
+    font-size: 28px;
+  }
+  .donation-subtitle {
+    font-size: 16px;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .DonationBtn {
+    font-size: 14px;
+  }
+  .donation-title {
+    font-size: 20px;
+  }
+  .donation-subtitle {
+    font-size: 14px;
+  }
+}
