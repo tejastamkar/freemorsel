@@ -3,10 +3,12 @@ import { ethers } from "ethers";
 import ErrorMessage from "./ErrorMessage";
 import TxList from "./TxList";
 import { useLocation } from "react-router-dom";
-import DonationBanner from "../../assets/DonationBanner.png";
+
 import "./donation.scss";
 import Navbar from "../navbar/Navbar";
 import { donationNgoData } from "../../data/data";
+import Web3 from "web3";
+import { abi } from "../../contract/contract";
 
 export default function DonationComponent() {
   const [error, setError] = useState();
@@ -20,21 +22,91 @@ export default function DonationComponent() {
     e.preventDefault();
     const data = new FormData(e.target);
     setError();
-    await startPayment({
+    const hash = await startPayment({
       setError,
       setTxs,
+
       ether: data.get("ether"),
       addr: donationData.addres,
     });
+    // await addPerson(id, hash);
   };
+
+  const [web3, setWeb3] = useState(null);
+  const [contract, setContract] = useState(null);
+  const [people, setPeople] = useState([]);
+
+  useEffect(() => {
+    async function loadWeb3() {
+      if (window.ethereum) {
+        const web3Gen = new Web3(window.ethereum);
+        await window.ethereum.enable();
+        setWeb3(web3Gen);
+      } else if (window.web3) {
+        const web3Gen = new Web3(window.web3.currentProvider);
+        setWeb3(web3Gen);
+      } else {
+        console.log("No web3 provider detected");
+      }
+      await loadContract();
+    }
+    loadWeb3();
+  }, []);
+
+  async function loadContract() {
+    if (web3) {
+      const networkId = await web3.eth.net.getId();
+      const deployedNetwork = "0xA53abDe9eE2EDa7759311e6dC0830293B0B0CdB4";
+      const contract = new web3.eth.Contract(abi, deployedNetwork);
+
+      setContract(contract);
+    }
+  }
+  useEffect(() => {
+    loadContract();
+  }, [web3]);
+
   useEffect(() => {
     setdonationData(donationNgoData.find((obj) => obj.id == id));
-    console.log(donationData);
     if (donationData != null) {
       setLoader(false);
     }
   }, [donationData]);
 
+  async function addPerson(id, hash) {
+    const time = new Date().toLocaleTimeString();
+    const accounts = await web3.eth.getAccounts();
+    await contract.methods
+      .addPerson(id, time, hash)
+      .send({ from: accounts[0] });
+  }
+
+  async function getPeople() {
+    // const totalPeople = await contract.methods.people().call();
+    // const newPeople = [];
+    // for (let i = 0; i < totalPeople; i++) {
+    // const person = await contract.methods.getPerson(0).call();
+    // const person = await contract.methods.getPeople().call();
+    await contract.methods.getPeople().call((err, result) => {
+      if (err) {
+        console.log("Error retrieving people:", err);
+      } else {
+        console.log("Retrieved people:", result);
+        const people = result.map((person) => {
+          return {
+            id: person[0],
+            name: person[1],
+            age: person[2],
+          };
+        });
+        console.log("Formatted people list:", people);
+      }
+    });
+    // newPeople.push(person);
+    // }
+    console.log(person);
+    // setPeople(person);
+  }
   return loader ? (
     <h2>loading...</h2>
   ) : (
@@ -100,7 +172,12 @@ export default function DonationComponent() {
             <div className="label">Recipient Address</div>
             <div className="font-bold ml-2">{donationData.addres}</div>
             <div className="label">Amount (in ETH)</div>
-            <input className="input_amount" type="text" name="ether" required={true} />
+            <input
+              className="input_amount"
+              type="text"
+              name="ether"
+              required={true}
+            />
           </div>
           <div className="donate_div">
             <button className="donate_btn">Donate</button>
@@ -108,6 +185,24 @@ export default function DonationComponent() {
           <ErrorMessage message={error} />
           <TxList txs={txs} />
         </form>
+        {/* <div className="donate_div">
+          <button
+            className="donate_btn"
+            onClick={async () => {
+              await getPeople();
+            }}
+          >
+            get recordes
+          </button>
+          <button
+            className="donate_btn"
+            onClick={async () => {
+              await addPerson(id, "weqe34242342");
+            }}
+          >
+            add recordes
+          </button>
+          </div> */}
       </div>
     </div>
   );
@@ -129,6 +224,7 @@ const startPayment = async ({ setError, setTxs, ether, addr }) => {
     console.log({ ether, addr });
     console.log("tx", tx);
     setTxs([tx]);
+    return tx.hash;
   } catch (err) {
     setError(err.message);
   }

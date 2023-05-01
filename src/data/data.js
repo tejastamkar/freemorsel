@@ -25,6 +25,6 @@ export var donationNgoData = [
     orgName: "SMILE FOUNDATION",
     name: "Educate a child",
     des: "Access to education has always been a challenge for under-privileged children. However, due to the pandemic, as livelihoods were affected and many families were further pushed into poverty, children from lower-income groups suffered the most. Only about 28% children living in rural areas and slums had access to digital learning. Education came to a halt for lakhs of children, who had already been struggling in the pre-pandemic world. Smile Foundation, through its 'Shiksha Na Ruke' initiative, has been helping children from difficult circumstances get back to school and restart their lives with hope. At present, we are directly providing education to over 100,000 children in 23 states of India. Despite all the odds, these young champions have not given up and continue to dream and work hard. With your support, we can fuel their dreams with accessible and quality education. Join hands with us to ensure a happy and safe childhood for all!",
-    addres: "0x0C552365A4cB48cFd14e94daBa297aEC8451ce58",
+    addres: "0x3001C218BdF0b0415E5D7794a43cf59f58221A70",
   },
 ];
