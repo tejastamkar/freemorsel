@@ -36,7 +36,7 @@ dependencies:
   fluttertoast: ^8.0.9
   carousel_slider: ^4.0.0
   carousel_indicator: ^1.0.6
-  responsive_flutter: ^0.0.4
+  # responsive_flutter: ^0.0.4
   responsive_framework: ^0.2.0
   animated_splash_screen: ^1.2.0
   charts_flutter: ^0.12.0
