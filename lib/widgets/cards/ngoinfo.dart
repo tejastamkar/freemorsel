@@ -16,8 +16,7 @@ class NgoInfo extends StatefulWidget {
 
 class _NgoInfoState extends State<NgoInfo> {
   bool loader = true;
-  final TextEditingController _campdetails = TextEditingController();
-  @override
+  // final TextEditingController _campdetails = TextEditingController();
   Future<void> _launchInBrowser() async {
     final Uri url0 = Uri.parse("https://www.freemorsel.com/");
 
@@ -154,8 +153,8 @@ class _NgoInfoState extends State<NgoInfo> {
             const SizedBox(
               height: 5,
             ),
-            Row(
-              children: const [
+            const Row(
+              children: [
                 Text("Joined - 2",
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),

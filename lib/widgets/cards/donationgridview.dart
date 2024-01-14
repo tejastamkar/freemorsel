@@ -42,8 +42,8 @@ class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
                                   )),
                         );
                       },
-                      child: Row(
-                        children: const [
+                      child: const Row(
+                        children: [
                           Text(
                             "View All",
                             style: TextStyle(
@@ -78,13 +78,13 @@ class _FoodDonationCardGridState extends State<FoodDonationCardGrid> {
   }
 }
 
-Widget headingskeleton() => Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
+Widget headingskeleton() => const Padding(
+      padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
-            children: const [
+            children: [
               SkeletonContainer(radius: 0, width: 98, height: 18),
               Spacer(),
               SkeletonContainer(radius: 0, width: 54, height: 19)
@@ -112,11 +112,11 @@ Widget donationcardskelton({required double width, required int length}) =>
                     color: Colors.white),
                 height: 170,
                 width: 160,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(10.0),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: const [
+                      children: [
                         Padding(
                           padding: EdgeInsets.all(5.0),
                           child: SkeletonContainer(
@@ -171,8 +171,8 @@ class _GoodsDonationCardGridState extends State<GoodsDonationCardGrid> {
                                   )),
                         );
                       },
-                      child: Row(
-                        children: const [
+                      child: const Row(
+                        children: [
                           Text(
                             "View All",
                             style: TextStyle(

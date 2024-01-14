@@ -132,19 +132,19 @@ class _RewardState extends State<Reward> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18),
                       ),
-                      child: Column(
+                      child: const Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(
+                                padding: EdgeInsets.symmetric(
                                     vertical: 15, horizontal: 25),
                                 child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: const [
+                                    children: [
                                       Text(
                                         "Rank",
                                         style: TextStyle(
@@ -160,7 +160,7 @@ class _RewardState extends State<Reward> {
                                     ]),
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(
+                                padding: EdgeInsets.symmetric(
                                     vertical: 15, horizontal: 25),
                                 child: Column(
                                     mainAxisSize: MainAxisSize.min,
@@ -169,7 +169,7 @@ class _RewardState extends State<Reward> {
                                       Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
-                                        children: const [
+                                        children: [
                                           Icon(
                                             Icons.circle,
                                             size: 12,
@@ -187,7 +187,7 @@ class _RewardState extends State<Reward> {
                                       Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
-                                        children: const [
+                                        children: [
                                           Icon(
                                             Icons.circle,
                                             size: 12,
@@ -206,16 +206,16 @@ class _RewardState extends State<Reward> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 240, child: BarChart())
+                          SizedBox(height: 240, child: BarChart())
                         ],
                       )),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                Row(
+                const Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       "Friends",
                       style:

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freemorsel/provider/datepicker.dart';
 import 'package:freemorsel/provider/locationprovider.dart';
 import 'package:freemorsel/widgets/cards/theme/deftheme.dart';
@@ -42,13 +43,11 @@ class _RegisterHotelState extends State<RegisterHotel> {
               _hoteltimings.clear(),
               _hotelgstnno.clear(),
               _hotelfssaino.clear(),
-              print("data enter")
             });
   }
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -408,17 +407,17 @@ class _RegisterHotelState extends State<RegisterHotel> {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
           ),
           onPressed: () {
-            if (_hotelname.text != "" &&
-                _ownername.text != "" &&
-                _hotelphoneno.text != "" &&
-                _hoteladdress.text != "" &&
-                _hoteltimings.text != "" &&
-                _hotelfssaino.text != "" &&
-                _hotelgstnno.text != "") {
-              storedata();
-            } else {
-              print("Field are empty");
+            if (_hotelname.text == "" ||
+                _ownername.text == "" ||
+                _hotelphoneno.text == "" ||
+                _hoteladdress.text == "" ||
+                _hoteltimings.text == "" ||
+                _hotelfssaino.text == "" ||
+                _hotelgstnno.text == "") {
+              Fluttertoast.showToast(msg: "Please Fill All Details");
+              return;
             }
+            storedata();
           },
         ),
       ),

@@ -32,11 +32,11 @@ class _AboutPageState extends State<AboutPage> {
               Navigator.pop(context);
             },
           )),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
           child: Column(
-            children: const [
+            children: [
               Text(
                   "People's living standards are continually rising, sophisticated technology makes life easier, and media information can spread quickly over the world. Wasting resources (food, goods, etc.) is a widespread issue in our community. Handling those extraneous items is critical since it can enhance our environmental and economic sustainability.In the form of this initiative called FreeMorsel we have chosen a pathway to implement our innovative ideas. The essential objective that emerged from our effort is to supply essentials to those in need. 'FreeMorsel' is a cross-platform application that facilitates the donation of helpful products (food, clothing, etc.) to the nearest Charity.",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),

@@ -38,9 +38,9 @@ class _TutorialPageState extends State<TutorialPage> {
               ),
             ),
             Image.asset("assets/tutorial2.png"),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Text(
                   "Click on the ",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),

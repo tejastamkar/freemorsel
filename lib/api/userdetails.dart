@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -26,17 +28,16 @@ class UserDetails {
       required int profileSelector,
       required String userName,
       required String email}) async {
-    try {
-      await FirebaseFirestore.instance.collection("Users").doc(uid).update({
-        "username": userName,
-        "PhoneNo": phoneNum,
-        "email": email,
-        "profilePic": profilePicSelector,
-        "token": fcmToken,
-      });
-    } catch (e) {
+    await FirebaseFirestore.instance.collection("Users").doc(uid).update({
+      "username": userName,
+      "PhoneNo": phoneNum,
+      "email": email,
+      "profilePic": profilePicSelector,
+      "token": fcmToken,
+    }).catchError((e) {
+      log(e.toString());
       PhoneAuth().logOut(context: context);
-    }
+    });
   }
 
   Future deleteUserAccount({required BuildContext context}) async {
